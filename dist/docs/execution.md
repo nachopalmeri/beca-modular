@@ -102,3 +102,7 @@ PASS: provider/mint/network bound, cap enforced by actual adapter, duplicate not
 ## Next decision deadline
 
 Within 72 hours of a real validation session: one sponsor workflow, one provider unit agreement, student comprehension test and two-hour adapter spike. Lock hackathon scope only after assigned challenge is known and prior-code/AI rules confirmed. The next concrete action is to validate an actual program's billing unit and sponsor authorization; not add a second smart contract.
+
+
+## Extensión de rendimiento — alcance acotado
+La reserva opcional y los destinos de rendimiento están documentados en [yield-strategy.md](yield-strategy.md). Mantener escrow académico como único núcleo del MVP. Solo intentar adapter de inversión si el núcleo está probado y sobran horas; no incorporar rotación de estrategias, puentes ni apalancamiento.

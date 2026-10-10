@@ -71,3 +71,7 @@ Potential defensibility would come from useful provider agreements, integrated w
 Read relevant source bodies: `tasks/todo.md`, `zero-base-reset/01-event-ground-truth.md`, `03-independent-solution-design.md` (scholarship passages), `04-candidate-universe.md`, `05-prior-art-and-differentiation.md`, `track-validation-operational-tests.md` (scholarship passages), `pumpfun-token-mechanisms.md`, `payment-channel-deep-dive.md`, `spike-execution-log.md`, archived `bridge/trusted-read-chunked/document-text.md` and scholarship innovation attachment. The archived Doc is older than the conversation's latest edits; the live Doc body was not refetched for this build. No existing Beca HTML was found in the workspace filename inventory; no audio transcription or new chain test was performed. Prior reports contain historical contradictions in test availability; use dated actual execution results, not older “not run” entries.
 
 Primary sources and inspection limitations: [evidence-register.md](evidence-register.md).
+
+
+## Extensión: reserva y rendimiento opcional
+Ver [estrategia de tesorería](yield-strategy.md): alternativas, beneficiarios, riesgo, fórmula con saldo decreciente y límites de integración. No implementada en cadena; resultado educativo no suma ingreso de plataforma.

@@ -70,3 +70,7 @@ If contribution/sponsor <= 0, adding sponsors cannot cover fixed overhead in the
 No CAC, sales cycle, bad debt, churn, tax, legal/custody setup, security audit, reserve cost, FX volatility, refunds, chargebacks, commercial content licensing, acquisition onboarding or step-function hires. Content principal is already represented as payouts, not platform COGS. Add these costs before investment decisions. Break-even is an arithmetic exercise, not forecast. No annual aggregation of monthly seats.
 
 Pilot should measure administrative minutes/case, support tickets/student, paid unit pricing, completed settlement cost, tokens/recommendation, student starts and program continuation. Distinguish observed values from assumptions in the next version. Formulas are shared in `model.mjs` and exercised by meaningful invariant tests.
+
+
+## Extensión: reserva y rendimiento opcional
+Ver [estrategia de tesorería](yield-strategy.md): alternativas, beneficiarios, riesgo, fórmula con saldo decreciente y límites de integración. No implementada en cadena; resultado educativo no suma ingreso de plataforma.

@@ -1,3 +1,4 @@
+import { initYield } from './yield.mjs';
 import { financial, scenarios, initialSession, transition } from './model.mjs';
 const $ = (q) => document.querySelector(q);
 const $$ = (q) => [...document.querySelectorAll(q)];
@@ -65,3 +66,5 @@ $('#scholar-approve').addEventListener('click',()=>{if(scholarship.paused||schol
 $('#scholar-pause').addEventListener('click',()=>{scholarship.paused=true;renderScholarship('Pausa solicitada: fondos pendientes retenidos. Se requiere aviso, plazo de gracia y revisión antes de reasignar.');});
 $('#scholar-reassign').addEventListener('click',()=>{if(!scholarship.paused)return;scholarship.reassigned+=scholarship.remaining;scholarship.remaining=0;renderScholarship('Resolución humana representada: saldo pendiente asignado a otro alumno. Los '+scholarship.paid+' USD ya recibidos se conservan.');});
 $('#scholar-reset').addEventListener('click',()=>{scholarship={paid:0,remaining:100,reassigned:0,paused:false};renderScholarship('Beca activa. Ningún tramo liberado.');});
+
+initYield();

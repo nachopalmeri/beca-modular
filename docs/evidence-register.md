@@ -28,3 +28,7 @@ The original prompt's “commercially viable” and “world-class” are goals;
 
 ## Audio original revisado — 10/10/2026
 Transcripción local completa mediante FFmpeg whisper.cpp, modelo base español; algunos fragmentos finales ambiguos. Confirma intención del proponente: donación reservada, desembolsos parciales al alumno tras materias aprobadas y reasignación del remanente al dejar el programa. Es evidencia de intención, no de demanda, seguridad, impacto o integración. No se publica el audio ni datos del remitente.
+
+
+## Tesorería opcional — 10/10/2026
+Inspección directa de documentación de Aave, Sky, Spark, Morpho, Robinhood Classic Stock Tokens y Pump creator fee sharing. Fuentes, límites y decisiones en [yield-strategy.md](yield-strategy.md). No hubo tasas en vivo, contratos inspeccionados/ejecutados ni operaciones financieras. Simulador hipotético independiente de ingresos de plataforma. $SI sigue sin contrato verificado.

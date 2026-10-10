@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { projectYield } from '../yield.mjs';
+const base={capital:1000,months:12,reserve:30,rate:4,cost:5,loss:0,recipient:'fund'};
+test('declining balance interest, cost and distribution reconcile',()=>{const r=projectYield(base);assert.equal(r.exposure,700);assert.ok(Math.abs(r.gross-15.1666666667)<1e-8);assert.ok(Math.abs(r.net-10.1666666667)<1e-8);assert.equal(r.student+r.fund,r.net);assert.equal(r.rows.length,12);assert.ok(r.rows[0].opening>r.rows[11].opening);});
+test('student and shared policies conserve positive proceeds',()=>{for(const recipient of ['student','split']){const r=projectYield({...base,recipient});assert.equal(r.student+r.fund,r.net);if(recipient==='split')assert.equal(r.student,r.fund);else assert.equal(r.fund,0);}});
+test('stress losses produce a visible deficit, not distributable phantom yield',()=>{const r=projectYield({...base,loss:5});assert.equal(r.loss,35);assert.ok(Math.abs(r.net+24.8333333333)<1e-8);assert.equal(r.student+r.fund,0);assert.equal(r.shortfall,-r.net);});
+test('all cash, zero capital, zero rate and negative rate boundaries',()=>{assert.equal(projectYield({...base,reserve:100}).gross,0);assert.equal(projectYield({...base,capital:0,cost:0}).net,0);assert.equal(projectYield({...base,rate:0,cost:0}).net,0);assert.ok(projectYield({...base,rate:-10}).net<0);});
+test('one month earns only one month interest',()=>{const r=projectYield({...base,months:1,reserve:0,cost:0});assert.ok(Math.abs(r.gross-1000*.04/12)<1e-9);});
+test('reject invalid assumptions and policy',()=>{for(const patch of [{months:1.5},{months:0},{reserve:101},{capital:-1},{rate:NaN},{rate:31},{loss:101},{cost:-1},{recipient:'owner'}])assert.throws(()=>projectYield({...base,...patch}),RangeError);});

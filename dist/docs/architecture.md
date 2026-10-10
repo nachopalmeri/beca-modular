@@ -78,3 +78,7 @@ Evaluation: fixed anonymized task set; compare tag filters and LLM for selection
 7. Academic pause, withdrawal, consent, grace and appeal policies protect students; no automatic confiscation or reassignment based on silence.
 
 No mainnet write, financial contract deployment, new signature proof or LLM request is made by this website.
+
+
+## Extensión: reserva y rendimiento opcional
+Ver [estrategia de tesorería](yield-strategy.md): alternativas, beneficiarios, riesgo, fórmula con saldo decreciente y límites de integración. No implementada en cadena; resultado educativo no suma ingreso de plataforma.

@@ -42,3 +42,7 @@ Delivery copy verified at `D:/Codex/outputs/beca-modular-2026-10-10/beca-modular
 
 ## Revisión del audio y portada — 10/10/2026
 Transcripción local completa inspeccionada. Portada corregida a becas al alumno por hitos, contenido por uso separado. Browser comprobó: aprobar 20 USD, pausa bloquea nuevo hito, reasignar 80, mantener 20 del alumno y restablecer. 9 pruebas Node previas pasaron, syntax check y Chrome UI en 1440/768/390 sin errores/overflow. Inspección visual de portada desktop/mobile. Es simulación en memoria, no escrow ni prueba académica real.
+
+
+## Tesorería y opciones de beneficiario — 10/10/2026
+15 pruebas Node pasaron (9 anteriores + 6 proyecciones: saldo decreciente, destinatarios, estrés negativo, límites, un mes e inválidos). Syntax checks app.js/yield.mjs pasaron. Chrome comprobó opciones Aave/Morpho, distribución al alumno, estrés5%, dato inválido y reset; resto de flujos existentes pasaron. Escritorio1440, tablet768 y móvil390 sin overflow ni errores capturados. Capturas de sección inspeccionadas en desktop/mobile. No pruebas de protocolos o retiros onchain; simulador no usa tasas de mercado.
