@@ -14,21 +14,21 @@ const fs=require('node:fs');const path=require('node:path');const assert=require
  await page.getByRole('button',{name:'Reanudar',exact:true}).click();await page.locator('[data-unit="sql-2"]').click();await page.getByRole('button',{name:'Cerrar y conciliar',exact:false}).click();
  assert.equal(await page.locator('#settled').innerText(),'5,00 USDC');assert.equal(await page.locator('#returned').innerText(),'5,00 USDC');
  await page.getByRole('button',{name:'Reiniciar',exact:true}).click();assert.equal(await page.locator('#session-state').innerText(),'Sin abrir');
- await page.locator('[data-role="student"]').click();assert.match(await page.locator('#role-title').innerText(),/elección/);await page.locator('[data-role="provider"]').click();assert.match(await page.locator('#role-content').innerText(),/no muestra una transacción real/i);
- await page.locator('[data-role="sponsor"]').click();await page.locator('[data-stage="5"]').click();assert.match(await page.locator('#stage-title').innerText(),/vuelve/);
+ await page.locator('[data-role="student"]').click();assert.match(await page.locator('#role-title').innerText(),/libera/);await page.locator('[data-role="institution"]').click();assert.match(await page.locator('#role-content').innerText(),/La firma acredita el origen/i);
+ await page.locator('[data-role="sponsor"]').click();await page.locator('[data-stage="5"]').click();assert.match(await page.locator('#stage-title').innerText(),/reglas públicas/);
  await page.locator('#learning-goal').selectOption('web');await page.locator('#recommend').click();assert.match(await page.locator('#recommendation').innerText(),/HTML/);
- await page.locator('#flow-util').fill('0');await page.locator('#flow-util').dispatchEvent('input');assert.equal(await page.locator('#flow-return').innerText(),'100 USD');
+ await page.locator('#flow-milestones-range').fill('0');await page.locator('#flow-milestones-range').dispatchEvent('input');assert.equal(await page.locator('#flow-return').innerText(),'100 USD');
  await page.locator('[data-scenario="optimistic"]').click();assert.equal(await page.locator('[name="sponsors"]').inputValue(),'30');
- await page.locator('[data-scenario="base"]').click();await page.locator('[name="sponsors"]').fill('0');assert.match(await page.locator('#profit').innerText(),/6[.,]000/);assert.match(await page.locator('#finance-kpis').innerText(),/No definido/);
+ await page.locator('[data-scenario="base"]').click();await page.locator('[name="sponsors"]').fill('0');assert.match(await page.locator('#profit').innerText(),/6[.,]000/);;
  await page.locator('[name="utilization"]').fill('101');assert.equal(await page.locator('#finance-error').isVisible(),true);await page.locator('[data-scenario="base"]').click();assert.equal(await page.locator('#finance-error').isVisible(),false);
  // Internal navigation/document targets must exist. No remote links are probed.
  await page.locator('[data-yield-option="aave"]').click();assert.match(await page.locator('#yield-title').innerText(),/Aave/);
  await page.locator('[data-yield-option="morpho"]').click();assert.match(await page.locator('#yield-risk').innerText(),/curador/);
- assert.match(await page.locator('#yield-net').innerText(),/10[,.]17/);
- await page.locator('#yield-recipient').selectOption('student');assert.match(await page.locator('#yield-distribution').innerText(),/10[,.]17/);
- await page.locator('#yield-stress').click();assert.match(await page.locator('#yield-warning').innerText(),/Déficit/);assert.match(await page.locator('#yield-net').innerText(),/24[,.]83/);
+ assert.match(await page.locator('#yield-net').innerText(),/3[,.]00/);assert.equal(await page.locator('#yield-education-awards').innerText(),'0');assert.match(await page.locator('#yield-education-leftover').innerText(),/3[,.]00/);assert.match(await page.locator('#yield-committed-value').innerText(),/1[.,]000/);assert.match(await page.locator('#yield-free-value').innerText(),/200/);
+ await page.locator('#yield-recipient').selectOption('student');assert.match(await page.locator('#yield-distribution').innerText(),/3[,.]00/);assert.equal(await page.locator('#student-benefit-choice').isVisible(),true);await page.locator('#student-benefit-use').selectOption('approved');assert.match(await page.locator('#student-benefit-preview').innerText(),/gasto educativo aprobado/);await page.locator('#yield-recipient').selectOption('education');assert.equal(await page.locator('#student-benefit-choice').isVisible(),false);
+ await page.locator('#yield-stress').click();assert.match(await page.locator('#yield-warning').innerText(),/Protección activa/);assert.match(await page.locator('#yield-net').innerText(),/7[,.]40/);assert.match(await page.locator('#yield-net').innerText(),/[−-]/);
  await page.locator('#yield-months').fill('0');assert.equal(await page.locator('#yield-error').isVisible(),true);assert.equal(await page.locator('#yield-net').innerText(),'—');
- await page.locator('#yield-default').click();assert.equal(await page.locator('#yield-error').isVisible(),false);assert.match(await page.locator('#yield-net').innerText(),/10[,.]17/);
+ await page.locator('#yield-default').click();assert.equal(await page.locator('#yield-error').isVisible(),false);assert.match(await page.locator('#yield-net').innerText(),/3[,.]00/);
  const links=await page.locator('a[href]').evaluateAll(xs=>xs.map(a=>a.getAttribute('href')));
  for(const link of links){if(link.startsWith('#')&&link.length>1)assert.equal(await page.locator(link).count(),1,link);else if(link.startsWith('docs/'))assert.equal((await page.request.get(base+'/'+link)).status(),200,link);}
  const out=path.join(__dirname,'../screenshots');fs.mkdirSync(out,{recursive:true});

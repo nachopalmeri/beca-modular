@@ -1,77 +1,87 @@
-> Corrección de alcance — 10/10/2026: revisada la transcripción completa del audio original. La propuesta principal paga tramos al ESTUDIANTE por materias aprobadas por una institución. La web ahora lo explica primero y ofrece una simulación local. El contenido siguiente documenta el COMPLEMENTO de pago por contenido al PROVEEDOR, no un escrow académico implementado. MPP no certifica materias ni reasigna becas. Presupuestos separados; IA no autoriza pagos. No hay contrato de becas desplegado ni demanda validada.
+# Beca Modular 2.0 — product source of truth
 
-# Beca Modular — product source of truth
+Updated 2026-10-10. This is a research-backed product hypothesis and an explanatory site, **not a validated business, active scholarship program, deployed escrow, or investment service**.
 
-Version: 2026-10-10. Status: research-backed concept, working explanatory website, **no validated business**.
+## Product decision
 
-## Decision
+The primary product is a **scholarship paid to the student in fixed tranches after institution-attested academic milestones**. The student is the beneficiary; an NGO, foundation, university, employer, or public program could be the buyer/funder; a school or program administrator is the human verifier.
 
-Design a B2B2C funding and reconciliation tool for **small NGO/foundation programs funding short digital-skills modules across a closed provider catalog**. This beachhead is a hypothesis chosen for a narrow pilot: an existing cohort, one decision maker and two providers. Employers are a later segment: they may have larger budgets but incumbent coverage and procurement/integration demands. Universities add academic integration and approvals. None is a confirmed customer.
+Three adjacent mechanisms stay distinct:
 
-The product funds educational access, not student living expenses. The student is the beneficiary, the institution pays, approved providers receive content payments, and the platform invoices a separate license. No investor return, student debt, proprietary token or speculative yield.
-
-## Problem and demand boundaries
-
-Precise hypothesis: some sponsored short-course programs need learners to access approved modules without advancing tuition, while administrators reconcile usage across providers. Current workarounds: direct tuition payment, vouchers, LMS enrollment, reimbursement, spreadsheets and invoices. Guild already provides direct education payments; Scholarship America administers institutional scholarships. These sources support existing workflows, **not demand for our product in Argentina**. Progresar already conditions payments on certification. Do not claim tranche release or removing upfront tuition is new.
-
-What must be true: a sponsor has a costly recurring reconciliation/access problem; providers accept a billable unit at a negotiated price; students can use those units meaningfully; program savings/benefits exceed platform and payment overhead; a conventional processor is inadequate for the chosen multi-party flow. If these are false, simplify or abandon.
-
-## Personas and jobs
-
-| Role | Job | Value hypothesis | Adoption obstacle |
+| Module | Recipient | Trigger | Status |
 |---|---|---|---|
-| NGO program manager / buyer | Allocate restricted funds and reconcile delivery across providers | One ledger of commitments, spend and remaining balances | Existing invoices may be adequate; no budget for another tool |
-| Student / beneficiary | Start a useful course without advancing cash | Sponsor-funded access and informed choice, with pause rights | Device/connectivity, quality, accessibility and onboarding |
-| Provider | Supply approved modules and receive agreed payment | Clear rate and auditable settlement | Per-module economics may conflict with course licensing |
-| Administrator | Apply rules and resolve exceptions fairly | Explicit review queue, permissions and consent trail | Additional work, legal responsibility and oracle accuracy |
+| A. Scholarship escrow | Student | Authorized institution attests a milestone | Core concept; website demo is local only |
+| B. Content micropayments | Education provider | Agreed content unit is delivered | Optional separate budget; historic Solana MPP sandbox experiment exists |
+| C. Treasury yield | Chosen beneficiary under a pre-agreed rule | Net positive result is realized on uncommitted surplus | Research/roadmap only; no investment in MVP |
 
-Positioning: “Infraestructura para programas que financian formación por módulos, con presupuestos acotados y conciliación entre instituciones y proveedores.” The buyer-facing offer is administration and reconciliation; the student-facing offer is funded access. Blockchain is implementation, not the student proposition.
+MPP is not the academic escrow. It supports capped, metered payment sessions; it does not certify grades, enforce scholarship reallocation, or bind an institution to an educational judgment. Do not combine its balance with an academic vault by assumption.
 
-## Lifecycle and product requirements
+## Human problem and evidence boundary
 
-1. Sponsor defines program, catalog and educational reserve; agrees platform license separately. Human administrator sets eligibility, withdrawal and appeal policy.
-2. Student enrolls with informed consent. No identity or grades on chain. No automated poverty/eligibility score.
-3. Student states a goal; optional AI proposes approved module IDs and explanations; student chooses. Deterministic prerequisite and budget checks run afterwards.
-4. Sponsor-controlled payer approves **one provider/session ceiling** after allocation validation. The student does not receive unrestricted signing authority.
-5. Provider delivers a clearly specified unit. Idempotent delivery confirmation permits the authorized signer to issue a new cumulative voucher. Define delivery failure/retry before billing.
-6. MPP settles the highest accepted total; close returns unused deposit to its payer. Program allocation is reconciled separately off chain.
-7. Remaining uncommitted allocation may be reused only under agreed program rules, notice, grace period and human review. Already paid funds are not automatically recovered.
-8. Reporting distinguishes reserved, authorized, settled, returned, disputed, content-delivered, evaluated and approved. A watch event is not an educational outcome.
+Hypothesis: a scholarship beneficiary may face uncertain timing, conditions, appeals, or restricted-use processes; sponsors may need a clearer audit of promised, released, and future tranches. These are specific questions for user discovery, **not a demonstrated frequency or market need**. Do not claim that scholarships are normally lost when a student pauses or leaves; each program's rules differ.
 
-## Business and go-to-market
+First validation segment to test: a foundation/NGO already running a small cohort scholarship and one partner institution. This choice is operationally narrow, not a market-size conclusion. Ask for the last real program's rules, payout calendar, exceptions, costs, current reconciliation steps, and rights of appeal. Compare the existing database + bank transfer route first.
 
-- Primary hypothesis: subscription per institution/month, assuming exactly one active program per institution in the model. Multiple programs require a separately validated pricing policy; the simulator does not silently multiply the license. Illustrative base price **USD 250/month**, not a benchmark or quote. No sales or willingness-to-pay evidence.
-- Transaction surcharge: optional alternative, disabled in base. If enabled, separately invoiced to sponsor on delivered-content spend. Never deducted from educational reserve or provider payout in the model. Avoid charging overlapping “administration” fees for the same service.
-- Integration/reporting services: later negotiated work, excluded from simulator; estimate effort before offering.
-- Distribution: direct outreach to existing small program administrators; a bounded pilot with one cohort and two providers. No mass marketplace or speculative community launch.
-- Pilot contract gates: signed content-unit definition, provider rates, responsible payer/signer, dispute SLA, consent, withdrawal rights, reserve accounting and data retention policy.
-- Success: sponsor can complete a real reconciliation with less effort/error than its current flow; students can start without an advance; provider accepts the payment schedule; economics cover variable costs and a plausible acquisition path.
+## B2B2C roles and jobs
 
-## Unit economics and credibility
+| Role | Job | Value hypothesis | Unresolved barrier |
+|---|---|---|---|
+| Sponsor / buyer | Fund a cohort, state rules, reconcile obligations | Rule-based, auditable release and clearer future balance | Current finance/registrar system may already suffice; procurement and legal status unknown |
+| Student / beneficiary | Know what is earned, when it is paid, and how to pause or appeal | No advance payment; fixed installments; no automatic clawback | Wallets, stablecoins, connectivity, device access, privacy, and recovery can add burden |
+| Institution / attestor | Confirm a defined milestone and handle corrections | A bounded signer workflow and one-time claims | It retains the grading responsibility and may reject on-chain attestations |
+| Program administrator | Enroll, pause, resolve appeals, and close the cohort | Explicit status, consent, and audit trail | More operational work unless integrated with existing systems |
 
-See [financial-model.md](financial-model.md). Educational principal is pass-through funding, never platform revenue. Scenarios show potential losses. Monthly student count is budgeted seats; not graduates or unique people per year. No market-size extrapolation, customers, partner logos or invented metrics.
+Student-facing value: “Sabés qué libera cada tramo y qué podés hacer si necesitás pausar.” Buyer-facing value: “Conciliá compromiso, atestación, pago y saldo sin mezclarlo con los ingresos del programa.” These propositions still need testing.
 
-Potential defensibility would come from useful provider agreements, integrated workflows, operational trust and distribution. MPP itself is open infrastructure; an AI recommender is available elsewhere. No moat has been established.
+## Lifecycle and rights
 
-## Contradictions resolved
+1. Sponsor defines an amount, beneficiary address, fixed tranches, permitted attestors, due/expiry windows, pause and appeal rules, and treatment of uncommitted funds.
+2. Human administrator checks eligibility and obtains clear consent. Do not use AI to score poverty, eligibility, dropout risk, or academic merit.
+3. Institution assesses progress using its normal process and signs a narrowly scoped claim. A signature proves which key made the statement, not that the educational decision was true or fair.
+4. The program validates program ID, student destination, mint, amount, milestone sequence, expiry, authority, and unused nonce; one atomic transaction marks the milestone consumed and transfers the tranche.
+5. A student can request pause/review. No previous paid tranche is clawed back. “No activity” is not evidence of withdrawal.
+6. Reassignment may concern only future, uncommitted balance after notice, a grace period, appeal, and human approval. It is not an automatic consequence of failing an event.
+7. Close and reconcile remaining principal, distributed tranches, disputes, and any separately realized investment return. Education principal is never platform revenue.
 
-| Earlier claim / temptation | Resolution |
-|---|---|
-| “Scholarship money is lost if student drops out” | Unverified, often funds remain with sponsor. Investigate actual accounting before claiming loss. |
-| “Pay only when the student passes” + “pay per delivered segment” | Distinct products. MVP pays agreed delivery; academic certification is separate. Milestone stipend escrow stays roadmap. |
-| “Smart trust / fideicomiso” | Technical escrow does not establish legal fiduciary structure. Use programmable funding language. |
-| “One shared decentralized scholarship vault” | MPP channel reserves one session; app budget is offchain. No new vault contract in MVP. |
-| “Automatically move remainder to next student” | Protocol returns to payer; allocator reassignment requires review and no outstanding commitment. |
-| “AI must be central” | Optional catalog matching, no financial authority; retain only if it beats filters. Website is deterministic. |
-| “Memecoin revenue makes it sustainable” | Unreliable external contribution, not core funding or base model. No new token. |
-| “Website proves payments work” | It proves local UI/model behavior. Prior sandbox evidence is separately recorded. |
+Content purchase is a separate optional workflow: student chooses an approved unit, an institution controls a capped provider budget, delivery is measured under an agreed contract, and MPP may settle the provider. Watching content is not an academic milestone or proof of learning.
 
-## Scope of source recovery
+## AI and product experience
 
-Read relevant source bodies: `tasks/todo.md`, `zero-base-reset/01-event-ground-truth.md`, `03-independent-solution-design.md` (scholarship passages), `04-candidate-universe.md`, `05-prior-art-and-differentiation.md`, `track-validation-operational-tests.md` (scholarship passages), `pumpfun-token-mechanisms.md`, `payment-channel-deep-dive.md`, `spike-execution-log.md`, archived `bridge/trusted-read-chunked/document-text.md` and scholarship innovation attachment. The archived Doc is older than the conversation's latest edits; the live Doc body was not refetched for this build. No existing Beca HTML was found in the workspace filename inventory; no audio transcription or new chain test was performed. Prior reports contain historical contradictions in test availability; use dated actual execution results, not older “not run” entries.
+AI is optional and **not the innovation or payment authority**. It may help translate a student's goal into options from a human-approved catalog, explain prerequisite order, or draft questions for an advisor. Deterministic filters are the baseline. The student chooses; an advisor can override.
 
-Primary sources and inspection limitations: [evidence-register.md](evidence-register.md).
+Use only consented, minimal input (goal, declared level/time, approved catalog). Do not provide the model with DNI, grades, financial hardship notes, or a signing key. Validate output to approved IDs and budget. Compare AI against deterministic filters for educator-rated relevance, selection time, prerequisite errors, and invalid IDs; remove AI if it does not improve a measured outcome. No connected model or AI inference is present in the current site.
 
+## Web3 necessity and differentiation
 
-## Extensión: reserva y rendimiento opcional
-Ver [estrategia de tesorería](yield-strategy.md): alternativas, beneficiarios, riesgo, fórmula con saldo decreciente y límites de integración. No implementada en cadena; resultado educativo no suma ingreso de plataforma.
+Potential on-chain value: the program can enforce a fixed token amount and beneficiary, reject the same milestone twice, and expose an independently inspectable ledger to more than one organization. Those properties are useful only if sponsor and institution need shared enforcement beyond their current trusted system. A central database and bank transfers may be cheaper and easier.
+
+No cryptographic primitive validates the underlying grade. Institution-authorized attestations remain the trust boundary. No product moat is established: milestone funding, scholarships, LMS records, token transfers, and MPP each have prior art. The distinct hypothesis is their bounded combination for a specific sponsor program, not “scholarships on blockchain.”
+
+## Business and sustainability
+
+First buyer hypothesis: the sponsor/program operator pays a monthly or per-cohort administration license. Optional implementation/reporting work is later revenue. The scholarship principal and any donor yield are segregated pass-through money. No proprietary token or fee on student receipt is proposed. A transaction fee must be separately agreed and billed to the sponsor; never subtract it from the promised student tranche.
+
+Pricing, costs, sales cycle, regulatory eligibility, customer acquisition, support load, and willingness to pay are unverified. The editable financial model exposes a deliberately weak base case; see [financial-model.md](financial-model.md). No customers, revenue, adoption, or unit economics are measured.
+
+## Optional treasury policy
+
+The default is no investment. Keep all promised tranches available in the same asset. A future, separately authorized strategy may consider only uncommitted surplus after its actual exit path, due dates, fees, loss policy, and sponsor backstop have been tested. See [yield-strategy.md](yield-strategy.md). The sponsor must choose any distribution policy before enrollment: education-first, revolving scholarship pool, student bonus, explicit split, or program-directed educational use. If a student bonus is offered, the sponsor may allow the student to choose among pre-authorized destinations (flexible support, eligible educational costs, or an optional future-tranche supplement); the student cannot be compelled to reinvest promised principal. Only reconciled positive net returns can be distributed. No student owes protocol losses. Website controls illustrate this choice; they do not move money.
+
+Pump creator fees are a possible external voluntary donation after receipt, not yield or dividends. Robinhood Stock Tokens are documented derivatives, not direct share ownership. `$SI` contract identity and rights remain unverified. None is a funding assumption.
+
+## Impact: what to measure
+
+Measure process before claiming educational outcomes: time from milestone approval to receipt; payment failures; support/appeal completion; student understanding of terms; admin minutes and reconciliation errors; number funded and number paid on time. Separately measure enrollment, completion, learning assessment, and post-course outcome with consent and suitable follow-up. The website reports no impact results.
+
+## Kill / change criteria
+
+- If existing bank/database controls meet the same needs at lower cost, remove on-chain escrow.
+- If no institution accepts a scoped attestation role, the escrow cannot honestly trigger payouts.
+- If student wallet access or recovery creates a new exclusion, use a conventional payment route or supported custody model only after legal review.
+- If committed funds must be invested to make the business work, reject the yield feature.
+- If learners/sponsors do not confirm the underlying timing/control problem, change or abandon the product.
+- If the hackathon challenge does not align with New Education, reselect against the actual prompt.
+
+## Current state
+
+Built: explanatory static website, local scholarship simulator, content-payment demo, catalog route rules, business/yield scenario calculators. Historically reported: an MPP sandbox payment-channel experiment for content usage, documented separately. Not built: scholarship Anchor program, school signer, production backend, vault adapter, connected AI, wallet recovery, real pilot, or audited financial contracts. See [evidence-register.md](evidence-register.md) and [qa.md](qa.md).

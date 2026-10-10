@@ -46,3 +46,11 @@ Transcripción local completa inspeccionada. Portada corregida a becas al alumno
 
 ## Tesorería y opciones de beneficiario — 10/10/2026
 15 pruebas Node pasaron (9 anteriores + 6 proyecciones: saldo decreciente, destinatarios, estrés negativo, límites, un mes e inválidos). Syntax checks app.js/yield.mjs pasaron. Chrome comprobó opciones Aave/Morpho, distribución al alumno, estrés5%, dato inválido y reset; resto de flujos existentes pasaron. Escritorio1440, tablet768 y móvil390 sin overflow ni errores capturados. Capturas de sección inspeccionadas en desktop/mobile. No pruebas de protocolos o retiros onchain; simulador no usa tasas de mercado.
+
+## Student-choice and award-equivalent model — 10/10/2026
+
+- `node --test tests/model.test.mjs tests/yield.test.mjs`: **20 passed, 0 failed**. Includes the award-equivalent cent-rounding boundary, fractional award-count prevention, student/fund destination, committed-principal safety, and stress coverage.
+- `node --check app.js`, `model.mjs`, `yield.mjs`, `server.mjs`, and `tests/browser.cjs`: passed.
+- `node tests/browser.cjs`: **PASS** in installed Chrome. Added checks for free surplus, committed amount, whole scholarship-equivalents/remainder, student-benefit options (only visible for a positive beneficiary allocation), updated institution role, and Morpho details. Existing session, invalid-input, reset, anchor/doc, responsive, reduced-motion, keyboard skip-link, and browser-error checks passed at 1440×900, 768×1024, and 390×844 with no horizontal overflow or captured browser errors. Screenshots regenerated in `../screenshots/`; report in `../browser-results.json`.
+- A first unit test exposed floating-point rounding at an exact whole-award boundary; calculation now compares integer cents. Earlier browser attempts exposed stale assertions in the existing test file (role title, lifecycle copy, old slider selector, old yield numbers); assertions were aligned with current UI and rerun successfully.
+- Desktop and mobile yield-section captures visually inspected. This verifies local presentation and scenario arithmetic only; it does not verify a student-benefit transfer, a vault, live APY, school attestation, AI inference, user demand, screen-reader completeness, or WCAG certification.

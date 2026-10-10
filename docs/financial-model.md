@@ -1,76 +1,67 @@
-> Corrección de alcance — 10/10/2026: revisada la transcripción completa del audio original. La propuesta principal paga tramos al ESTUDIANTE por materias aprobadas por una institución. La web ahora lo explica primero y ofrece una simulación local. El contenido siguiente documenta el COMPLEMENTO de pago por contenido al PROVEEDOR, no un escrow académico implementado. MPP no certifica materias ni reasigna becas. Presupuestos separados; IA no autoriza pagos. No hay contrato de becas desplegado ni demanda validada.
+# Beca Modular 2.0 — editable economics
 
-# Financial assumptions and open model
+Updated 2026-10-10. Currency USD, all scenarios monthly. **All inputs are explicit assumptions; outputs are arithmetic projections only.** No actual customers, revenue, quotes, adoption, yield, or costs have been measured.
 
-Date: 2026-10-10. Currency **USD**, period **one month** throughout. Every numeric input below is an **explicit assumption**, not historical performance, a provider quote or an external benchmark. Website outputs are **calculated projections**. No actual customers, revenue or profit exist.
+## Core scholarship flow
 
-## Definitions and formulas
+Let `N` = sponsor programs, `S` = student scholarships/program, `B` = committed scholarship/student, `U` = fraction of scheduled tranches released after authorized milestones, `L` = platform license/sponsor/month, `F` = optional sponsor-paid fee on tranches released, `P` = estimated payment/conversion cost fraction, `I/A/H` = infrastructure/optional AI/support per student/month, `O` = platform fixed monthly operating cost.
 
-N = sponsors; S = funded students/sponsor; B = educational budget/student/month; U = utilization fraction; L = institutional license/month; F = optional extra fee fraction; P = aggregate payment/conversion fraction; I/A/H = infrastructure/AI/support dollars per funded student/month; O = fixed monthly overhead.
-
-```
+```text
 funded seats = N × S
-allocated reserve = N × S × B
-provider payouts = allocated reserve × U
-unused educational balance = allocated reserve − payouts
-subscription revenue = N × L
-additional fee revenue = payouts × F
-platform revenue = subscription revenue + additional fee revenue
-payment/conversion cost = payouts × P
-other direct costs = funded seats × (I + A + H)
-direct cost of service = payment cost + other direct costs
-contribution (gross profit in this simplified model) = revenue − direct cost
-contribution margin = contribution / revenue; undefined when revenue = 0
+committed education principal = N × S × B
+student installments released = committed principal × U
+future / not-yet-released balance = committed principal − installments released
+platform subscription revenue = N × L
+optional sponsor-paid service fee = installments released × F
+platform revenue = subscription revenue + optional sponsor-paid service fee
+payment/conversion cost = installments released × P
+other service costs = funded seats × (I + A + H)
+contribution = platform revenue − payment/conversion cost − other service costs
 operating result = contribution − O
-realized sponsor outlay = provider payouts + platform revenue
-maximum sponsor commitment = allocated reserve + platform revenue
 ```
 
-Unused reserve is sponsor money, not platform income, margin, causal savings or verified new access. “Realized outlay” excludes still-locked liquidity until actual close/refund; the model presumes monthly settlement. Stablecoin/USD parity, no asset loss and full collection are simplifying assumptions.
+The scholarship principal is pass-through money, not platform revenue. “Future/not-yet-released balance” is governed by the sponsor agreement; it is not automatically savings, yield, or another student's award. `U` models paid milestone shares, not learning quality or graduation. An optional `F` is separately charged to the sponsor, never withheld from a student's promised tranche.
 
-Payment/conversion percentage is an estimated aggregate cost allocation, **not a claim about Solana gas**. Production needs explicit transaction counts, SOL gas conversion, sponsored fees, rent/locked capital, on/off ramp, compliance and retry costs. AI dollars/student are budgeting assumptions, not model-vendor quotes; derive later from tokens × current prices × sessions.
+The optional treasury simulator is a separate program-impact worksheet, not part of the platform P&L. It can estimate whole additional-award equivalents as `floor(education-directed positive net return / assumed award amount)` and show the remainder. The award amount is an editable assumption, not a quote or student count. A realized student bonus is also excluded from platform revenue.
 
-## Scenario inputs
+## Editable presets
 
-| Input (assumption) | Conservative | Base | Optimistic |
+| Assumption | Conservative | Base | Optimistic |
 |---|---:|---:|---:|
-| Sponsors | 3 | 10 | 30 |
-| Students per sponsor | 30 | 80 | 150 |
-| Budget per student | 80 | 120 | 160 |
-| Utilization | 40% | 65% | 80% |
-| License per sponsor | 120 | 250 | 1,000 |
-| Extra fee on usage | 0% | 0% | 0% |
-| Aggregate payment cost on usage | 1% | 0.6% | 0.4% |
-| Infra / student | 1.20 | 0.80 | 0.60 |
-| AI / student | 0.40 | 0.25 | 0.15 |
-| Support / student | 2.50 | 1.50 | 1.00 |
-| Fixed operation | 3,000 | 6,000 | 12,000 |
+| Sponsor programs/month | 3 | 10 | 30 |
+| Students/program | 30 | 80 | 150 |
+| Committed scholarship/student | $80 | $120 | $160 |
+| Tranches released `U` | 40% | 65% | 80% |
+| License/sponsor/month | $120 | $250 | $1,000 |
+| Sponsor-paid extra fee `F` | 0% | 0% | 0% |
+| Estimated payment/conversion `P` | 1.0% | 0.6% | 0.4% |
+| Infrastructure/student | $1.20 | $0.80 | $0.60 |
+| Optional AI/student | $0.40 | $0.25 | $0.15 |
+| Human support/student | $2.50 | $1.50 | $1.00 |
+| Platform fixed operating cost | $3,000 | $6,000 | $12,000 |
 
-Base: 800 seats; 96,000 educational reserve; 62,400 payouts; 33,600 unused; 2,500 platform revenue; 374.40 payment costs; 640 infrastructure; 200 AI; 1,200 support; 2,414.40 direct costs; 85.60 contribution; **−5,914.40 operating result**. This is a deliberately visible economic warning, not “commercially viable” by assertion.
+These values are assumptions, not market benchmarks. Set AI cost to zero if the product uses deterministic guidance.
 
-Optimistic: 4,500 seats; 576,000 provider payouts; 30,000 platform revenue; 10,179 direct costs; 12,000 fixed costs; **7,821 operating result**. Profit depends on a 1,000 USD institutional license plus lower per-student costs. Neither willingness to pay nor those efficiency gains are verified. At base scale/costs and no extra fee, a license of **841.44 USD per institution/month** would only reach modeled operating break-even, before excluded costs. This threshold should inform buyer validation rather than be advertised as a validated price.
+## Base arithmetic and warning
 
-## Break-even
+Base inputs yield 800 funded seats, $96,000 committed scholarship principal, $62,400 in modeled student installments and $33,600 not yet released. Platform revenue is $2,500. Payment/conversion estimate is $374.40; other per-student costs total $2,040; fixed cost is $6,000. Modeled monthly operating result is **−$5,914.40**. The design is not commercially validated, and the base case is intentionally not hidden.
 
-Per-sponsor contribution = L + S × B × U × (F − P) − S × (I + A + H).
+Optimistic assumptions yield $7,821/month operating result only because 30 sponsors pay $1,000/month and per-student costs are lower. None of those assumptions is validated. Under base scale and cost inputs, license alone would need to be $841.44/sponsor/month to reach modeled operating break-even, before exclusions. Treat this as a buyer-validation question, not a price recommendation.
 
-If contribution/sponsor <= 0, adding sponsors cannot cover fixed overhead in the model. Otherwise break-even sponsors = ceiling(O / contribution-per-sponsor). Base contribution/sponsor is 8.56, so simplified break-even is 701 sponsors; this is operationally implausible without revising staffing/costs. Scaling linearly would be misleading. The website labels that fixed costs do not step up in this extrapolation.
+## Sensitivity and exclusions
 
-## Sensitivity and dominant assumptions
+- At base scale, license +$1/sponsor adds $10/month.
+- Support +$1/student reduces result by $800/month.
+- If `F=0`, releasing more scholarship tranches raises direct transaction cost but does not raise subscription revenue. Do not reduce educational access to improve margin.
+- AI inference can be removed; human advising cost cannot be assumed to be zero.
+- The model does not include CAC, sales cycles, churn, taxes, legal structuring, audits, wallet recovery, custody/on/off-ramp, refunds, FX changes, bad debt, sponsorship of network fees, integration, insurance, or step-function staffing.
+- The aggregate payment/conversion input is not a Solana fee quote or gas estimate. Production requires actual transaction counts, compute/network fee treatment, fee sponsorship, rent/locked capital, conversion, and retry measurements.
+- No treasury income or yield appears in platform revenue. Realized investment returns belong to the policy chosen for the scholarship program after obligations/costs; they are not double-counted as platform revenue.
 
-- At base cohort size, license +1 USD/sponsor improves monthly result by N USD.
-- Support +1 USD/student reduces result by N × S USD; base sensitivity is −800 USD/month.
-- AI cost could be set to zero if recommendations use deterministic tags. Zero inference does not eliminate human advising costs.
-- With fee=0, utilization increases provider payouts and payment cost, not platform license revenue. Never optimize educational access downward to manufacture profitability.
-- Adding a fee may improve margins but is an unvalidated purchase decision and may worsen sponsor total cost. Pilot must test willingness to pay and procurement.
-- Scenario selector changes all inputs together; sensitivity changes one input against the current editable state. Preset comparison remains fixed and is labeled as such.
+## Yield is a separate ledger
 
-## Exclusions and next measurements
+The dedicated [treasury scenario model](yield-strategy.md) has different inputs: total fund, committed student obligations, free surplus, assumed rate, costs, capital-loss stress, withdrawal delay, notice window, and return recipient. It must not be added to subscription revenue. The safe mode caps investment at uncommitted surplus; the exposed-commitment toggle is a counterexample only.
 
-No CAC, sales cycle, bad debt, churn, tax, legal/custody setup, security audit, reserve cost, FX volatility, refunds, chargebacks, commercial content licensing, acquisition onboarding or step-function hires. Content principal is already represented as payouts, not platform COGS. Add these costs before investment decisions. Break-even is an arithmetic exercise, not forecast. No annual aggregation of monthly seats.
+## Pilot measurements before pricing
 
-Pilot should measure administrative minutes/case, support tickets/student, paid unit pricing, completed settlement cost, tokens/recommendation, student starts and program continuation. Distinguish observed values from assumptions in the next version. Formulas are shared in `model.mjs` and exercised by meaningful invariant tests.
-
-
-## Extensión: reserva y rendimiento opcional
-Ver [estrategia de tesorería](yield-strategy.md): alternativas, beneficiarios, riesgo, fórmula con saldo decreciente y límites de integración. No implementada en cadena; resultado educativo no suma ingreso de plataforma.
+Record sponsor administrative time per cohort; number and age of pending installments; exception/appeal handling; payout failures; student comprehension and wallet friction; costs per confirmed transfer; institution signer workload; actual procurement willingness-to-pay; and conventional-process baseline. Separate all observed values from assumptions. One cohort is not market validation.

@@ -2,7 +2,7 @@
 
 Spanish product website and transparent financial model. No installation, credentials, remote fonts or external runtime dependencies. This is a **local interactive simulation**, not a deployed payment system or an AI inference service.
 
-Run from this folder: `node server.mjs`, then open http://127.0.0.1:4178. `node --test tests/model.test.mjs` checks accounting and the session state machine. `node tests/browser.cjs` checks the site using the already bundled Playwright runtime (see QA report).
+Run from this folder: `node server.mjs`, then open http://127.0.0.1:4178. `node --test tests/model.test.mjs tests/yield.test.mjs` checks accounting, session state and treasury scenarios. `node tests/browser.cjs` checks the site using the already bundled Playwright runtime (see QA report).
 
 ## Deliverables
 
@@ -12,6 +12,7 @@ Run from this folder: `node server.mjs`, then open http://127.0.0.1:4178. `node 
 - [Competition, pitch, roadmap and validation](docs/execution.md)
 - [Sources and inspection limits](docs/evidence-register.md)
 - [Design brief and verification](docs/qa.md)
+- [Treasury options, stress model and beneficiary policies](docs/yield-strategy.md)
 - [Learning guide — repository draft](docs/learning-guide.md)
 
 ## Implementation map
