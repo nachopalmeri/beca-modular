@@ -1,3 +1,5 @@
+> Corrección de alcance — 10/10/2026: revisada la transcripción completa del audio original. La propuesta principal paga tramos al ESTUDIANTE por materias aprobadas por una institución. La web ahora lo explica primero y ofrece una simulación local. El contenido siguiente documenta el COMPLEMENTO de pago por contenido al PROVEEDOR, no un escrow académico implementado. MPP no certifica materias ni reasigna becas. Presupuestos separados; IA no autoriza pagos. No hay contrato de becas desplegado ni demanda validada.
+
 # Web3, AI and trust architecture
 
 Date: 2026-10-10. **Proposed integration**, not current website functionality. Current website is a deterministic standalone JS simulation. Prior sandbox successful flow is in `../../spike-execution-log.md` and has not been rerun here.

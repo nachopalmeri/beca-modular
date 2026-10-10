@@ -24,3 +24,7 @@ Inspected 2026-10-10 unless otherwise stated. Status words describe evidence, no
 No exact assigned challenge, current jury list, AI/pre-existing code permissions, buyer willingness, real module rates, expected unit usage, comparative retention, production compliance, channel recovery experiment, independent delivery measurement or confirmed content integration. Website design references are structural only: typography/hierarchy from [Vercel](https://vercel.com/), compact product navigation from [Linear](https://linear.app/), explanatory finance from [Stripe](https://stripe.com/). Their brand assets, metrics and testimonials are not copied. No screenshot reference audit claimed.
 
 The original prompt's “commercially viable” and “world-class” are goals; no label in this artifact treats them as verified outcomes. The defensible current claim is a working explanation/simulation with documented assumptions and prior payment evidence.
+
+
+## Audio original revisado — 10/10/2026
+Transcripción local completa mediante FFmpeg whisper.cpp, modelo base español; algunos fragmentos finales ambiguos. Confirma intención del proponente: donación reservada, desembolsos parciales al alumno tras materias aprobadas y reasignación del remanente al dejar el programa. Es evidencia de intención, no de demanda, seguridad, impacto o integración. No se publica el audio ni datos del remitente.

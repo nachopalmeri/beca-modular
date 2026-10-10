@@ -38,3 +38,7 @@ Local site: http://127.0.0.1:4178 . Server binds loopback only; no public deploy
 No React build/typecheck was run: this deliverable is a standalone semantic HTML/CSS/ES-module site without TypeScript or build dependencies. Proposed React backend is documentation only. Local UI test success is not new MPP settlement, real AI inference, verified customer adoption or educational impact.
 
 Delivery copy verified at `D:/Codex/outputs/beca-modular-2026-10-10/beca-modular/`. Project guide saved at `D:/Facultad/UADE-Vault/Efforts/Proyectos/Beca Modular/Beca Modular - Product and engineering guide.md`, with two verified Data Engineering class-note links. No unrelated vault notes, Atlas entries or MOCs changed.
+
+
+## Revisión del audio y portada — 10/10/2026
+Transcripción local completa inspeccionada. Portada corregida a becas al alumno por hitos, contenido por uso separado. Browser comprobó: aprobar 20 USD, pausa bloquea nuevo hito, reasignar 80, mantener 20 del alumno y restablecer. 9 pruebas Node previas pasaron, syntax check y Chrome UI en 1440/768/390 sin errores/overflow. Inspección visual de portada desktop/mobile. Es simulación en memoria, no escrow ni prueba académica real.

@@ -1,3 +1,5 @@
+> Corrección de alcance — 10/10/2026: revisada la transcripción completa del audio original. La propuesta principal paga tramos al ESTUDIANTE por materias aprobadas por una institución. La web ahora lo explica primero y ofrece una simulación local. El contenido siguiente documenta el COMPLEMENTO de pago por contenido al PROVEEDOR, no un escrow académico implementado. MPP no certifica materias ni reasigna becas. Presupuestos separados; IA no autoriza pagos. No hay contrato de becas desplegado ni demanda validada.
+
 # Financial assumptions and open model
 
 Date: 2026-10-10. Currency **USD**, period **one month** throughout. Every numeric input below is an **explicit assumption**, not historical performance, a provider quote or an external benchmark. Website outputs are **calculated projections**. No actual customers, revenue or profit exist.

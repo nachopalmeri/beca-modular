@@ -1,3 +1,5 @@
+> Corrección de alcance — 10/10/2026: revisada la transcripción completa del audio original. La propuesta principal paga tramos al ESTUDIANTE por materias aprobadas por una institución. La web ahora lo explica primero y ofrece una simulación local. El contenido siguiente documenta el COMPLEMENTO de pago por contenido al PROVEEDOR, no un escrow académico implementado. MPP no certifica materias ni reasigna becas. Presupuestos separados; IA no autoriza pagos. No hay contrato de becas desplegado ni demanda validada.
+
 # MVP, competition, validation and operating risks
 
 Date: 2026-10-10. Proposed primary track: **Nueva Educación**. Official landing page verifies four tracks and 48-hour functional build. Prior inspected bases record 1-minute pitch + 1-minute Q&A, 4–5 members, challenge assigned before build, day-one venue closure at 19:30. Specific prompt, rubric, current named jury and AI/pre-existing-code permission remain unresolved; see evidence register.

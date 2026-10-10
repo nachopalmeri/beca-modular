@@ -4,6 +4,7 @@ const fs=require('node:fs');const path=require('node:path');const assert=require
  const browser=await chromium.launch({headless:true,executablePath:process.env.BECA_BROWSER || 'C:/Program Files/Google/Chrome/Application/chrome.exe'});
  const page=await browser.newPage({viewport:{width:1440,height:900},deviceScaleFactor:1});const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
  const base='http://127.0.0.1:4178';await page.goto(base);await page.waitForSelector('#profit');
+ await page.locator('#scholar-approve').click();assert.equal(await page.locator('#scholar-paid').innerText(),'20 USD');await page.locator('#scholar-pause').click();assert.equal(await page.locator('#scholar-approve').isDisabled(),true);await page.locator('#scholar-reassign').click();assert.equal(await page.locator('#scholar-reassigned').innerText(),'80 USD');assert.equal(await page.locator('#scholar-paid').innerText(),'20 USD');await page.locator('#scholar-reset').click();
  assert.match(await page.locator('#profit').innerText(),/5[.,]914/);
  await page.getByRole('button',{name:'Abrir sesión',exact:false}).click();await page.locator('[data-unit="sql-1"]').click();
  assert.equal(await page.locator('#authorized').innerText(),'2,00');

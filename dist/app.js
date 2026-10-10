@@ -49,3 +49,19 @@ $('#scenario-table').innerHTML=financialTable(Object.entries(scenarios).map(([k,
 $('#copy-pitch').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('#pitch-text').textContent);$('#copy-status').textContent=' Guion copiado.';}catch{$('#copy-status').textContent=' Seleccioná el texto del guion para copiarlo manualmente.';}});
 let announceTimer;
 new MutationObserver(()=>{clearTimeout(announceTimer);announceTimer=setTimeout(()=>{$('#financial-status').textContent=`Modelo actualizado. Resultado operativo mensual: ${$('#profit').textContent}. Proyección basada en supuestos.`;},350);}).observe($('#profit'),{childList:true});
+
+// Academic scholarship demonstration: local state only, no grade verification or payment.
+let scholarship={paid:0,remaining:100,reassigned:0,paused:false};
+function renderScholarship(message){
+ $('#scholar-paid').textContent=scholarship.paid+' USD';
+ $('#scholar-left').textContent=scholarship.remaining+' USD';
+ $('#scholar-reassigned').textContent=scholarship.reassigned+' USD';
+ $('#scholar-approve').disabled=scholarship.paused||scholarship.remaining===0;
+ $('#scholar-pause').disabled=scholarship.paused||scholarship.remaining===0;
+ $('#scholar-reassign').disabled=!scholarship.paused||scholarship.remaining===0;
+ $('#scholar-status').textContent=message;
+}
+$('#scholar-approve').addEventListener('click',()=>{if(scholarship.paused||scholarship.remaining<20)return;scholarship.paid+=20;scholarship.remaining-=20;renderScholarship('Hito '+scholarship.paid/20+' aprobado en el ejemplo. Se asignan 20 USD al estudiante.');});
+$('#scholar-pause').addEventListener('click',()=>{scholarship.paused=true;renderScholarship('Pausa solicitada: fondos pendientes retenidos. Se requiere aviso, plazo de gracia y revisión antes de reasignar.');});
+$('#scholar-reassign').addEventListener('click',()=>{if(!scholarship.paused)return;scholarship.reassigned+=scholarship.remaining;scholarship.remaining=0;renderScholarship('Resolución humana representada: saldo pendiente asignado a otro alumno. Los '+scholarship.paid+' USD ya recibidos se conservan.');});
+$('#scholar-reset').addEventListener('click',()=>{scholarship={paid:0,remaining:100,reassigned:0,paused:false};renderScholarship('Beca activa. Ningún tramo liberado.');});
