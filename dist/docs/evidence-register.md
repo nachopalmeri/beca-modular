@@ -39,3 +39,11 @@ Inspección directa de documentación de Aave, Sky, Spark, Morpho, Robinhood Cla
 - OFFICIAL DOCUMENTATION VERIFIED: Aave withdrawals are limited by available unborrowed liquidity; Spark distinguishes immediate withdrawal from eligible asynchronous intents; Morpho V2 requires SDK/state-based withdrawal-capacity calculation and gate checks; Pump creator-fee split docs establish a configuration mechanism, not an actual donor stream. No protocol balance/rate/transaction was inspected.
 - Website change: the model now asks for a clearly labeled assumed full-award amount, calculates only whole future-award equivalents from education-directed net return, and exposes student-use choices only when the selected distribution policy yields a positive student amount. The choices are local UI simulations, not payment functionality.
 - No protocol tests, buyer interviews, student interviews, sponsor agreements, real yield, new contract, connected AI or live transaction were executed in this update.
+
+
+## DatosHoy como recurso de contexto institucional — 2026-10-11
+
+- [Explorador de universidades de DatosHoy](https://www.datoshoy.com/universidades) inspeccionado el 2026-10-11: permite consultar mapas, fichas, comparaciones y rankings; declara metodología, fuentes y cobertura distinta por indicador. Algunos indicadores son cocientes o estimaciones, no tasas de cohorte ni gasto efectivamente asignado a una persona.
+- [Términos de DatosHoy](https://www.datoshoy.com/terminos/) inspeccionados el 2026-10-11: el servicio se presenta como informativo y advierte posibles demoras, errores u omisiones; su contenido, diseño y elementos están protegidos por sus titulares. No se verificó una licencia abierta de reutilización ni una API pública.
+- [Registro oficial de instituciones universitarias](https://www.argentina.gob.ar/educacion/universidades/informacion-universitaria/instituciones-universitarias) enlazado como fuente institucional de consulta.
+- Decisión de producto: agregar enlaces externos, no copiar ni republicar tablas, métricas, mapas o rankings. No hay costo de integración por enlazar; no se afirma una licencia para reutilizar datos. Los indicadores pueden ayudar a un sponsor a formular preguntas de cobertura, pero nunca sirven para puntuar estudiantes, decidir elegibilidad o medir mérito individual.
