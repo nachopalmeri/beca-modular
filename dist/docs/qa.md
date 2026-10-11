@@ -33,7 +33,7 @@ Subject specificity 2; hierarchy 2; composition 2; typography 2; color rationale
 
 ## Delivery and limits
 
-Local site: http://127.0.0.1:4178 . Server binds loopback only; no public deployment. `index.html` can also be served by any static host with adjacent module files. The module-based site should be served over HTTP rather than opened as `file://`.
+Local validation server: http://127.0.0.1:4178 (loopback only). The live Site is public at https://beca-modular.ignaciopalmeri1.chatgpt.site. `index.html` can also be served by any static host with adjacent module files. The module-based site should be served over HTTP rather than opened as `file://`.
 
 No React build/typecheck was run: this deliverable is a standalone semantic HTML/CSS/ES-module site without TypeScript or build dependencies. Proposed React backend is documentation only. Local UI test success is not new MPP settlement, real AI inference, verified customer adoption or educational impact.
 
@@ -62,3 +62,8 @@ Transcripción local completa inspeccionada. Portada corregida a becas al alumno
 - Node model/yield tests: 20 passed, 0 failed. Browser regression suite: PASS, including internal anchor targets, desktop/tablet/mobile overflow, navigation, reduced motion, keyboard skip link and no captured browser errors. A focused Chrome check confirmed both external links, target blank, rel noopener/noreferrer, section content and no horizontal overflow at 1440px and 390px. Desktop/mobile section screenshots saved in screenshots/universidades-desktop.png and screenshots/universidades-mobile.png.
 - Reviewed all three 15.08-second MiniMax MP4s (H.264/AAC, 1344x768, 24 fps), generated contact sheets and transcribed the audio locally. The first has a strong opening but a grammar error later; the second has the cleanest closing narration, but generated dashboard text is incoherent; the third is music-only and has some text glitches, so only its two readable title moments were used.
 - Rendered a new 18.75-second 1920x1080 H.264/AAC montage with clean cuts, resized with a minimal crop to 16:9, leveled audio, and a final “Prototipo conceptual · simulación” label. The montage combines the human hook from clip 1, two clean title moments from clip 3, milestone and release moments from clip 1, and the student/brand ending from clip 2. Incoherent dashboard frames and the first clip's later misgendered voiceover were removed. Final audio transcription: “El talento está en todas partes, las oportunidades no siempre. Cada logro libera una parte de la beca. Presentamos Beca Modular, un patrocinador aporta los fondos, una institución verifica el progreso. Cada avance cuenta.” Output: ../outputs/beca-modular-video/beca-modular-montaje-final.mp4 (7.67 MB). No real scholarship transaction or user testimonial is shown.
+
+
+## Site deployment verification — 2026-10-11
+
+Version 5 was saved and published successfully to the existing public Site. The public audience/access mode was preserved. Deployment ID: appgdep_6acc0fcd17e88191b462da50cef2ed94. This only publishes the explanatory site; scholarship payment, AI, and institutional verification remain simulations/proposals.
