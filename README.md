@@ -14,6 +14,7 @@ Run from this folder: `node server.mjs`, then open http://127.0.0.1:4178. `node 
 - [Design brief and verification](docs/qa.md)
 - [Treasury options, stress model and beneficiary policies](docs/yield-strategy.md)
 - [Learning guide — repository draft](docs/learning-guide.md)
+- [Published-site sync status](docs/site-sync-status.md)
 
 ## Implementation map
 
