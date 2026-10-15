@@ -1,23 +1,36 @@
-# Beca Modular — interactive product lab
+# Beca Modular — web de propuesta y roadmap
 
-Spanish product website and transparent financial model. No installation, credentials, remote fonts or external runtime dependencies. This is a **local interactive simulation**, not a deployed payment system or an AI inference service.
+Web previa a LABITCONF EDU2026. Explica becas por materia con financiación completa o compartida, hitos académicos y devolución proporcional del saldo pendiente. La implementación funcional con Sepolia se planifica para las48h del evento.
 
-Run from this folder: `node server.mjs`, then open http://127.0.0.1:4178. `node --test tests/model.test.mjs tests/yield.test.mjs` checks accounting, session state and treasury scenarios. `node tests/browser.cjs` checks the site using the already bundled Playwright runtime (see QA report).
+## Ver la web
 
-## Deliverables
+    node server.mjs
 
-- [Source of truth, product and business strategy](docs/product-strategy.md)
-- [Web3 and AI architecture](docs/architecture.md)
-- [Financial assumptions and formulas](docs/financial-model.md)
-- [Competition, pitch, roadmap and validation](docs/execution.md)
-- [Sources and inspection limits](docs/evidence-register.md)
-- [Design brief and verification](docs/qa.md)
-- [Treasury options, stress model and beneficiary policies](docs/yield-strategy.md)
-- [Learning guide — repository draft](docs/learning-guide.md)
-- [Published-site sync status](docs/site-sync-status.md)
+Abrir http://127.0.0.1:4178. demo.html es un simulador CONCEPTUAL con importes ficticios. No conecta wallets, cobra aportes, valida notas ni transfiere fondos.
 
-## Implementation map
+## Recorrido
 
-`index.html`: semantic sections and UI. `styles.css`: responsive visual system. `app.js`: interaction wiring and rendering. `model.mjs`: pure financial and demonstration-state functions, shared by browser and tests. `server.mjs`: localhost-only static server with restricted paths. No user input is uploaded. Nothing is persisted across reloads.
+1. Una persona aporta100USD deejemplo, o varios completan la meta desde1USD.
+2. Dos exámenes configurados liberan50/50USD ficticios.
+3. Una revisión pausa nuevos tramos. Abandono confirmado devuelve sólo saldo pendiente proporcionalmente.
+4. Lo ya ganado queda estudiante.60+40, liberado50 => devuelve30+20.
 
-This standalone format avoids introducing dependencies into a research repository. Proposed hackathon backend: React/TypeScript UI, Node/Express, Supabase and the existing MIT Pay Kit adapter. The website is deliberately independent of that future integration. No new chain settlement or LLM call is claimed.
+## Archivos
+
+- index.html: producto, reglas, mapas/video, arquitectura planificada y roadmap.
+- demo.html + funding-model.mjs + roadmap.mjs: simulador conceptual y lógica de centavos.
+- laboratorio.html + app.js: exploraciones anteriores preservadas, MPP/finanzas/rendimiento/firma local.
+- respaldo.html + scholarship.mjs + scholarship-ui.mjs + judge.mjs: pruebaECDSA local con autoridad sintética; no es pagoSepolia.
+- contracts/: herramientas de desarrollo instaladas con autorización, sin contrato implementado.
+- docs/product-strategy.md, docs/architecture.md: fuente de verdad actual.
+- docs/hackathon/kit-presentacion.md y readiness.md: guion, pruebas previstas y pendientes.
+
+## Comprobaciones locales
+
+    node --test tests/funding.test.mjs tests/scholarship.test.mjs tests/model.test.mjs tests/yield.test.mjs
+
+Los tests prueban modelos locales. No prueban un escrow, una institución real ni resultados de mercado. El browser test histórico en tests/browser.cjs corresponde al laboratorio y requiere revisar la etiqueta de cada prueba antes de usarlo como evidencia actual.
+
+## Próximo paso real
+
+Confirmar inscripción/equipo, consigna/rúbrica y permiso de código previo/IA. En48h: contrato/token test enSepolia, roles, aportes, confirmación, desembolso, replay y refunds verificables. No ingresar claves privadas o datos académicos/personales enestaweb.

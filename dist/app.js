@@ -1,3 +1,4 @@
+import { initScholarship } from './scholarship-ui.mjs';
 import { initYield } from './yield.mjs';
 import { financial, scenarios, initialSession, transition } from './model.mjs';
 const $ = (q) => document.querySelector(q);
@@ -32,8 +33,8 @@ $('#open-session').addEventListener('click',()=>act({type:'open'},'Reserva ilust
 $$('[data-unit]').forEach(b=>b.addEventListener('click',()=>act({type:'consume',id:b.dataset.unit,price:Number(b.dataset.price)},`Entrega de ejemplo ${b.dataset.unit}. Acumulado local: ${cents(session.authorized+Number(b.dataset.price))} USDC.`)));
 $('#pause-session').addEventListener('click',()=>act({type:'pause'},session.paused?'Reanudación aprobada en la simulación.':'Pausa: no se autorizan nuevas unidades.'));
 $('#close-session').addEventListener('click',()=>act({type:'close'},`Cierre local: ${cents(session.authorized)} al proveedor y ${cents(session.cap-session.authorized)} al fondo. Sin transacción de red.`));
-$('#test-duplicate').addEventListener('click',()=>act({type:'consume',id:session.units[0],price:200},'Duplicado aceptado.'));
-$('#test-cap').addEventListener('click',()=>act({type:'consume',id:'over-cap',price:1100},'Sobretope aceptado.'));
+$('#test-duplicate').addEventListener('click',()=>act({type:'consume',id:session.units[0],price:200},'Prueba de duplicado: el segundo intento debe rechazarse.'));
+$('#test-cap').addEventListener('click',()=>act({type:'consume',id:'over-cap',price:1100},'Prueba de límite: el importe que excede el fondo debe rechazarse.'));
 $('#reset-session').addEventListener('click',()=>{session=initialSession();events=[];$('#event-log').innerHTML='<li>Esperando autorización de ejemplo.</li>';renderSession();});renderSession();
 const routes={data:{name:'Datos para dar el primer paso',units:['Consultar una tabla SQL','Filtrar y ordenar datos','Proyecto con revisión docente'],reason:'La consulta y el filtrado son prerrequisitos del proyecto. La evaluación final requiere una persona.'},web:{name:'Una primera página publicable',units:['Estructura semántica HTML','Diseño adaptable con CSS','Proyecto con revisión docente'],reason:'La estructura precede al diseño. La revisión del proyecto comprueba comprensión; abrir contenido no la sustituye.'},finance:{name:'Decisiones con un presupuesto claro',units:['Ingresos y gastos','Reservas y prioridades','Ejercicio con revisión docente'],reason:'El registro precede a la planificación. Esta ruta enseña conceptos generales y no recomienda inversiones.'}};
 function recommend(){const r=routes[$('#learning-goal').value];const hours=Number($('#learning-time').value);$('#recommendation').innerHTML=`<span class="eyebrow">RUTA ILUSTRATIVA / REGLAS LOCALES</span><h3>${r.name}</h3><ol>${r.units.map(u=>`<li>${u}</li>`).join('')}</ol><p>${r.reason}</p><p>${hours===2?'Ritmo sugerido: una unidad por semana.':'Ritmo sugerido: hasta dos unidades por semana.'} Adaptalo con tu docente.</p><small>Catálogo aprobado de ejemplo · decisión final del estudiante · precio sujeto al programa.</small>`;}
@@ -52,19 +53,51 @@ let announceTimer;
 new MutationObserver(()=>{clearTimeout(announceTimer);announceTimer=setTimeout(()=>{$('#financial-status').textContent=`Modelo actualizado. Resultado operativo mensual: ${$('#profit').textContent}. Proyección basada en supuestos.`;},350);}).observe($('#profit'),{childList:true});
 
 // Academic scholarship demonstration: local state only, no grade verification or payment.
-let scholarship={paid:0,remaining:100,reassigned:0,paused:false};
-function renderScholarship(message){
- $('#scholar-paid').textContent=scholarship.paid+' USD';
- $('#scholar-left').textContent=scholarship.remaining+' USD';
- $('#scholar-reassigned').textContent=scholarship.reassigned+' USD';
- $('#scholar-approve').disabled=scholarship.paused||scholarship.remaining===0;
- $('#scholar-pause').disabled=scholarship.paused||scholarship.remaining===0;
- $('#scholar-reassign').disabled=!scholarship.paused||scholarship.remaining===0;
- $('#scholar-status').textContent=message;
-}
-$('#scholar-approve').addEventListener('click',()=>{if(scholarship.paused||scholarship.remaining<20)return;scholarship.paid+=20;scholarship.remaining-=20;renderScholarship('Hito '+scholarship.paid/20+' aprobado en el ejemplo. Se asignan 20 USD al estudiante.');});
-$('#scholar-pause').addEventListener('click',()=>{scholarship.paused=true;renderScholarship('Pausa solicitada: fondos pendientes retenidos. Se requiere aviso, plazo de gracia y revisión antes de reasignar.');});
-$('#scholar-reassign').addEventListener('click',()=>{if(!scholarship.paused)return;scholarship.reassigned+=scholarship.remaining;scholarship.remaining=0;renderScholarship('Resolución humana representada: saldo pendiente asignado a otro alumno. Los '+scholarship.paid+' USD ya recibidos se conservan.');});
-$('#scholar-reset').addEventListener('click',()=>{scholarship={paid:0,remaining:100,reassigned:0,paused:false};renderScholarship('Beca activa. Ningún tramo liberado.');});
+initScholarship();
 
 initYield();
+
+// Page-wide navigation and scroll feedback.
+const header=$('.header');
+const progress=document.createElement('div');
+progress.className='scroll-progress';progress.setAttribute('role','presentation');
+progress.innerHTML='<span></span>';document.body.append(progress);
+let ticking=false;
+function updateScroll(){
+ const max=document.documentElement.scrollHeight-innerHeight;
+ progress.firstElementChild.style.transform=`scaleX(${max>0?scrollY/max:0})`;
+ header.classList.toggle('is-scrolled',scrollY>36);
+ ticking=false;
+}
+addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(updateScroll);ticking=true;}},{passive:true});
+addEventListener('resize',updateScroll,{passive:true});updateScroll();
+
+// Reveal smaller content blocks so long sections never move as a single layer.
+if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+ const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+  if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+ }), {threshold: .12});
+ $$('.split-heading,.section>h2,.three-cols>article,.video-feature,.stage-detail,.university-card,.openarg-map-card,.openarg-map-links>article,.product-window,.demo-grid,.protocol-flow,.money-flow,.ai-grid,.architecture,.pitch-grid,.closing>h2').forEach(block => {
+  block.classList.add('reveal-on-scroll'); observer.observe(block);
+ });
+}
+// Only the roadmap is a lateral narrative. FAQ and source links stay in readable grids.
+$$('.roadmap').forEach((row,index) => {
+ row.classList.add('horizontal-track'); row.id = 'roadmap-track-'+index;
+ row.setAttribute('tabindex','0'); row.setAttribute('aria-label','Etapas del proyecto: desplazamiento horizontal');
+ const controls=document.createElement('div'); controls.className='track-controls';
+ const hint=document.createElement('span'); hint.textContent='Recorré las etapas';
+ const previous=document.createElement('button'); previous.type='button'; previous.textContent='←'; previous.setAttribute('aria-label','Etapa anterior'); previous.setAttribute('aria-controls',row.id);
+ const next=document.createElement('button'); next.type='button'; next.textContent='→'; next.setAttribute('aria-label','Etapa siguiente'); next.setAttribute('aria-controls',row.id);
+ const status=document.createElement('span'); status.className='track-status'; status.setAttribute('aria-live','polite');
+ controls.append(hint,previous,status,next); row.before(controls);
+ function updateTrack(){const max=row.scrollWidth-row.clientWidth; previous.disabled=row.scrollLeft<2; next.disabled=row.scrollLeft>=max-2; status.textContent=String(Math.min(row.children.length,Math.round(row.scrollLeft/(row.firstElementChild.getBoundingClientRect().width+20))+1)).padStart(2,'0')+' / '+String(row.children.length).padStart(2,'0');}
+ function advance(direction){row.scrollBy({left:direction*(row.firstElementChild.getBoundingClientRect().width+20),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});}
+ previous.addEventListener('click',()=>advance(-1)); next.addEventListener('click',()=>advance(1));
+ row.addEventListener('keydown',event=>{if(event.target===row&&['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();advance(event.key==='ArrowRight'?1:-1);}});
+ row.addEventListener('scroll',updateTrack,{passive:true}); addEventListener('resize',updateTrack,{passive:true}); updateTrack();
+});
+$('#load-education-map').addEventListener('click',()=>{
+ const frame=document.createElement('iframe'); frame.src='https://mapa-educacion-gba.vercel.app/'; frame.title='Mapa educativo del Conurbano Bonaerense · OpenArg'; frame.referrerPolicy='strict-origin-when-cross-origin';
+ $('#education-map').replaceChildren(frame);
+});

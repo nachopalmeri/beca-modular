@@ -1,3 +1,13 @@
+## Actualización14/10/2026 — fuente de verdad actual
+
+- Bases completas recuperadas desde enlace oficialGoogleDocs y archivadas en hackathon/bases-publicas-2026-10-14.txt: 30–31/10, inscripción16/10, equipo4–5, demo funcional, pitch60s+preguntas60s. Consigna/rúbrica y permisoIA/código previo siguen pendientes.
+- Decisiones aprobadas por usuario: web ahora como roadmap; funcional durante48h; financiación completa o desde1USD; beca100USDpor materia ilustrativa, hitos por exámenes; devolución proporcional de saldo no liberado tras revisión, sin recuperar lo ya ganado.
+- Sepolia recomendada oficialmente para appsEthereum; token de prueba para unidades, ETHtestgas. Contrato NO implementado.
+- funding-model.mjs:12tests de contabilidad/simulador; laboratorioECDSA16tests+20previos;48tests combinados pasaron14/10. No evidencia de pago blockchain.
+- Source primary: https://ethereum.org/developers/docs/networks/ y bases enlazadas desde https://www.labitconf.com/mas/hackathon.
+
+El resto de este archivo es histórico y conserva sus límites originales.
+
 # Evidence register and inspection log
 
 Inspected 2026-10-10 unless otherwise stated. Status words describe evidence, not product endorsement. Web access of a page is not a code audit. No interviews, buyer validation or new MPP test occurred in this build.

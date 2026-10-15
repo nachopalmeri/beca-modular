@@ -1,3 +1,5 @@
+> Revisión actual14/10/2026: propuesta por materia, financiación individual/compartida desde1USD, hitos y devolución proporcional. Web preparatoria; contrato durante48h. Ver [verificación actual](hackathon/verificacion.md). Las entradas siguientes son históricas.
+
 # Design brief and QA receipt
 
 Date: 2026-10-10. Requested: premium Spanish education/fintech product website, credible interaction and evidence boundaries.

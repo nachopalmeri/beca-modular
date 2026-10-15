@@ -1,108 +1,46 @@
-> Corrección de alcance — 10/10/2026: revisada la transcripción completa del audio original. La propuesta principal paga tramos al ESTUDIANTE por materias aprobadas por una institución. La web ahora lo explica primero y ofrece una simulación local. El contenido siguiente documenta el COMPLEMENTO de pago por contenido al PROVEEDOR, no un escrow académico implementado. MPP no certifica materias ni reasigna becas. Presupuestos separados; IA no autoriza pagos. No hay contrato de becas desplegado ni demanda validada.
+# Preparación y plan de ejecución para la hackatón
 
-# MVP, competition, validation and operating risks
+Actualizado: 14/10/2026. Antes del evento, la web presenta una propuesta y un simulador conceptual; no es un contrato, escrow ni servicio de pagos. La implementación funcional se construirá durante las 48 horas de la hackatón. Ethereum Sepolia con un token ERC-20 de demostración es la arquitectura propuesta, no una integración realizada. ETH de prueba sólo cubriría gas. Las unidades del token representan una beca en el ejemplo, no USD reales: no hay cotización ni dinero actual.
 
-Date: 2026-10-10. Proposed primary track: **Nueva Educación**. Official landing page verifies four tracks and 48-hour functional build. Prior inspected bases record 1-minute pitch + 1-minute Q&A, 4–5 members, challenge assigned before build, day-one venue closure at 19:30. Specific prompt, rubric, current named jury and AI/pre-existing-code permission remain unresolved; see evidence register.
+## Producto propuesto
 
-## Competitive case
+Una beca se define por materia, por ejemplo 100 unidades representativas para una materia. Una persona puede cubrir todo el compromiso o varias pueden aportar desde 1 unidad cada una. El estudiante es el beneficiario. Los pagos se desbloquean al aprobar exámenes definidos para la materia y confirmados por la institución.
 
-One memorable capability: sponsor grants a bounded educational allowance; a learner obtains a priced approved resource; provider receives exact authorized amount; unused budget is reconciled with independently inspectable sandbox settlement. It could stand out if the live flow is reliable, the human need is specific and the team explains the trust boundaries. No prediction of juror votes.
+Antes del primer aporte, el checklist/reglas pueden partir de un borrador generado con ayuda de IA, pero una persona lo revisa y aprueba. Después queda congelado para ese programa. No se afirma que haya una API de IA ni inferencia en vivo. El ejemplo conceptual puede dividir el compromiso en dos hitos de 50/50: el 100% del objetivo debe estar fondeado antes de activar desembolsos; si no se llega al objetivo al vencimiento, cada aportante recupera íntegramente lo que aportó.
 
-Closest alternatives: Guild (direct education benefit payments), Scholarship America (program administration), Moodle + payment processor (course delivery/progress + conventional billing). Progresar and DirectEd directly undermine novelty claims around milestone scholarships. What is original must be established with a concrete underserved workflow. Main competitive weakness: sponsors may prefer invoices and a closed LMS; providers may reject per-unit prices; an integration is easy to replicate.
+Si hay abandono, sólo después de confirmación mediante revisión humana, los tramos no liberados se devuelven proporcionalmente a los aportantes. Lo ya ganado y liberado permanece con el estudiante. Ejemplo: contribuciones 60/40, 50 unidades liberadas y 50 restantes; se devuelven 30 y 20. La web puede explicar esta regla, pero no ejecuta reembolsos.
 
-## Scope
+## Estado real y laboratorio
 
-One test sponsor, synthetic student, one provider per channel, three approved content units, capped signer, delivery event, cumulative voucher, sandbox close/receipt/refund and durable state. Student progress display explicitly separates delivery and teacher assessment. Optional route advisor can remain tagged deterministic logic; never delay core for AI.
+- **Web previa:** presentación de la propuesta, simulador conceptual y roadmap; describirla como tal tras las comprobaciones de la página principal.
+- **Laboratorio ECDSA:** el prototipo local de firma WebCrypto es exploratorio y opcional; no es blockchain, escrow ni el producto de competencia. El reporte de 36 tests combinados pertenece a ese laboratorio, no prueba un contrato EVM.
+- **Preparación técnica:** solc, ethers y Ganache se instalaron para preparar el evento. La preparación de herramientas no implica contrato compilado, probado o desplegado.
+- **Durante las 48 horas:** construir contrato e integración de Sepolia; reportar de forma separada resultados locales, interacción en testnet y cualquier límite.
 
-Exclude: production funds, new smart contracts, speculative tokens, wallet recovery service, memecoin revenue integration, university APIs, custom ZK, open marketplace, automated abandonment, legal trust, employment predictions and multi-agent purchases.
+No hay clientes, evidencia de mercado o impacto medido. El modelo financiero base existente no es rentable; no se modifica para aparentar rentabilidad. MPP/yield quedan como contexto histórico/roadmap y fuera del flujo de la competencia.
 
-## Team and 48-hour critical path
+## Plan de construcción — 48 horas del evento
 
-| Time | Critical path / milestone | Parallel assignments |
-|---|---|---|
-| 0–2 | Prove sponsor-controlled cap, provider receipt and close; define exact delivery unit | All inspect hardest assumption. If fail, conventional adapter fallback explicitly labeled. |
-| 2–4 | Freeze catalog, unit prices, data schema, API contract and demo | D1 product/React; D2 API/DB; D3 MPP adapter/signing; D4 content/pitch/QA. |
-| 4–8 | API returns approved catalog; auth binds sponsor/student/allocation | D1 roles/catalog, D2 transaction ledger, D3 sandbox channel, D4 content and adversarial fixtures. |
-| 8–12 | First priced unit authorizes monotonic voucher | Integrate price lookup, idempotency and signer. D4 records cluster and amount evidence. |
-| 12–16 | Close/refund and settlement reconciliation visible | D1 status UI; D2 persistence/recovery; D3 close and receipt; D4 test edge cases. |
-| 16–20 | One complete route works after reload; no fake settlement | Integration checkpoint. Freeze adding features. |
-| 20–24 | Role isolation, wrong resource/payee, duplicate and cap tests | D4 independent reproducibility; D2/3 fix critical failures. |
-| 24–28 | Failure/retry and close recovery; optional AI vs filter spike only if core ready | D1 accessibility/mobile; D4 timed demo and honest fallback. |
-| 28–32 | Deploy/preflight approved environment and restore from clean start | End-to-end deadline; capture actual transactions and exact versions. |
-| 32–36 | Security/reliability fixes; pitch and skeptical Q&A | No new features. |
-| 36–40 | Three rehearsals on stage-like connection; submission preparation | D4 scripts, D1 visual clarity, D2/3 standby. |
-| 40–48 | Contingency, rest, final demo and permitted submission | Reserve, not 32 extra person-hours of features. |
+| Tiempo | Trabajo y salida esperada |
+|---|---|
+| 0–2 h | Recibir consigna y confirmar reglas de código previo/IA; spike de red/contrato en Sepolia y cerrar alcance. |
+| 2–10 h | Construir escrow, programa por materia, dos hitos y reglas de fondeo; pruebas del contrato. |
+| 10–20 h | Integrar interfaz y roles: patrocinador/aportantes, institución y estudiante; aportes parciales desde 1 unidad. |
+| 20–28 h | Implementar liberación por examen aprobado, rechazo de replay y reembolso por underfunded; probar caso de abandono confirmado y reparto proporcional. |
+| 28–32 h | Integrar recorrido completo, verificar en testnet si es posible y congelar funciones. |
+| 32–40 h | Preparar pitch, Q&A, ensayo, y distinguir claramente simulador local, Ganache y Sepolia. |
+| 40–48 h | Margen para fallos, entrega y contingencia; no sumar funciones sin necesidad. |
 
-This is not 192 productive engineer-hours. Work after day-one closure needs offsite arrangements; confirm team rest and availability. A production auth/custody system is beyond hackathon scope.
+Roles sugeridos para un equipo de 4–5: producto y consigna; contrato; interfaz/wallet; pruebas e integración; quinta persona opcional para QA, guion y operación. Asignar nombres cuando el equipo esté confirmado. El predio cierra a las 19:30 del día 1: prever salida, regreso y comidas.
 
-## Decisive two-hour technical spike (not executed as part of this website)
+## Bases oficiales conocidas
 
-Hypothesis: existing MPP stack can implement sponsor-controlled authorization for a student-requested resource without giving student/AI unbounded financial power.
+Consulta pública registrada el 14/10/2026: inscripción cierra el 16/10 o al agotarse cupo; evento 30–31/10 en Costa Salguero; equipos de 4–5; demo funcional obligatoria; pitch de 60 segundos más preguntas de 60 segundos. Consigna exacta y criterios no definidos aún en el documento consultado; no hay ponderaciones conocidas. Permiso de código previo y uso de IA sin especificar: confirmar con la organización. Fuentes: [LABITCONF](https://www.labitconf.com/mas/hackathon) y [bases consultadas](hackathon/bases-publicas-2026-10-14.txt).
 
-0–20 min: use local MIT Pay Kit version 0.13.1 checkout, existing sandbox-only example, synthetic catalog with fixed integer prices; create sponsor test context and one student allocation.
+## Límites que deben conservarse
 
-20–50 min: reserve 1 USDC test budget, open channel to pinned provider, bind request to student/session/catalog, authorize delivered unit. Student cannot substitute price or recipient.
-
-50–80 min: run tampered price, duplicate resource, unauthorized role, stale/nonmonotonic voucher and over-cap attempts. Assert ledger remains unchanged and invalid authorization never reaches settlement.
-
-80–105 min: close and query correct sandbox RPC; confirm successful transfer amount and return equal deposit exactly. Restart service and inspect persisted final state. Never query mainnet and call a null result failure/success on another cluster.
-
-105–120 min: record command, versions, network, receipt signature, transfer amounts, failures and limits. Check recovery branch or mark it unproven.
-
-PASS: provider/mint/network bound, cap enforced by actual adapter, duplicate not billable twice, unauthorized caller cannot authorize, close transfers reconcile, restart does not reopen spend. FAIL: any invalid attempt becomes billable, stale state changes liability, wrong provider, or only a mock is available. The UI simulation cannot satisfy this gate. Recovery unavailable under time budget is a partial pass, not a full security pass.
-
-## Neutral business validation
-
-- Sponsor: show last actual program invoices/allocation (anonymized), identify recurring reconciliation failure or upfront-access problem, measure current time, then ask willingness to pilot at an explicit license price. GO requires concrete workflow evidence and commitment, not positive feedback.
-- Provider: negotiate one unit definition and price, delivery evidence, failure/retry and dispute terms. FAIL if content rights or billing model make modular access impossible.
-- Student: compare existing funded-access process versus mock route. Check understanding of cap, privacy, pause and no debt. GO requires fewer actual access steps or a removed verified upfront barrier; do not measure preference using only enthusiastic pitch reactions.
-- AI: randomized small comparison against tag filters with identical catalog; measure correct IDs, prerequisites, time and teacher relevance. Drop AI if no improvement.
-
-## Risk register
-
-| Risk | Severity | Mitigation / kill condition |
-|---|---|---|
-| No buyer problem | Critical | Kill if existing invoices/LMS/direct pay suffice and nobody commits pilot. |
-| Providers will not price modules | Critical | Written one-provider unit agreement before full build. |
-| Protocol cannot bind sponsor-funded student use safely | Critical | Two-hour adapter spike; remove financial claims if not proven. |
-| Financial base model weak | High | Pilot true support/payment costs and willingness to pay. Current base loses money. |
-| Delivery fraud/collusion | High | Define measurable unit, audit trails, disputes; don't call chain proof of education. |
-| Concurrent allocations overspend | High | Atomic reservation across sessions, not UI-only balance. |
-| Server outage locks funds | High | Verify protocol unilateral close/time windows; show unavailable state honestly. |
-| Privacy/custody/legal burden | High | Synthetic demo only; review before pilot with real funds/data. |
-| Automatic reassignment harms student | High | Human review, notice/grace/appeal and no clawback. |
-| Exact challenge incompatible | Critical | Switch to challenge-appropriate scaffold; do not force fit. |
-| Stablecoin/creator volatility | High | No memecoin dependency; production treasury risk review. |
-
-## Demo and pitches
-
-10-second hook: “Una beca no debería pedirte que primero tengas el dinero para estudiar.”
-
-30 seconds: show student's goal/catalog (0–5), sponsor cap (5–10), actual delivery + voucher and rejected over-cap (10–20), sandbox settlement + returned balance (20–30). Current website can explain this sequence but is local simulation. An integrated demo must show actual network evidence. If RPC fails: execute local flow clearly labeled and show previously recorded sandbox trace only as recording; never call it live.
-
-60-second script and 2-minute investor script are in the website's pitch section. Use its proposed-demo wording only when stage flow is connected; otherwise explicitly say “esta web simula”. Keep the distinction between grant access, content delivery and actual assessment. No personal poverty story is presented as an interviewed person.
-
-## Additional judge questions
-
-1. Who says a module was delivered? Service/provider; agreed auditable unit, not AI or blockchain truth.
-2. How do you refund bad content? Separate commercial dispute/refund procedure; settled chain transfer is not retroactively editable.
-3. Why isn't this Guild? Similar core value exists. Need to prove small-program modular cross-provider reconciliation advantage.
-4. Why not free courses? If they serve the student's need, use them; avoid charging for available adequate alternatives.
-5. Does the student receive tokens? Not in MVP; sponsor pays approved provider. Stipends are a different roadmap.
-6. Who holds keys? Sponsor test signer in adapter; production custody unresolved. No secrets in frontend.
-7. Does unused money support a second student automatically? No. It returns to payer then follows approved allocation policy.
-8. Are you promising employment? No; only access and observed delivery can be measured initially.
-9. What happens without AI? Catalog filters continue; AI is optional until experimentally better.
-10. What happens without blockchain? Central payments may work better. Compare against multi-party transparency requirement.
-11. Does MPP prove grades? No. Teacher/institution attestation is a separate trust boundary.
-12. Do creator fees pay for the core program? No. Optional voluntary contributions after independent integration proof.
-13. What is actually built? This website and local model; prior sandbox test separately documented.
-14. What would reverse this decision? No buyer/provider commitment, poor economics, unsafe authorization, or challenge mismatch.
-
-## Next decision deadline
-
-Within 72 hours of a real validation session: one sponsor workflow, one provider unit agreement, student comprehension test and two-hour adapter spike. Lock hackathon scope only after assigned challenge is known and prior-code/AI rules confirmed. The next concrete action is to validate an actual program's billing unit and sponsor authorization; not add a second smart contract.
-
-
-## Extensión de rendimiento — alcance acotado
-La reserva opcional y los destinos de rendimiento están documentados en [yield-strategy.md](yield-strategy.md). Mantener escrow académico como único núcleo del MVP. Solo intentar adapter de inversión si el núcleo está probado y sobran horas; no incorporar rotación de estrategias, puentes ni apalancamiento.
+- No llamar USD al token de demostración ni atribuirle precio; usar “unidades representativas”.
+- No describir la web o el laboratorio como contrato, escrow, transferencia real o despliegue Sepolia.
+- Institución, examen y revisión son roles propuestos; ningún resultado académico se valida por código por sí solo.
+- Un tramo liberado/ganado no se recupera. Reembolso de saldo restante requiere abandono confirmado por revisión humana y distribución prorrata a aportantes.
+- Si la consigna asignada no encaja con Nueva Educación, adaptar la propuesta al reto real.
