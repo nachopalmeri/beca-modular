@@ -27,3 +27,16 @@ Tests Node: firma válida, replay, modificación de importe, firmante no autoriz
     node --test tests/scholarship.test.mjs tests/model.test.mjs tests/yield.test.mjs
 
 Pruebas de la demo son locales. No se reportan entrevistas, notas, pagos, instituciones ni clientes reales.
+
+## Demo de presupuesto y comprobantes — 15/10/2026
+
+La entrada principal para mostrar la propuesta ahora es [`../demo.html`](../demo.html), con [`../funding-model.mjs`](../funding-model.mjs) y [`../roadmap.mjs`](../roadmap.mjs). Es un segundo simulador, separado del laboratorio ECDSA descrito arriba.
+
+- El sponsor de prueba configura módulo, presupuesto y dos hitos. Los importes deben sumar exactamente el presupuesto; al registrar aportes, la configuración queda congelada.
+- Después del primer aporte, la edición de reglas y los presets de inicio quedan deshabilitados. Sólo “Reiniciar ejemplo” empieza otro escenario; así el atajo no borra recibos ni saldos por accidente.
+- Para completar el recorrido, este escenario asigna el módulo configurado al estudiante sintético alumno-demo-01. No implementa catálogo/elección, matching, validación de elegibilidad ni integración institucional.
+- Un avance informado o contenido consultado se registra sin liberar dinero. Sólo `institution-test`, una constancia sintética, habilita el próximo tramo configurado.
+- Cada evento genera un ID local. Repetirlo se rechaza. El comprobante muestra monto del evento, total liberado y saldo reservado; los centavos se calculan con enteros.
+- La demo permanece en memoria: el nombre de estudiante, la constancia y los aportes son ficticios. No prueba una nota, no autentica una institución y no paga fondos.
+
+Casos específicos: `node --test tests/funding.test.mjs`. Evidencia de navegador y capturas, si están disponibles, se registra en [`qa.md`](qa.md); este apartado no convierte el simulador en integración blockchain.

@@ -1,36 +1,54 @@
-# Beca Modular — web de propuesta y roadmap
+# Beca Modular
 
-Web previa a LABITCONF EDU2026. Explica becas por materia con financiación completa o compartida, hitos académicos y devolución proporcional del saldo pendiente. La implementación funcional con Sepolia se planifica para las48h del evento.
+Demo pública de esta versión: <https://beca-clara.vercel.app/>. Usa datos sintéticos; no recibe fondos ni valida hitos académicos reales.
 
-## Ver la web
+Propuesta y demo local para financiar formación por módulos con un presupuesto limitado, reglas visibles y comprobantes entendibles. La demo usa datos sintéticos y sirve para revisar el flujo; no opera una beca real.
 
-    node server.mjs
+## Ejecutar localmente
 
-Abrir http://127.0.0.1:4178. demo.html es un simulador CONCEPTUAL con importes ficticios. No conecta wallets, cobra aportes, valida notas ni transfiere fondos.
+Requiere Node.js. No hace falta instalar dependencias.
 
-## Recorrido
+```powershell
+node server.mjs
+```
 
-1. Una persona aporta100USD deejemplo, o varios completan la meta desde1USD.
-2. Dos exámenes configurados liberan50/50USD ficticios.
-3. Una revisión pausa nuevos tramos. Abandono confirmado devuelve sólo saldo pendiente proporcionalmente.
-4. Lo ya ganado queda estudiante.60+40, liberado50 => devuelve30+20.
+Abrí <http://127.0.0.1:4178/> para la propuesta y el recorrido horizontal guiado por scroll; la portada enlaza a la demo interactiva en <http://127.0.0.1:4178/demo.html>. No requiere build ni dependencias. El server local sirve el código fuente. `dist/` contiene una copia estática sincronizada de la web.
 
-## Archivos
+## Demo rápida
 
-- index.html: producto, reglas, mapas/video, arquitectura planificada y roadmap.
-- demo.html + funding-model.mjs + roadmap.mjs: simulador conceptual y lógica de centavos.
-- laboratorio.html + app.js: exploraciones anteriores preservadas, MPP/finanzas/rendimiento/firma local.
-- respaldo.html + scholarship.mjs + scholarship-ui.mjs + judge.mjs: pruebaECDSA local con autoridad sintética; no es pagoSepolia.
-- contracts/: herramientas de desarrollo instaladas con autorización, sin contrato implementado.
-- docs/product-strategy.md, docs/architecture.md: fuente de verdad actual.
-- docs/hackathon/kit-presentacion.md y readiness.md: guion, pruebas previstas y pendientes.
+1. En **Editar presupuesto y reglas**, ajustá el módulo y dos hitos. Los importes deben sumar el presupuesto.
+2. Elegí **Dos aportes · 60% + 40%** para financiar el escenario sintético.
+3. Registrá una **Constancia institucional de prueba**. La regla libera el primer tramo y muestra el comprobante, lo liberado y lo reservado.
+4. Reintentá el comprobante para ver que el registro duplicado se rechaza. Elegí **Contenido consultado** o **Avance informado**: quedan en el historial, pero no liberan fondos.
+
+## Qué está conectado y qué no
+
+- `demo.html`, `roadmap.mjs` y `funding-model.mjs` forman una simulación interactiva en memoria. El motor usa centavos enteros, congela el presupuesto al recibir aportes, limita liberaciones al monto financiado y rechaza IDs de comprobante repetidos.
+- `respaldo.html`, `scholarship.mjs` y `scholarship-ui.mjs` son otro laboratorio local: firma ECDSA con una autoridad sintética creada en el navegador. No están conectados con la demo de financiación.
+- `index.html` y `docs/` explican la propuesta y distinguen lo planeado de lo comprobado. El plan técnico para la hackatón queda sujeto a la consigna, sus reglas y una prueba reproducible.
+- `contracts/` no contiene un contrato de beca implementado. No hay wallet, testnet, backend, datos de una institución ni transferencia de fondos.
 
 ## Comprobaciones locales
 
-    node --test tests/funding.test.mjs tests/scholarship.test.mjs tests/model.test.mjs tests/yield.test.mjs
+```powershell
+node --test tests/funding.test.mjs tests/scholarship.test.mjs tests/model.test.mjs tests/yield.test.mjs
+node --check funding-model.mjs
+node --check roadmap.mjs
+```
 
-Los tests prueban modelos locales. No prueban un escrow, una institución real ni resultados de mercado. El browser test histórico en tests/browser.cjs corresponde al laboratorio y requiere revisar la etiqueta de cada prueba antes de usarlo como evidencia actual.
+Regresión de reglas en navegador: `node tests/demo-rules-browser.cjs`. Inicia su propio servidor local y comprueba presupuesto accesible, cambios sin aplicar y errores visibles en móvil. Usa la instalación de Playwright del entorno Codex indicada en el archivo y Chrome; `BECA_BROWSER` permite elegir otro ejecutable. Para ejecutarla fuera de este entorno hay que adaptar la ruta de Playwright.
 
-## Próximo paso real
+Con `node server.mjs` activo, `node tests/story-browser.cjs` revisa la coreografía y `node tests/maps-browser.cjs` comprueba carga, demora, desconexión, reintento, restricciones de iframe y contraste. Las respuestas del último son fixtures sintéticos de QA; la verificación de los exploradores reales se registra aparte en `docs/qa.md`.
 
-Confirmar inscripción/equipo, consigna/rúbrica y permiso de código previo/IA. En48h: contrato/token test enSepolia, roles, aportes, confirmación, desembolso, replay y refunds verificables. No ingresar claves privadas o datos académicos/personales enestaweb.
+Los tests son de lógica local. No prueban una nota académica, un contrato, una transferencia o un reembolso real. La prueba de navegador histórica en `tests/browser.cjs` cubre otra página y no es evidencia de esta demo.
+
+## Proyecto y límites
+
+La interfaz no guarda información personal de estudiantes. Consultar contenido no demuestra aprendizaje; un avance informado tampoco acredita un logro académico. En la demo sólo una constancia institucional sintética habilita el próximo tramo. La IA puede asistir a la explicación o sugerir módulos, pero no decide elegibilidad ni autoriza pagos.
+
+El estado del producto, el plan hasta el evento y las decisiones abiertas están en [`docs/execution.md`](docs/execution.md), [`docs/hackathon/readiness.md`](docs/hackathon/readiness.md) y [`docs/qa.md`](docs/qa.md).
+
+
+## Copia local para presentar sin internet
+
+Desde la demo p?blica descarg? **Respaldo local de la demo (sin internet)**, o regener? el paquete desde el repositorio con `node scripts/build-offline-demo.mjs`. Extra? `beca-demo-offline.zip`, abr? una terminal en la carpeta extra?da y ejecut? `node server.mjs`. No requiere paquetes ni conexi?n. Abr? `http://127.0.0.1:4178/demo.html` antes de desconectarte. Eleg? **Iniciar demo ? 2 aportes ficticios**, registr? una **Constancia institucional de prueba** y reintent? el comprobante para mostrar el rechazo de repetici?n. Los mapas externos requieren internet y no est?n en el paquete. Probado en Chromium (390 ? 844) despu?s de cargar la demo local.
