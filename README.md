@@ -1,54 +1,38 @@
 # Beca Modular
 
-Demo pública de esta versión: <https://beca-clara.vercel.app/>. Usa datos sintéticos; no recibe fondos ni valida hitos académicos reales.
-
-Propuesta y demo local para financiar formación por módulos con un presupuesto limitado, reglas visibles y comprobantes entendibles. La demo usa datos sintéticos y sirve para revisar el flujo; no opera una beca real.
+Sitio público: <https://beca-clara.vercel.app/>. Propuesta para la Hackathon EDU HUB de LABITCONF 2026 (track Inclusión Financiera): complementos de beca que se pagan por Lightning cuando el estudiante cumple un hito validado, con un recibo verificable y devolución exacta de lo no usado. El sitio es una propuesta con simulaciones: no recibe fondos, no conecta billeteras ni valida hitos académicos reales. Los pagos reales se construyen durante la hackathon.
 
 ## Ejecutar localmente
 
-Requiere Node.js. No hace falta instalar dependencias.
+Requiere Node.js; no hay dependencias ni build.
 
-```powershell
+```sh
 node server.mjs
 ```
 
-Abrí <http://127.0.0.1:4178/> para la propuesta y el recorrido horizontal guiado por scroll; la portada enlaza a la demo interactiva en <http://127.0.0.1:4178/demo.html>. No requiere build ni dependencias. El server local sirve el código fuente. `dist/` contiene una copia estática sincronizada de la web.
+Abrí <http://127.0.0.1:4178/>. Vercel publica la carpeta `dist/` (ver `vercel.json`), que es una copia sincronizada del sitio; `research/` no se copia a `dist/`.
 
-## Demo rápida
+## Qué hay en la página
 
-1. En **Editar presupuesto y reglas**, ajustá el módulo y dos hitos. Los importes deben sumar el presupuesto.
-2. Elegí **Dos aportes · 60% + 40%** para financiar el escenario sintético.
-3. Registrá una **Constancia institucional de prueba**. La regla libera el primer tramo y muestra el comprobante, lo liberado y lo reservado.
-4. Reintentá el comprobante para ver que el registro duplicado se rechaza. Elegí **Contenido consultado** o **Avance informado**: quedan en el historial, pero no liberan fondos.
+- **Historia** (`index.html`, `roadmap.mjs`, `story-scenes.mjs`): apertura con Brote y tres escenas con datos oficiales en scroll horizontal: mapa con una marca roja por provincia (abandono interanual en secundaria, DiNIEE), árbol de aportes y curva del valor real de Progresar (IPC INDEC). Luego el cierre con Brote.
+- **Brote** (`brote-rig.mjs`, `brote-rig.css`, `brote-live.mjs`): personaje vectorial con partes articuladas; cada pose es una función del scroll. Aparece en la apertura, las escenas, el cierre y como compañero fijo. Sin JavaScript queda la ilustración PNG.
+- **Simulador en sats** (`tramo-model.mjs`, `tramo-ui.mjs`): fondeo compartido, hitos, revisión y baja, devolución por mayor resto; registro público con fondeado = pagado + devuelto + reservado.
+- **Verificador de recibos** (`tramo-verify.mjs`): decodifica facturas BOLT11 y comprueba SHA-256(preimage) = payment hash, sin conexión.
+- **Laboratorio de datos** (`evidence-map.mjs`, `data/`): serie oficial de abandono interanual 2012-2025 por jurisdicción.
+- `demo.html` es la exploración anterior (árbol de aportes en USD ilustrativos); `laboratorio.html` y `respaldo.html` conservan experimentos previos.
 
-## Qué está conectado y qué no
+## Pruebas
 
-- `demo.html`, `roadmap.mjs` y `funding-model.mjs` forman una simulación interactiva en memoria. El motor usa centavos enteros, congela el presupuesto al recibir aportes, limita liberaciones al monto financiado y rechaza IDs de comprobante repetidos.
-- `respaldo.html`, `scholarship.mjs` y `scholarship-ui.mjs` son otro laboratorio local: firma ECDSA con una autoridad sintética creada en el navegador. No están conectados con la demo de financiación.
-- `index.html` y `docs/` explican la propuesta y distinguen lo planeado de lo comprobado. El plan técnico para la hackatón queda sujeto a la consigna, sus reglas y una prueba reproducible.
-- `contracts/` no contiene un contrato de beca implementado. No hay wallet, testnet, backend, datos de una institución ni transferencia de fondos.
-
-## Comprobaciones locales
-
-```powershell
-node --test tests/funding.test.mjs tests/scholarship.test.mjs tests/model.test.mjs tests/yield.test.mjs
-node --check funding-model.mjs
-node --check roadmap.mjs
+```sh
+node --test tests/*.test.mjs
 ```
 
-Regresión de reglas en navegador: `node tests/demo-rules-browser.cjs`. Inicia su propio servidor local y comprueba presupuesto accesible, cambios sin aplicar y errores visibles en móvil. Usa la instalación de Playwright del entorno Codex indicada en el archivo y Chrome; `BECA_BROWSER` permite elegir otro ejecutable. Para ejecutarla fuera de este entorno hay que adaptar la ruta de Playwright.
+Pruebas de navegador (con `node server.mjs` activo): `story-browser`, `evidence-browser`, `demo-browser`, `tree-browser` y `demo-rules-browser` en `tests/`. Usan la ruta de Playwright indicada en cada archivo y aceptan `BECA_BROWSER` (ejecutable de Chromium) y `BECA_SITE_URL` (por ejemplo `http://127.0.0.1:4178/dist/index.html` para probar lo publicado).
 
-Con `node server.mjs` activo, `node tests/story-browser.cjs` revisa la coreografía y `node tests/maps-browser.cjs` comprueba carga, demora, desconexión, reintento, restricciones de iframe y contraste. Las respuestas del último son fixtures sintéticos de QA; la verificación de los exploradores reales se registra aparte en `docs/qa.md`.
+## Investigación
 
-Los tests son de lógica local. No prueban una nota académica, un contrato, una transferencia o un reembolso real. La prueba de navegador histórica en `tests/browser.cjs` cubre otra página y no es evidencia de esta demo.
-
-## Proyecto y límites
-
-La interfaz no guarda información personal de estudiantes. Consultar contenido no demuestra aprendizaje; un avance informado tampoco acredita un logro académico. En la demo sólo una constancia institucional sintética habilita el próximo tramo. La IA puede asistir a la explicación o sugerir módulos, pero no decide elegibilidad ni autoriza pagos.
-
-El estado del producto, el plan hasta el evento y las decisiones abiertas están en [`docs/execution.md`](docs/execution.md), [`docs/hackathon/readiness.md`](docs/hackathon/readiness.md) y [`docs/qa.md`](docs/qa.md).
-
+`research/` contiene la auditoría, reglas y jurado, benchmark de ganadores, datos de Argentina, evaluación de OpenARG, portafolio de ideas, matriz de decisión, red team, product brief, plan, pitch y recomendación, con fuentes y datos reproducibles en `research/data/`. Decisiones de diseño: `docs/ux-redesign.md`.
 
 ## Copia local para presentar sin internet
 
-Desde la demo p?blica descarg? **Respaldo local de la demo (sin internet)**, o regener? el paquete desde el repositorio con `node scripts/build-offline-demo.mjs`. Extra? `beca-demo-offline.zip`, abr? una terminal en la carpeta extra?da y ejecut? `node server.mjs`. No requiere paquetes ni conexi?n. Abr? `http://127.0.0.1:4178/demo.html` antes de desconectarte. Eleg? **Iniciar demo ? 2 aportes ficticios**, registr? una **Constancia institucional de prueba** y reintent? el comprobante para mostrar el rechazo de repetici?n. Los mapas externos requieren internet y no est?n en el paquete. Probado en Chromium (390 ? 844) despu?s de cargar la demo local.
+`node scripts/build-offline-demo.mjs` genera `beca-demo-offline.zip` con la demo; se extrae, se ejecuta `node server.mjs` y se abre `http://127.0.0.1:4178/demo.html`.
