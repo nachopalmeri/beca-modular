@@ -16,34 +16,39 @@ const el = (tag, attrs = {}, parent) => {
 };
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
 
-/* I · Mapa: abandono interanual en secundaria, último período publicado */
+/* I · Mapa: una marca roja por provincia, proporcional al abandono interanual en secundaria */
 function buildMap(svg, tip) {
   const year = abandonoYears.length - 1;
   svg.setAttribute('viewBox', geoViewBox);
-  const values = Object.values(abandonoProvincias).map(p => p.secundaria[year]);
-  const max = Math.max(...values), min = Math.min(...values);
+  const land = el('g', { class: 'bm-land' }, svg);
+  for (const prov of provincias) el('path', { d: prov.path, class: 'bm-prov' }, land);
+  const max = Math.max(...Object.values(abandonoProvincias).map(p => p.secundaria[year]));
   const ranked = Object.entries(abandonoProvincias).sort((a, b) => b[1].secundaria[year] - a[1].secundaria[year]);
-  const rank = new Map(ranked.map(([id], i) => [id, i]));
+  const marks = el('g', { class: 'bm-marks' }, svg);
   const nodes = [];
-  for (const prov of provincias) {
-    const data = abandonoProvincias[prov.id];
-    if (!data) continue;
-    const v = data.secundaria[year];
-    const path = el('path', { d: prov.path, class: 'bm-prov', tabindex: '0', role: 'button', 'aria-label': `${data.nombre}: ${fmt(v, 2)}% de abandono interanual en secundaria (${abandonoYears[year]})` }, svg);
-    path.style.setProperty('--heat', clamp((v - min) / (max - min)).toFixed(3));
-    path.style.setProperty('--delay', `${rank.get(prov.id) * 45}ms`);
+  // De menor a mayor, así las marcas más grandes quedan arriba y aparecen al final.
+  for (const [id, data] of [...ranked].reverse()) {
+    const prov = provincias.find(p => p.id === id);
+    if (!prov) continue;
+    const v = data.secundaria[year], [x, y] = prov.centro;
+    const r = 10 + Math.sqrt(Math.max(0, v) / max) * 46;
+    const g = el('g', { class: 'bm-mark', tabindex: '0', role: 'button', 'aria-label': `${data.nombre}: ${fmt(v, 2)}% de abandono interanual en secundaria (${abandonoYears[year]})` }, marks);
+    el('circle', { cx: x, cy: y, r: r + 9, class: 'bm-mark-halo' }, g);
+    el('circle', { cx: x, cy: y, r, class: 'bm-mark-dot' }, g);
+    // Trazo "a mano": un segundo anillo levemente corrido, como una marca hecha con lápiz.
+    el('ellipse', { cx: x + 2, cy: y - 1.5, rx: r + 4, ry: r + 1, class: 'bm-mark-ring', transform: `rotate(${(Number(id) * 37) % 50 - 25} ${x} ${y})` }, g);
     const show = () => { tip.innerHTML = `<b>${data.nombre}</b> · ${fmt(v, 2)}% no volvió a inscribirse (${abandonoYears[year]})`; };
-    path.addEventListener('pointerenter', show); path.addEventListener('focus', show); path.addEventListener('click', show);
-    nodes.push(path);
+    g.addEventListener('pointerenter', show); g.addEventListener('focus', show); g.addEventListener('click', show);
+    nodes.push(g);
   }
   for (const [id, data] of ranked.slice(0, 3)) {
     const prov = provincias.find(p => p.id === id);
     const [x, y] = prov.centro;
-    const label = el('text', { x: x + 34, y: y + 12, class: 'bm-map-label' }, svg);
+    const label = el('text', { x: x + 64, y: y + 12, class: 'bm-map-label' }, svg);
     label.textContent = `${data.nombre} ${fmt(data.secundaria[year])}%`;
     nodes.push(label);
   }
-  return t => nodes.forEach((n, i) => n.classList.toggle('on', t > (i / nodes.length) * 0.85));
+  return t => nodes.forEach((n, i) => n.classList.toggle('on', t > 0.08 + (i / nodes.length) * 0.8));
 }
 
 /* III · Árbol: cada hoja es un aporte (billete, peso o bitcoin) */
@@ -135,46 +140,36 @@ function buildChart(svg) {
   };
 }
 
-function buildSteps(list) {
-  const items = [...list.querySelectorAll('li')];
-  return t => items.forEach((li, i) => li.classList.toggle('on', t > 0.1 + i * 0.22));
-}
 
-function buildCounters(scope) {
-  const nodes = [...scope.querySelectorAll('[data-count]')];
-  return t => nodes.forEach(node => {
-    const target = Number(node.dataset.count);
-    node.textContent = `${fmt(target * ease(clamp(t / 0.7)), Number(node.dataset.decimals ?? 1))}${node.dataset.suffix ?? '%'}`;
-  });
-}
 
-function play(driver, duration) {
-  if (reduceMotion.matches) { driver(1); return; }
+// Cada cuadro de una escena avisa su progreso: Brote (brote-live.mjs) reacciona a la par.
+const emit = (scene, t) => document.dispatchEvent(new CustomEvent('bm-scene', { detail: { scene, t } }));
+
+function play(scene, driver, duration) {
+  if (reduceMotion.matches) { driver(1); emit(scene, 1); return; }
   const start = performance.now();
-  const frame = now => { const t = clamp((now - start) / duration); driver(t); if (t < 1) requestAnimationFrame(frame); };
+  const frame = now => { const t = clamp((now - start) / duration); driver(t); emit(scene, t); if (t < 1) requestAnimationFrame(frame); };
   requestAnimationFrame(frame);
 }
 
 function mount() {
   const scenes = [
-    ['#bm-map', root => buildMap(root.querySelector('svg'), root.querySelector('.bm-map-tip')), 1700],
-    ['#bm-gap', root => buildCounters(root), 1400],
-    ['#bm-tree', root => buildTree(root.querySelector('svg')), 3000],
-    ['#bm-receipt', root => buildSteps(root), 2200],
-    ['#bm-chart', root => buildChart(root.querySelector('svg')), 2600],
+    ['mapa', '#bm-map', root => buildMap(root.querySelector('svg'), root.querySelector('.bm-map-tip')), 2200],
+    ['arbol', '#bm-tree', root => buildTree(root.querySelector('svg')), 3000],
+    ['curva', '#bm-chart', root => buildChart(root.querySelector('svg')), 2600],
   ];
   const nacional = document.querySelector('[data-abandono-nacional]');
-  if (nacional) nacional.dataset.count = abandonoPais.secundaria.at(-1);
-  for (const [selector, build, duration] of scenes) {
+  if (nacional) nacional.textContent = `${fmt(abandonoPais.secundaria.at(-1), 2)}%`;
+  for (const [scene, selector, build, duration] of scenes) {
     const root = document.querySelector(selector);
     if (!root) continue;
     const driver = build(root);
-    if (reduceMotion.matches) { driver(1); continue; } // sin animación: todo visible desde el inicio
+    if (reduceMotion.matches) { driver(1); emit(scene, 1); continue; } // sin animación: todo visible desde el inicio
     driver(0);
     let played = false;
     const io = new IntersectionObserver(entries => {
       if (played || !entries.some(e => e.isIntersecting)) return;
-      played = true; io.disconnect(); play(driver, duration);
+      played = true; io.disconnect(); play(scene, driver, duration);
     }, { threshold: 0.45 });
     io.observe(root);
   }

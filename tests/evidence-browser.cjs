@@ -87,7 +87,7 @@ const path=require('node:path');
     await page.locator('#evidencia-lab').screenshot({path:path.resolve('docs/captures/evidencia-desktop.png')});
 
     // Story tree scene: leaves (bills and coins) appear once the scene is shown.
-    await page.locator('[data-story-go="2"]').click();
+    await page.locator('[data-story-go="1"]').click();
     await page.waitForFunction(()=>document.querySelectorAll('#bm-tree .bm-leaf.on').length>40,null,{timeout:8000});
     await page.waitForTimeout(500);
     await page.locator('#bm-tree').screenshot({path:path.resolve('docs/captures/arbol-escena.png')});
@@ -96,7 +96,7 @@ const path=require('node:path');
     await page.locator('#companero').scrollIntoViewIfNeeded();
     await page.waitForFunction(()=>document.querySelector('#companero').classList.contains('is-visible'),null,{timeout:4000});
     assert.match(await page.locator('#companero h2').innerText(),/Brote/);
-    assert.equal(await page.locator('#companero .companion-stage img').evaluate(image=>getComputedStyle(image).opacity),'1');
+    assert.equal(await page.locator('#companero .companion-stage .br-rig').count(),1,'Brote rests in the closing scene');
     await page.waitForTimeout(1700);
     await page.locator('#companero').screenshot({path:path.resolve('docs/captures/companero-desktop.png')});
 

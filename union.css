@@ -10,15 +10,20 @@
 .bm-art > svg { width: 100%; height: auto; max-height: calc(100svh - 300px); overflow: visible; }
 .story-panel-copy .bm-source { margin-top: 14px; padding-top: 10px; border-top: 1px solid #cbbb9b; color: #7d725f; font: 11px/1.6 var(--mono); }
 
-/* I · mapa */
+/* I · mapa con marcas rojas */
 .bm-art-map .bm-map { max-height: calc(100svh - 320px); width: auto; max-width: 100%; }
-.bm-prov { fill: color-mix(in oklab, #efe2c4 calc((1 - var(--heat)) * 100%), #9e3b2a); stroke: #1b3127; stroke-width: 2.4; opacity: 0; transition: opacity .6s ease var(--delay), fill .2s; cursor: pointer; }
-.bm-prov.on { opacity: 1; }
-.bm-prov:hover, .bm-prov:focus { stroke: var(--bm-gold); stroke-width: 6; outline: none; }
-.bm-map-label { fill: var(--bm-paper); font: 600 34px var(--mono); paint-order: stroke; stroke: var(--bm-forest); stroke-width: 10px; opacity: 0; transition: opacity .6s; }
+.bm-prov { fill: #2b241b; stroke: #8c7a5a; stroke-width: 2.2; }
+.bm-mark { cursor: pointer; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(.2); transition: opacity .45s ease, transform .6s cubic-bezier(.2,1.6,.4,1); }
+.bm-mark.on { opacity: 1; transform: scale(1); }
+.bm-mark-halo { fill: #c4513f; opacity: .16; }
+.bm-mark-dot { fill: #b8402e; opacity: .82; }
+.bm-mark-ring { fill: none; stroke: #e8826a; stroke-width: 3.2; stroke-dasharray: 26 6 40 4; opacity: .9; }
+.bm-mark:hover .bm-mark-dot, .bm-mark:focus .bm-mark-dot { opacity: 1; fill: #d2553d; }
+.bm-mark:focus { outline: none; }
+.bm-map-label { fill: #f3e6c8; font: 600 34px var(--mono); paint-order: stroke; stroke: #15120e; stroke-width: 10px; opacity: 0; transition: opacity .6s; }
 .bm-map-label.on { opacity: 1; }
-.bm-map-tip { margin: 8px 0 0; font: 11px/1.5 var(--mono); color: #c9d2bd; text-align: center; min-height: 3em; }
-.bm-map-tip b { color: var(--bm-paper); font-weight: 600; }
+.bm-map-tip { margin: 8px 0 0; font: 11px/1.5 var(--mono); color: #c9bc9c; text-align: center; min-height: 3em; }
+.bm-map-tip b { color: #f3e6c8; font-weight: 600; }
 
 /* II · brecha */
 .bm-gap { flex-direction: column; align-items: center; gap: 2px; }
@@ -192,3 +197,46 @@ path.bm-gap { fill: #ddbc8336; opacity: 0; }
 .story-track-shell:not(.is-pinned) .bm-visual .story-art-copy.bm-art { height: auto; }
 /* En las escenas de datos Brote presenta desde su columna: mantiene sus poses pero no cruza el gráfico. */
 .story-track-shell.is-pinned .bm-visual .story-mascot { left: clamp(18px, var(--brote-start, 4%), calc(100% - var(--brote-size) - 18px)); }
+
+/* ---------- Dark academia en toda la historia ---------- */
+.scroll-story { background: #14110d; color: #efe4c8; }
+.scroll-story::before { background: radial-gradient(ellipse at 18% 8%, #d9b56a1f, transparent 42%), radial-gradient(ellipse at 88% 70%, #6b2a2224, transparent 45%), linear-gradient(160deg, #18140f, #100d0a 70%, #16120d); }
+.scroll-story::after { content: ""; position: absolute; z-index: -1; inset: 0; opacity: .07; pointer-events: none; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.scroll-story .story-heading .eyebrow { color: #d9b56a; }
+.scroll-story .story-heading h2 { color: #f6ead0; font-family: Georgia, "Times New Roman", serif; font-weight: 500; letter-spacing: -.03em; }
+.scroll-story .story-heading p { color: #cdbf9f; }
+.scroll-story .story-panel, .story-track-shell.is-pinned .story-panel, .story-track-shell.is-pinned .story-panel:nth-child(even) { background: transparent; border-color: #3a3024; color: #efe4c8; box-shadow: none; }
+.scroll-story .story-panel-copy h3 { color: #f6ead0; font-family: Georgia, serif; }
+.scroll-story .story-panel-copy p { color: #cdbf9f; }
+.scroll-story .story-panel-copy strong { color: #fff3d8; }
+.scroll-story .story-kicker { color: #d9b56a; }
+.scroll-story .story-link { color: #e3c486; border-bottom-color: #8a7350; }
+.scroll-story .story-link:hover { color: #f2d49a; }
+.story-panel-copy .bm-source { border-top-color: #3a3024; color: #9a8c70; }
+.story-visual.bm-visual { background: radial-gradient(120% 90% at 30% 15%, #2a2219 0%, #17130e 72%); box-shadow: inset 0 0 0 1px #d9b56a40, inset 0 0 0 7px #17130e, inset 0 0 0 8px #d9b56a26; }
+.bm-visual .story-word { color: #d9b56a; opacity: .13; font-family: Georgia, serif; font-weight: 700; }
+.scroll-story .story-controls { color: #cdbf9f; }
+.scroll-story .story-dots a[aria-current="step"] { background: #d9b56a; color: #15120e; }
+.bm-branches path { stroke: #7a5a3a; }
+.bm-ground { fill: #00000066; }
+
+/* ---------- Brote articulado en cada lugar ---------- */
+.story-mascot.has-rig { display: block; }
+.story-mascot.has-rig .br-rig { width: 100%; filter: drop-shadow(0 12px 10px #0000006b); }
+.brote-opening-mascot.has-rig .br-rig { width: 100%; filter: drop-shadow(0 16px 12px #00000080); }
+.companion-stage .br-rig { width: clamp(180px, 21vw, 250px); filter: drop-shadow(0 20px 16px #041d2488); }
+.companion-stage .br-zz { font-size: 18px; }
+
+/* Compañero fijo */
+.br-companion { position: fixed; right: max(12px, 2vw); bottom: 14px; z-index: 60; display: grid; justify-items: end; gap: 6px; pointer-events: none; transition: opacity .45s ease, transform .45s ease; }
+.br-companion.is-away { opacity: 0; transform: translateY(40px); }
+.br-companion-body { width: clamp(70px, 7vw, 96px); }
+.br-companion-body .br-rig { filter: drop-shadow(0 10px 10px #00000055); }
+.br-bubble { max-width: 230px; margin: 0; padding: 9px 13px; border-radius: 14px 14px 3px 14px; background: #f6ead0; color: #2a2016; font: italic 500 15px/1.35 Georgia, serif; box-shadow: 0 10px 22px -12px #000; }
+.br-bubble:empty { display: none; }
+.br-bubble.pop { animation: br-pop .45s cubic-bezier(.2,1.6,.4,1); }
+@keyframes br-pop { from { opacity: 0; transform: translateY(8px) scale(.7); } }
+@media (max-width: 600px) { .br-bubble { font-size: 13px; max-width: 170px; } .br-companion-body { width: 62px; } }
+@media (prefers-reduced-motion: reduce) { .br-bubble.pop { animation: none; } .br-companion { transition: none; } }
+.bm-visual .story-mascot.has-rig figcaption { display: none; }

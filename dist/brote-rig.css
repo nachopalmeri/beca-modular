@@ -1,0 +1,27 @@
+/* Brote vectorial. Las transformaciones las aplica brote-rig.mjs cuadro a cuadro. */
+.br-rig { display: block; width: 100%; height: auto; overflow: visible; }
+.br-rig * { transform-box: view-box; }
+.br-shadow { fill: #0000002e; }
+.br-stem { fill: none; stroke-width: 9; stroke-linecap: round; }
+.br-rig .br-leg > .br-shin { fill: none; stroke: #e2cfa6; stroke-width: 7; stroke-linecap: round; }
+.br-rig .br-shoe { fill: #3f6b48; stroke: #22432f; stroke-width: 1.6; }
+.br-cover { stroke: #1a3324; stroke-width: 1.4; }
+.br-sheet { stroke: #c8b285; stroke-width: .9; }
+.br-face-page { stroke: #c8b285; stroke-width: 1.3; }
+.br-curl { stroke: #c8b285; stroke-width: .8; }
+.br-eyes-open circle { fill: #2a2018; }
+.br-eyes-open .br-glint { fill: #fff8ea; }
+.br-eyes-happy, .br-eyes-closed { fill: none; stroke: #2a2018; stroke-width: 3; stroke-linecap: round; display: none; }
+.br-rig[data-eyes="happy"] .br-eyes-open, .br-rig[data-eyes="closed"] .br-eyes-open { display: none; }
+.br-rig[data-eyes="happy"] .br-eyes-happy, .br-rig[data-eyes="closed"] .br-eyes-closed { display: inline; }
+.br-brows { stroke: #2a2018; stroke-width: 2.4; stroke-linecap: round; opacity: 0; }
+.br-blush { fill: #e8977c; opacity: .55; }
+.br-mouth { fill: none; stroke: #2a2018; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; display: none; }
+.br-mouth-o, .br-mouth-grin { fill: #7a3328; }
+.br-rig[data-mood="smile"] .br-mouth-smile, .br-rig:not([data-mood]) .br-mouth-smile, .br-rig[data-mood="sad"] .br-mouth-sad, .br-rig[data-mood="o"] .br-mouth-o, .br-rig[data-mood="grin"] .br-mouth-grin { display: inline; }
+.br-arm path { stroke: #c8b285; stroke-width: 1.2; stroke-linejoin: round; }
+.br-cap { opacity: 0; }
+.br-cap path:not(.br-tassel) { fill: #1f1a15; stroke: #d9b56a; stroke-width: 1.4; }
+.br-cap .br-tassel { fill: none; stroke: #d9b56a; stroke-width: 1.4; }
+.br-cap circle { fill: #d9b56a; }
+.br-zz { opacity: 0; fill: #d9b56a; font: 700 16px Georgia, serif; }
