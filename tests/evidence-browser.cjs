@@ -86,15 +86,11 @@ const path=require('node:path');
 
     await page.locator('#evidencia-lab').screenshot({path:path.resolve('docs/captures/evidencia-desktop.png')});
 
-    // Tree teaser grows once it enters the viewport.
-    await page.locator('#arbol-ejemplo').scrollIntoViewIfNeeded();
-    await page.waitForFunction(()=>document.querySelectorAll('#arbol-ejemplo .ft-leaf').length===3,null,{timeout:6000});
-    assert.equal(await page.locator('#arbol-ejemplo .ft-fruit').count(),1);
-    assert.match(await page.locator('#arbol-ejemplo [data-tree-status]').innerText(),/3 hojas/);
-    assert.match(await page.locator('#arbol-ejemplo [data-tree-status]').innerText(),/1 fruto/);
-    assert.equal(await page.locator('#arbol-ejemplo .tree-fallback').count(),0,'the static fallback is replaced once the tree renders');
-    await page.waitForTimeout(700);
-    await page.locator('#arbol-ejemplo').screenshot({path:path.resolve('docs/captures/arbol-teaser.png')});
+    // Story tree scene: leaves (bills and coins) appear once the scene is shown.
+    await page.locator('[data-story-go="2"]').click();
+    await page.waitForFunction(()=>document.querySelectorAll('#bm-tree .bm-leaf.on').length>40,null,{timeout:8000});
+    await page.waitForTimeout(500);
+    await page.locator('#bm-tree').screenshot({path:path.resolve('docs/captures/arbol-escena.png')});
 
     // Closing companion reveals itself and keeps Brote resting.
     await page.locator('#companero').scrollIntoViewIfNeeded();
@@ -112,7 +108,7 @@ const path=require('node:path');
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'no horizontal overflow with the companion');
     await page.locator('#evidencia-lab').screenshot({path:path.resolve('docs/captures/evidencia-mobile.png')});
     assert.deepEqual(errors,[],'no page errors while exercising the lab');
-    console.log('PASS: evidence lab (areas/points, level and year rails, ranking, chart, table, keyboard), tree teaser growth and closing companion at desktop and mobile widths.');
+    console.log('PASS: evidence lab (areas/points, level and year rails, ranking, chart, table, keyboard), story tree scene and closing companion at desktop and mobile widths.');
     await context.close();
 
     // Reduced motion: the teaser renders instantly and the companion never hides content.
@@ -120,7 +116,7 @@ const path=require('node:path');
     const reducedPage=await reduced.newPage();
     await reducedPage.goto(process.env.BECA_SITE_URL||'http://127.0.0.1:4178/');
     await reducedPage.waitForSelector('#evidencia-svg .ev-area');
-    await reducedPage.waitForFunction(()=>document.querySelectorAll('#arbol-ejemplo .ft-leaf').length===3);
+    await reducedPage.waitForFunction(()=>document.querySelectorAll('#bm-tree .bm-leaf.on').length>40);
     assert.doesNotMatch(await reducedPage.locator('#companero').getAttribute('class')||'',/is-armed/,'reduced motion must not arm the reveal');
     assert.equal(await reducedPage.locator('#companero .companion-copy').evaluate(element=>getComputedStyle(element).opacity),'1');
     await reduced.close();

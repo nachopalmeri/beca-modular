@@ -117,3 +117,13 @@ Files: `evidence-map.mjs`, `tree.mjs`, `data/abandono-interanual.mjs`, `data/geo
 - The evidence chart now plots the published negatives: the y-axis extends to a negative floor snapped to the grid, with negative labels, instead of clamping values onto the 0 line.
 - The offline kit is self-consistent: the ZIP carries a small Spanish `index.html` that explains the offline copy and links both the demo and the online landing, and the demo's self-download paragraph becomes an “Ya estás dentro del respaldo offline…” note inside the kit.
 - Page cache-bust consistency (`?v=28` across all four pages, source and dist) is enforced by `tests/versions.test.mjs`.
+
+## Unión con la historia de datos — 26 de octubre de 2026
+
+Se unieron dos líneas de trabajo: esta rama (diseño, Brote, laboratorio DiNIEE, árbol, compañero) y la de `main` (historia con datos oficiales, pivote a Lightning, simulador en sats, verificador de recibos e investigación en `research/`).
+
+- **Recorrido:** se conserva el motor (apertura con Brote caminando, paneles fijados, flechas y fallback). Los cuatro capítulos abstractos se reemplazan por cinco escenas con datos: mapa de abandono interanual en secundaria 2024-25 por provincia (DiNIEE, mismo dato del laboratorio), brecha (INDEC 1S-2026: 36,9% de pobreza en 15–29 años; decil más pobre 7,9% → 1,1%), árbol de aportes (billetes y bitcoin), recibo de un tramo y curva del valor real de Progresar (IPC INDEC). Cada escena se dibuja al entrar en pantalla; con movimiento reducido se muestra completa desde el inicio.
+- **Brote en las escenas de datos:** presenta desde su columna (mantiene poses) y no cruza el gráfico; `tests/story-browser.cjs` exige que no tape la visualización en todos los anchos.
+- **Secciones:** hero (texto Lightning), reglas, simulador en sats, verificador real (BOLT11 + SHA-256), comparación de rieles y límites, laboratorio de datos, plan, fuentes y compañero. Se retiraron del landing: video, tecnología, visores externos de mapas, método, roadmap, estado y preguntas frecuentes (siguen disponibles en `laboratorio.html`, `docs/` y `research/`). La guía de entrevistas sigue enlazada desde el plan.
+- **Archivos nuevos:** `story-scenes.mjs`, `union.css`, `data/progresar-real.mjs`, `tramo-model.mjs`, `tramo-verify.mjs`, `tramo-ui.mjs`, `tests/tramo.test.mjs`, `research/`. `research/` no se copia a `dist/` (contiene análisis de jurado y red team).
+- **Pruebas:** `node --test tests/*.test.mjs` 74/74; `story-browser`, `tree-browser`, `evidence-browser`, `demo-browser` y `demo-rules-browser` PASS contra el sitio fuente y `dist/index.html`. `maps-browser.cjs` se retiró junto con los visores externos.

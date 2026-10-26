@@ -1,0 +1,52 @@
+﻿Bases y Condiciones  
+Hackathon EDU HUB LABITCONF 2026
+
+La Hackathon del EDU HUB es una competencia de innovación y emprendimiento que se realiza en el marco de LABITCONF 2026, la conferencia de Bitcoin y blockchain más longeva del mundo en actividad ininterrumpida desde 2013, los días 30 y 31 de octubre en Costa Salguero, Buenos Aires. Consiste en un desafío de dos días en el que los equipos detectan un problema, desarrollan una solución y la presentan como demo frente a un jurado.
+Disclaimer: Los criterios de evaluación y la composición final del jurado siguen en curso de definición. Serán actuaizados a su debido tiempo en este documento. 
+Quiénes pueden participar
+La participación está reservada a miembros del EDU HUB: estudiantes, profesores y alumni de universidades acreditadas a LABITCONF 2026. Antes de inscribirse a la Hackathon es necesario verificar que la universidad de origen esté acreditada al programa. Si tu universidad no está acreditada, pero tienes equipo, nos puedes escribir a contacto@labitconf.com
+La organización se reserva el derecho de verificar la condición de miembro del EDU HUB de cualquier participante en cualquier instancia del proceso.
+Equipos e inscripción
+* Se participa en equipos de un mínimo de 4 y un máximo de 5 personas.
+* Todos los integrantes de un equipo deben inscribirse individualmente a través de Luma, indicando el nombre del equipo al que pertenecen.
+* Quienes se inscriban sin equipo formado pueden hacerlo igualmente. El día de acreditación presencial (30 de Octubre en LABITCONF) se los asignará a un equipo mediante una dinámica organizada por la producción, exclusiva para quienes se acrediten sin equipo ese día.
+* El cierre de inscripciones es el 16 de octubre de 2026, o hasta agotar el cupo máximo de participantes, lo que ocurra primero.
+Tracks
+Cada equipo elige uno de los siguientes tracks y desarrolla su proyecto en torno a un desafío específico de esa área:
+* Inclusión Financiera: Blockchain como herramienta para dar acceso financiero a quienes el sistema tradicional deja afuera.
+* Nueva Educación: Tecnología para democratizar el acceso al conocimiento y formar a la próxima generación del ecosistema.
+* Creator Economy: Herramientas que le dan a cada creador control real sobre lo que hace y lo que gana.
+* Impacto y Comunidad: Tecnología al servicio de la vida en comunidad, la descentralización y la gobernanza.
+La premisa y el desafío específico de cada track serán comunicados a los equipos antes del inicio de la Hackathon.
+Mecánica, entregable y evaluación
+La Hackathon se desarrolla a lo largo de los dos días de LABITCONF. Durante ese tiempo, los equipos cuentan con el acompañamiento de mentores para el desarrollo de sus proyectos.
+El entregable final es una demo funcional del producto desarrollado; no se aceptan presentaciones exclusivamente en formato de diapositivas.
+No existe instancia de preselección: todos los equipos inscriptos presentan su proyecto frente al jurado, en un pitch de 1 minuto seguido de 1 minuto de preguntas del jurado.
+El jurado estará compuesto por referentes del ecosistema Bitcoin y blockchain. Cada track cuenta con jurados asignados, y la totalidad del jurado evalúa a todos los equipos, independientemente del track. Los criterios de evaluación serán comunicados a los equipos antes del pitch final. Las decisiones del jurado son definitivas e inapelables.
+Premios
+* 1er puesto: USD 1.000
+* 2do puesto: USD 500
+Los premios son únicos y no acumulables entre sí. La organización se reserva el derecho de sumar reconocimientos o premios adicionales, que serán comunicados oportunamente.
+
+
+Fechas clave
+Fecha
+	Hito
+	25 de octubre de 2026
+	Cierre de inscripción a la Hackathon (o agotamiento de cupo) lo que pase primero 
+	30 de octubre de 2026
+	Día 1 — acreditación, presentación de tracks y desarrollo de proyectos
+	31 de octubre de 2026
+	Día 2 — pitches finales, premiación y cierre
+	Logística
+La comida no está incluida. Cada participante debe cubrir sus propias comidas durante los dos días.
+El predio cierra sus puertas el viernes 30 de octubre a las 19:30hs. No es posible permanecer en el predio fuera de ese horario: todos los participantes deben retirarse a sus domicilios al cierre de la jornada 1 y volver la jornada 2 antes del horario de entrega para entregar presencialmente su proyecto y pitchear.
+
+Condiciones generales
+Propiedad intelectual. Los proyectos desarrollados durante la Hackathon son propiedad de los equipos que los crearon. Al participar, los equipos autorizan a LABITCONF y al EDU HUB a difundir el nombre, la descripción y las capturas o video de la demo de su proyecto con fines de comunicación y promoción del evento, sin que ello implique cesión de derechos sobre el desarrollo.
+Uso de imagen. La inscripción implica la autorización para que LABITCONF y el EDU HUB utilicen fotografías, videos y grabaciones tomadas durante la Hackathon en las que el participante pueda aparecer, con fines de difusión y comunicación, sin derecho a compensación alguna.
+Conducta. Se espera de los participantes un comportamiento respetuoso hacia el resto de los equipos, mentores, jurado y equipo organizador. La organización podrá descalificar a cualquier participante o equipo que incurra en conductas de acoso, discriminación, plagio o incumplimiento de estas bases.
+Modificaciones. La organización podrá modificar fechas, sedes, formato o cualquier otro aspecto de la Hackathon por razones de fuerza mayor o caso fortuito, notificando a los participantes con la mayor antelación posible.
+Aceptación. La inscripción a la Hackathon implica la aceptación plena de estas bases y condiciones.
+Contacto
+Ante cualquier consulta sobre estas bases, escribir a contacto@labitconf.com .

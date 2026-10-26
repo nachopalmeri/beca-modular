@@ -1,7 +1,7 @@
-import {mountBroteStory,renderBroteChapter} from './brote-motion.mjs?v=28';
+import {mountBroteStory,renderBroteChapter} from './brote-motion.mjs?v=29';
 import {initialFundingDemo,dollarsToCents,contribute,recordProgress,requestReview,resumeFunding,confirmAbandonment,closeUnderfunded,reservedFunds} from './funding-model.mjs';
-import {mountEvidenceLab} from './evidence-map.mjs?v=28';
-import {mountFundingTree} from './tree.mjs?v=28';
+import {mountEvidenceLab} from './evidence-map.mjs?v=29';
+import {mountFundingTree} from './tree.mjs?v=29';
 const $=selector=>document.querySelector(selector),$$=selector=>[...document.querySelectorAll(selector)];
 const usd=cents=>(cents/100).toLocaleString('es-AR',{maximumFractionDigits:2})+' USD';
 if($('#menu')){$('#menu').addEventListener('click',()=>{const open=$('#nav').classList.toggle('open');$('#menu').setAttribute('aria-expanded',String(open));});$$('#nav a').forEach(a=>a.addEventListener('click',()=>{$('#nav').classList.remove('open');$('#menu').setAttribute('aria-expanded','false');}));}

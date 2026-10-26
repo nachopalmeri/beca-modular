@@ -1,0 +1,1 @@
+IPC ago-26/sep-24 = 1.7237; 35000 ajustado = 60,330; perdida real = 42.0%; efectivo 80% = 28000 -> real sep24 = 16,244
