@@ -1,4 +1,28 @@
-# Beca Modular — web de propuesta y roadmap
+# Tramo (antes Beca Modular) — web de propuesta para LABITCONF EDU 2026
+
+Complementos de beca que se pagan por Lightning cuando el estudiante cumple un hito validado, con recibo verificable y devolución exacta de lo no usado. La investigación y la recomendación están en `research/` (empezar por `research/12_EXECUTIVE_RECOMMENDATION.md`).
+
+## Ver la web
+
+    node server.mjs
+
+Abrir http://127.0.0.1:4178.
+
+- `index.html` + `tramo.css` + `tramo-ui.mjs`: landing de Tramo con datos oficiales (IPC INDEC vía datos.gob.ar y cotización Yadio, en vivo con snapshot de respaldo), simulador del flujo completo y verificador de recibos Lightning.
+- `tramo-model.mjs`: contabilidad pura en sats (fondeo, hitos, revisión/baja, devolución por mayor resto).
+- `tramo-verify.mjs`: verificación real y offline de SHA-256(preimage) contra el payment hash de una factura BOLT11.
+- `beca-modular.html`: landing anterior (Ethereum/Sepolia), conservada como archivo.
+- `dist/` es la versión publicada v16 y **no** fue actualizada.
+
+El simulador no conecta billeteras ni mueve fondos. Los pagos reales se construyen durante la hackathon.
+
+## Comprobaciones
+
+    node --test tests/funding.test.mjs tests/scholarship.test.mjs tests/model.test.mjs tests/yield.test.mjs tests/tramo.test.mjs
+
+---
+
+## Versión anterior: Beca Modular
 
 Web previa a LABITCONF EDU2026. Explica becas por materia con financiación completa o compartida, hitos académicos y devolución proporcional del saldo pendiente. La implementación funcional con Sepolia se planifica para las48h del evento.
 

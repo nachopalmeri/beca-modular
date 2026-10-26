@@ -1,0 +1,4 @@
+Fuente: Presupuesto Abierto, dataset credito-anual-{año}.csv (millones de pesos). Consultado 2026-10-26.
+URL: https://dgsiaf-repo.mecon.gob.ar/repository/pa/datasets/{año}/credito-anual-{año}.zip
+2025 | presupuestado 392,332 | vigente 296,587 | devengado 293,769 | pagado 293,769 | devengado/vigente 99.0% | Última actualización del ejercicio 2025: 05 Julio 2026.
+2026 | presupuestado 364,147 | vigente 359,231 | devengado 201,115 | pagado 201,115 | devengado/vigente 56.0% | Última actualización del ejercicio 2026: 23 Octubre 2026.
