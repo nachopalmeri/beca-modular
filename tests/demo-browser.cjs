@@ -1,0 +1,225 @@
+const { chromium } = require('C:/Users/Nacho/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert/strict');
+
+(async () => {
+  const browser = await chromium.launch({ headless: true, executablePath: process.env.BECA_BROWSER || 'C:/Program Files/Google/Chrome/Application/chrome.exe' });
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+
+  const demoUrl = process.env.BECA_DEMO_URL || 'http://127.0.0.1:4178/demo.html';
+  const landingUrl = demoUrl.replace(/demo\.html(?:\?.*)?$/, 'index.html');
+  const output = path.join(__dirname, '../screenshots');
+  fs.mkdirSync(output, { recursive: true });
+  await page.goto(landingUrl);
+  await page.waitForSelector('#hero-title');
+  await page.keyboard.press('Tab');
+  assert.equal(await page.evaluate(() => document.activeElement.className), 'skip', 'keyboard starts at the skip link');
+  assert.equal(await page.locator('#funding-demo').count(), 0, 'landing should not contain the stale embedded simulator');
+  const story = page.locator('.story-track-shell');
+  assert.equal(await story.locator('.story-panel').count(), 3, 'the narrative has three data scenes: map, tree and curve');
+  assert.equal(await story.locator('.story-mascot .br-rig').count(), 3, 'the articulated Brote appears in each scene');
+  assert.equal(await story.locator('.story-word').count(), 3, 'each scene keeps its large narrative word');
+  assert.equal(await page.locator('.brote-opening-mascot .br-rig .brote-leg-right .brote-shoe').count(), 1, 'the opening Brote is the articulated vector rig');
+  assert.equal(await page.locator('#br-companion .br-rig').count(), 1, 'Brote also accompanies the rest of the page');
+  const discoveryLink = page.locator('a[href="docs/hackathon/problem-validation-guide.md"]');
+  assert.equal(await discoveryLink.count(), 1, 'the method section links to the problem-validation guide');
+  const guidePage = await browser.newPage();
+  await guidePage.goto(landingUrl.replace(/index\.html(?:\?.*)?$/, 'docs/hackathon/problem-validation-guide.md'));
+  assert.match(await guidePage.locator('body').innerText(), /No contiene resultados de entrevistas/i, 'the linked guide labels itself as a tool, not evidence');
+  assert.match(await guidePage.locator('body').innerText(), /No grabar/i, 'the guide protects interview privacy');
+  await guidePage.close();
+  assert.equal(await story.evaluate(element => element.classList.contains('is-pinned')), true, 'desktop enables the pinned scroll chapter');
+  await page.evaluate(() => {
+    const shell = document.querySelector('.story-track-shell');
+    const stage = document.querySelector('.story-stage');
+    const top = scrollY + shell.getBoundingClientRect().top - 88;
+    const travel = shell.offsetHeight - stage.clientHeight;
+    window.scrollTo(0, top + travel * .5);
+  });
+  await page.waitForFunction(() => document.querySelector('#story-arbol')?.getAttribute('aria-current') === 'step');
+  const storyTransform = await story.locator('.story-track').getAttribute('style');
+  assert.match(storyTransform, /translate3d\(-/i, 'vertical scroll translates the story horizontally');
+  await page.locator('[data-story-go="2"]').focus();
+  await page.keyboard.press('ArrowLeft');
+  await page.waitForFunction(() => document.querySelector('#story-arbol')?.getAttribute('aria-current') === 'step');
+  await page.keyboard.press('ArrowRight');
+  await page.waitForFunction(() => document.querySelector('#story-curva')?.getAttribute('aria-current') === 'step');
+  await page.waitForTimeout(700);
+  await story.locator('.story-stage').screenshot({ path: path.join(__dirname, '../screenshots/story-desktop.png') });
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForTimeout(120);
+  assert.equal(await page.locator('#bm-map .bm-prov').count(), 24, 'the first scene maps the 24 jurisdictions');
+  assert.equal(await page.locator('#bm-map .bm-mark').count(), 24, 'one red mark per jurisdiction');
+  assert.match(await page.locator('#story-mapa').innerText(), /6,92%/, 'the first scene cites the national secondary dropout rate');
+  assert.equal(await page.locator('.bm-plan article').count(), 3);
+  assert.match(await page.locator('#plan').innerText(), /Día 1/);
+  assert.equal(await page.locator('#lightning .compare [role="row"]').count(), 5, 'payment-rail comparison has a header and four needs');
+  await page.locator('#simulador').scrollIntoViewIfNeeded();
+  await page.locator('#sim-config button[type=submit]').click();
+  await page.locator('#btn-fill').click();
+  await page.locator('#student-list button[data-act="approve"]').first().click();
+  await page.waitForFunction(() => /Cuadra/.test(document.querySelector('#balance').textContent));
+  await page.locator('#v-sample').click();
+  await page.locator('#verify-form button[type=submit]').click();
+  await page.waitForFunction(() => document.querySelector('#v-result').classList.contains('ok'));
+  await page.locator('#v-pre').fill('0'.repeat(64));
+  await page.locator('#v-target').fill('lnbc1pvjluezsp5zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygspp5qqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqypqdpl2pkx2ctnv5sxxmmwwd5kgetjypeh2ursdae8g6twvus8g6rfwvs8qun0dfjkxaq9qrsgq357wnc5r2ueh7ck6q93dj32dlqnls087fxdwk8qakdyafkq3yap9us6v52vjjsrvywa6rt52cm9r9zqt8r2t7mlcwspyetp5h2tztugp9lfyql');
+  await page.locator('#verify-form button[type=submit]').click();
+  await page.waitForFunction(() => document.querySelector('#v-result').classList.contains('bad'));
+  assert.match(await page.locator('#v-result').innerText(), /0001020304/, 'BOLT11 spec vector decodes to its official payment hash');
+  await page.goto(landingUrl.replace(/index\.html(?:\?.*)?$/, 'laboratorio.html'));
+  await page.waitForSelector('#datos-abiertos');
+  assert.equal(await page.locator('#education-map iframe').count(), 0, 'the laboratory page does not duplicate the main external maps viewer');
+  const universityMapLink = page.getByRole('link', { name: /abrir mapa de datoshoy/i });
+  assert.equal(await universityMapLink.getAttribute('href'), 'https://www.datoshoy.com/universidades#universitiesMap');
+  assert.equal(await page.locator('#load-education-map').count(), 0, 'lab page does not offer the old iframe loader');
+  for (const [name, width] of [['desktop', 1440], ['tablet', 768], ['mobile', 390], ['small-mobile', 320]]) {
+    await page.setViewportSize({ width, height: 844 });
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `lab page horizontal overflow at ${name}`);
+  }
+  await page.goto(landingUrl);
+  await page.waitForSelector('#hero-title');
+  for (const [name, width, height] of [['desktop', 1440, 900], ['tablet', 768, 1024], ['mobile', 390, 844], ['small-mobile', 320, 720]]) {
+    await page.setViewportSize({ width, height });
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth);
+    assert.equal(overflow, false, `landing horizontal overflow at ${name}`);
+    if (name === 'mobile') {
+      assert.equal(await story.evaluate(element => element.classList.contains('is-pinned')), false, 'mobile uses the stacked chapter fallback');
+      assert.equal(await story.locator('.story-panel').evaluateAll(panels => panels.every(panel => !panel.hasAttribute('inert'))), true, 'mobile keeps every chapter available');
+      await story.locator('#story-mapa').screenshot({ path: path.join(output, 'story-mobile.png') });
+    }
+    if (name !== 'tablet') {
+      await page.evaluate(() => { document.documentElement.style.scrollBehavior = 'auto'; window.scrollTo(0, 0); });
+      await page.screenshot({ path: path.join(output, `landing-${name}.png`), fullPage: true, style: '.scroll-progress,.skip{visibility:hidden!important}' });
+    }
+  }
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.reload();
+  await page.waitForSelector('#hero-title');
+  assert.equal(await page.locator('.story-track-shell').evaluate(element => element.classList.contains('is-pinned')), false, 'reduced-motion uses the stacked chapter fallback');
+  assert.equal(await page.locator('.story-panel').evaluateAll(panels => panels.every(panel => !panel.hasAttribute('inert'))), true, 'reduced motion preserves all chapter content');
+  assert.equal(await page.locator('.story-mascot .br-rig').count(), 3, 'reduced motion keeps Brote in a static pose');
+  const noJsPage = await browser.newPage({ viewport: { width: 1440, height: 900 }, javaScriptEnabled: false });
+  await noJsPage.goto(landingUrl);
+  assert.equal(await noJsPage.locator('.story-track-shell').evaluate(element => element.classList.contains('is-pinned')), false, 'without JavaScript, the story remains in its static layout');
+  assert.equal(await noJsPage.locator('.story-panel').evaluateAll(panels => panels.length === 3 && panels.every(panel => !panel.hasAttribute('inert'))), true, 'without JavaScript, all three scenes remain readable');
+  assert.equal(await noJsPage.locator('.story-mascot img').count(), 3, 'without JavaScript, the PNG Brote remains as fallback');
+  assert.equal(await noJsPage.locator('.story-panel a[href="#datos"]').count(), 1, 'the static story keeps its link to the full data series');
+  await noJsPage.close();
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.reload();
+  await page.waitForSelector('#hero-title');
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.getByRole('link', { name: 'Demo con árbol de aportes' }).click();
+  await page.waitForURL(/demo\.html/);
+  await page.waitForSelector('#funding-demo');
+  assert.equal(await page.locator('#funding-progress-record').isDisabled(), true);
+  assert.match(await page.locator('#funding-status').innerText(), /atajo|segundos/i);
+  assert.equal(await page.locator('#funding-status').getAttribute('data-tone'), 'info');
+  assert.match(await page.locator('#funding-module-summary').innerText(), /módulo asignado.*estudiante sintético/i);
+  assert.match(await page.locator('#demo-limits').innerText(), /no hay elección, matching ni conexión institucional/i);
+
+  await page.locator('#funding-config-panel summary').click();
+  await page.locator('#funding-module').fill('Álgebra lineal');
+  await page.locator('#funding-target').fill('120');
+  await page.locator('#funding-configure').click();
+  assert.match(await page.locator('#funding-status').innerText(), /no se aplicaron los cambios/i);
+  assert.equal(await page.locator('#funding-status').getAttribute('data-tone'), 'error');
+  assert.match(await page.locator('#funding-config-feedback').innerText(), /100 USD.*120 USD/i);
+  assert.equal(await page.locator('#funding-config-feedback').isVisible(), true);
+  assert.equal(await page.locator('#milestone-one-amount').getAttribute('aria-invalid'), 'true');
+  assert.equal(await page.evaluate(() => document.activeElement.id), 'milestone-one-amount');
+  assert.equal(await page.locator('#funding-total').innerText(), '100 USD');
+  await page.screenshot({ path: path.join(output, 'demo-config-error-desktop.png') });
+
+  await page.locator('#milestone-one-amount').fill('30');
+  assert.equal(await page.locator('#funding-config-feedback').isVisible(), false);
+  assert.equal(await page.locator('#funding-status').getAttribute('data-tone'), 'info');
+  await page.locator('#milestone-two-amount').fill('90');
+  await page.locator('#funding-configure').click();
+  assert.equal(await page.locator('#funding-total').innerText(), '120 USD');
+  assert.equal(await page.locator('#funding-status').getAttribute('data-tone'), 'success');
+  assert.match(await page.locator('#funding-module-summary').innerText(), /módulo asignado en esta prueba: álgebra lineal/i);
+  assert.equal(await page.locator('#milestone-one-amount').getAttribute('aria-invalid'), null);
+  assert.equal(await page.locator('#exam-one-amount').innerText(), '30 USD');
+  await page.locator('[data-funding-preset="shared"]').click();
+  assert.equal(await page.locator('#funding-progress-record').isDisabled(), false);
+  assert.equal(await page.locator('#funding-reserved').innerText(), '120 USD');
+  assert.equal(await page.locator('#funding-state').getAttribute('data-state'), 'active');
+  assert.equal(await page.locator('[data-funding-preset="shared"]').isDisabled(), true);
+  assert.equal(await page.locator('#funding-configure').isDisabled(), true);
+  assert.equal(await page.locator('#funding-config-panel summary span').innerText(), 'Reglas congeladas');
+  assert.match(await page.locator('.funding-preset-help').innerText(), /Reiniciar ejemplo/);
+
+  await page.locator('#funding-progress-record').click();
+  assert.equal(await page.locator('#funding-paid').innerText(), '30 USD');
+  assert.equal(await page.locator('#funding-reserved').innerText(), '90 USD');
+  assert.equal(await page.locator('#funding-latest-amount').innerText(), '30 USD');
+  assert.equal(await page.locator('#funding-status').getAttribute('data-tone'), 'success');
+  assert.match(await page.locator('#funding-latest-note').innerText(), /no acredita una nota ni un pago/i);
+  await page.screenshot({ path: path.join(output, 'demo-release-receipt-desktop.png') });
+
+  await page.locator('#funding-replay').click();
+  assert.match(await page.locator('#funding-status').innerText(), /repetido/i);
+  assert.match(await page.locator('#funding-status').innerText(), /saldo no cambió/i);
+  assert.equal(await page.locator('#funding-status').getAttribute('data-tone'), 'error');
+  assert.equal(await page.locator('#funding-paid').innerText(), '30 USD');
+  assert.equal(await page.locator('#funding-reserved').innerText(), '90 USD');
+  assert.equal(await page.locator('[data-funding-preset="shared"]').isDisabled(), true);
+  await page.screenshot({ path: path.join(output, 'demo-replay-error-desktop.png') });
+
+  await page.locator('#progress-kind').selectOption('content-consumed');
+  await page.locator('#funding-progress-record').click();
+  assert.equal(await page.locator('#funding-paid').innerText(), '30 USD');
+  assert.equal(await page.locator('#funding-reserved').innerText(), '90 USD');
+  assert.match(await page.locator('#funding-latest-amount').innerText(), /no libera fondos/i);
+
+  for (const [name, width, height] of [['desktop', 1440, 900], ['tablet', 768, 1024], ['mobile', 390, 844], ['small-mobile', 320, 720]]) {
+    await page.setViewportSize({ width, height });
+    await page.evaluate(() => { document.documentElement.style.scrollBehavior = 'auto'; window.scrollTo(0, 0); });
+    await page.waitForTimeout(80);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth);
+    assert.equal(overflow, false, `horizontal overflow at ${name}`);
+    if (name !== 'small-mobile') await page.screenshot({ path: path.join(output, `demo-${name}.png`), fullPage: true, style: '.scroll-progress,.skip{visibility:hidden!important}' });
+  }
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.locator('#funding-reset').click();
+  assert.equal(await page.locator('#funding-total').innerText(), '120 USD');
+  assert.equal(await page.locator('#funding-paid').innerText(), '0 USD');
+  assert.equal(await page.locator('[data-funding-preset="shared"]').isDisabled(), false);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  assert.equal(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior), 'auto', 'demo respects reduced motion');
+  const offlineContext = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const offlinePage = await offlineContext.newPage();
+  const offlineErrors = [];
+  offlinePage.on('pageerror', error => offlineErrors.push(error.message));
+  offlinePage.on('requestfailed', request => offlineErrors.push(request.url() + ' ' + request.failure()?.errorText));
+  await offlinePage.goto(demoUrl);
+  await offlineContext.setOffline(true);
+  assert.equal(await offlinePage.locator('[data-funding-preset="shared"]').isEnabled(), true);
+  await offlinePage.locator('[data-funding-preset="shared"]').click();
+  await offlinePage.locator('#funding-progress-record').click();
+  assert.equal(await offlinePage.locator('#funding-paid').innerText(), '50 USD');
+  assert.equal(await offlinePage.locator('#funding-reserved').innerText(), '50 USD');
+  assert.match(await offlinePage.locator('#funding-latest-balance').innerText(), /50 USD liberados.*50 USD reservados/);
+  await offlinePage.locator('#funding-replay').click();
+  assert.equal(await offlinePage.locator('#funding-paid').innerText(), '50 USD');
+  assert.match(await offlinePage.locator('#funding-status').innerText(), /ya fue usado.*saldo no cambi/i);
+  assert.deepEqual(offlineErrors, [], 'the loaded local demo must finish without network requests');
+  await offlinePage.locator('#funding-latest').screenshot({ path: path.join(__dirname, '../docs/captures/demo-offline-receipt-mobile.png') });
+  await offlineContext.close();
+  const offlinePackageResponse = await fetch(new URL('beca-demo-offline.zip', demoUrl));
+  assert.equal(offlinePackageResponse.status, 200, 'the packaged local fallback must be downloadable');
+  const offlinePackage = Buffer.from(await offlinePackageResponse.arrayBuffer());
+  assert.equal(offlinePackage.readUInt32LE(0), 0x04034b50, 'offline fallback link must serve a valid ZIP archive');
+  assert.equal(await page.locator('.offline-kit-link a').getAttribute('href'), 'beca-demo-offline.zip');
+  assert.deepEqual(errors, []);
+  await browser.close();
+  console.log(JSON.stringify({ result: 'PASS', viewports: ['1440x900', '768x1024', '390x844', '320x720'], checks: ['three data scenes and the articulated Brote in opening, scenes and companion', 'desktop vertical scroll translates the pinned chapter horizontally', 'left/right arrow navigation changes chapter and scrolls back and forth', 'mobile, reduced motion and no-JavaScript keep all chapters readable', 'landing and demo have no horizontal overflow', 'desktop/mobile chapter and landing screenshots saved', 'sats simulator balances and the Lightning receipt verifier decodes the BOLT11 spec vector', 'method section opens a privacy-aware discovery guide that reports no interviews as evidence', 'landing routes to a functional synthetic demo', 'keyboard skip link is first focus target', 'state notices distinguish info, success, error and replay rejection', 'invalid rule sum is rejected without mutating budget', 'editable synthetic budget and exact milestone sum', 'partial releases respect configured cap and balance', 'replayed receipt is rejected without balance change', 'content consumption does not release funds', 'reset preserves configured rules', 'loaded local demo completes funding, release, receipt and replay rejection without internet', 'downloadable ZIP package is available from the demo page', 'no browser errors'], errors }, null, 2));
+})().catch(error => { console.error(error); process.exit(1); });

@@ -3,3 +3,4 @@ browser-results.json
 *.tar.gz
 *.tgz
 node_modules/
+.vercel

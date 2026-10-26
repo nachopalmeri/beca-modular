@@ -1,139 +1,65 @@
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#14100c">
-<meta name="description" content="Beca Modular: complementos de beca que se pagan por Lightning cuando el estudiante cumple un hito validado, con recibo verificable y devolución exacta de lo no usado. Propuesta para la Hackathon EDU de LABITCONF 2026.">
-<title>Beca Modular — Cada tramo, cuando se gana</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="tramo.css?v=2">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314100c'/%3E%3Cpath d='M16 26V13M16 17c-5 0-8-3-8-7 5 0 8 3 8 7zm0-3c4 0 7-2 7-6-4 0-7 2-7 6z' stroke='%23d9b56a' stroke-width='2' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E">
-<script type="module" src="story.mjs?v=1"></script>
-<script type="module" src="tramo-ui.mjs?v=2"></script>
-</head>
-<body>
-<a class="skip" href="#main">Saltar al contenido</a>
-
-<header class="top">
-  <a class="brand" href="#" aria-label="Beca Modular, inicio">
-    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 27V13M16 17c-5 0-8-3-8-7 5 0 8 3 8 7zm0-3c4 0 7-2 7-6-4 0-7 2-7 6z"/></svg>
-    <span>Beca <i>Modular</i></span>
-  </a>
-  <nav aria-label="Secciones">
-    <a href="#historia">La historia</a>
-    <a href="#simulador">Simulador</a>
-    <a href="#verificar">Verificar</a>
-    <a href="#plan">Plan</a>
-  </nav>
-  <span class="badge">LABITCONF EDU · 2026</span>
-</header>
-
-<main id="main">
-
-<section class="intro" data-mood="hola">
-  <p class="kicker">Inclusión financiera · Nueva educación</p>
-  <h1>Hay talento<br><em>que no llega</em><br>a recibirse.</h1>
-  <p class="lede">Una historia en cinco escenas, con datos oficiales. Deslizá hacia abajo: la página avanza hacia el costado.</p>
-  <p class="stage">Propuesta y simulación. Los pagos reales se construyen durante la hackathon (30 y 31 de octubre). Esta página no recibe dinero.</p>
-  <span class="scroll-cue" aria-hidden="true">Desplazá <b>↓</b></span>
-</section>
-
-<section id="historia" class="story" aria-label="Historia en cinco escenas">
-  <div class="story-sticky">
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#203b2e"><meta name="description" content="Beca Modular: complementos de beca que se pagan por Lightning cuando el estudiante cumple un hito validado, con recibo verificable y devolución exacta de lo no usado. Propuesta para la Hackathon EDU de LABITCONF 2026."><title>Beca Modular — Un tramo a la vez</title><link rel="stylesheet" href="styles.css?v=29"><link rel="stylesheet" href="union.css?v=29"><link rel="stylesheet" href="brote-rig.css?v=29"><script type="module" src="roadmap.mjs?v=29"></script><script type="module" src="story-scenes.mjs?v=29"></script><script type="module" src="brote-live.mjs?v=29"></script><script type="module" src="tramo-ui.mjs?v=29"></script><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%233f6047'/%3E%3Cpath d='M8 8h7v7H8zm9 0h7v7h-7zm-9 9h7v7H8zm9 0h7v7h-7z' fill='%23f1ead8'/%3E%3C/svg%3E"></head><body class="roadmap-page"><a class="skip" href="#main">Saltar al contenido</a><header class="header"><a class="brand" href="#"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Beca<span class="brand-light">Modular</span><span class="beta">PROYECTO</span></a><button id="menu" class="menu" aria-expanded="false" aria-controls="nav">Menú</button><nav id="nav" aria-label="Principal"><a href="#recorrido">La historia</a><a href="#reglas">Reglas</a><a href="#verificar">Verificar</a><a href="#datos">Datos</a><a class="nav-cta" href="#simulador">Probar el simulador →</a></nav></header><main id="main">
+<section class="hero" aria-labelledby="hero-title"><div class="hero-inner"><div class="hero-copy"><div class="eyebrow"><span class="status-dot"></span> INCLUSIÓN FINANCIERA · NUEVA EDUCACIÓN · LABITCONF EDU 2026</div><h1 id="hero-title">Financiar una carrera.<br><span>Un tramo a la vez.</span></h1><p class="lede">Beca Modular permite que egresados, empresas y bitcoiners complementen a estudiantes. Cada tramo se paga por Lightning en segundos cuando una tutora valida un hito, con un recibo que cualquiera puede verificar.</p><div class="actions"><a class="button primary" href="#recorrido">Recorrer la historia →</a><a class="text-link" href="#simulador">Probar el simulador ↘</a></div><div class="hero-proof"><span>Reglas selladas antes de aportar</span><span>Pago en segundos por Lightning</span><span>Lo no usado vuelve a cada sponsor</span></div><p class="hero-stage-note">Propuesta y simulación · los pagos reales se construyen durante la hackathon (30 y 31/10) · esta web no recibe fondos</p></div></div><aside class="hero-flow" aria-label="Ejemplo de programa, en simulación">
+  <div class="hero-flow-top"><span>ASÍ FUNCIONARÍA</span><span>EJEMPLO · NO RECIBE FONDOS</span></div>
+  <div class="hero-flow-module"><span class="flow-number">01</span><div><small>PROGRAMA DE EJEMPLO</small><strong>Ingreso 2026 · Análisis I</strong></div><b>$50.660<br><small>2 tramos</small></b></div>
+  <div class="hero-flow-line" aria-hidden="true"><i></i><i></i></div>
+  <div class="hero-flow-step"><span class="flow-number">02</span><div><small>TRAMO 1 · VALIDA LA TUTORA</small><strong>Primer parcial aprobado</strong></div><b>$25.330<br><small>≈ 19.327 sats</small></b></div>
+  <div class="hero-flow-step hero-flow-step-last"><span class="flow-number">03</span><div><small>TRAMO 2 · VALIDA LA TUTORA</small><strong>Materia aprobada</strong></div><b>$25.330<br><small>≈ 19.327 sats</small></b></div>
+  <div class="hero-flow-balance"><span>Monto por tramo</span><strong>Brecha mensual de Progresar (IPC)</strong></div>
+  <p>Cotización de referencia: Yadio, 26/10/2026. Esta página solo simula el pago.</p>
+</aside>
+<div class="hero-credit"><span>EDUCACIÓN · CONTINUIDAD · APOYO COMPARTIDO</span><span>PROYECTO EN VALIDACIÓN</span></div></section>
+<section id="recorrido" class="scroll-story" aria-labelledby="story-title">
+  <div class="brote-opening"><div class="brote-opening-stage">  <div class="story-heading wrap"><span class="eyebrow">UNA HISTORIA · TRES ESCENAS CON DATOS OFICIALES</span><h2 id="story-title">De un <span data-brote-landing>mapa</span> que duele<br><span data-brote-reveal>a un apoyo que llega.</span></h2><p>Desplazate: Brote te guía por tres escenas construidas con datos públicos. Los datos describen el problema; no eligen beneficiarios.</p></div><figure class="brote-opening-mascot" aria-hidden="true"><img src="assets/beca-brote-mascot.png" alt="" width="1024" height="1024"></figure><a class="brote-skip" href="#story-mapa">Ir a las tres escenas <span aria-hidden="true">&darr;</span></a></div></div>
+  <div class="story-track-shell" aria-label="Historia de Beca Modular en tres escenas">
+    <div class="story-stage">
     <div class="story-track">
-
-      <article class="scene scene-map" data-scene="0" data-mood="preocupado" aria-labelledby="s1-title">
-        <div class="scene-copy">
-          <p class="numeral">I · El mapa</p>
-          <h2 id="s1-title">En Argentina, <em data-count="36.9">36,9%</em> de los jóvenes de 15 a 29 años vive en un hogar pobre.</h2>
-          <p>Cada punto es una ciudad que mide el INDEC. Cuanto más grande y más roja, más pobreza. En Concordia es el <strong>56,2%</strong>; en Gran Resistencia, el <strong>48,6%</strong>.</p>
-          <p class="src">INDEC, EPH, primer semestre 2026, cuadros 3.2 y 4.1 (31 aglomerados; GBA separado en CABA y partidos). Puntos con anillo punteado: el INDEC pide tomarlos "con cuidado" (coeficiente de variación 16–25%).</p>
-        </div>
-        <figure class="scene-visual map-wrap">
-          <svg id="map" class="map" role="img" aria-label="Mapa de Argentina con la pobreza por aglomerado urbano"></svg>
-          <figcaption id="map-tip" class="map-tip" aria-live="polite">Tocá o pasá por un punto.</figcaption>
-        </figure>
+      <article class="story-panel" id="story-mapa" aria-labelledby="story-mapa-title">
+        <div class="story-panel-copy"><span class="story-kicker">01 / EL MAPA</span><h3 id="story-mapa-title">Cada año, casi 7 de cada 100 estudiantes secundarios no vuelven a inscribirse.</h3><p>Cada marca roja es una provincia: cuanto más grande, más alta la tasa oficial de abandono interanual (<strong><span data-abandono-nacional data-count="6.92" data-decimals="2">6,92%</span></strong> en el país en 2024-25; 13,1% en Misiones). En la universidad pasa lo mismo: el 10% más pobre es el 7,9% de primer año y apenas el 1,1% de quinto. Tener que trabajar y los ingresos bajos aparecen entre los factores asociados al abandono.</p><p class="bm-source">DiNIEE · Secretaría de Educación de la Nación (2024-25) · Argentinos por la Educación (2022), corte transversal · EPH-INDEC sobre factores asociados.</p><a href="#datos" class="story-link">Explorar la serie 2012-2025 <span aria-hidden="true">↘</span></a></div>
+        <div class="story-visual bm-visual" id="bm-map"><span class="story-word" aria-hidden="true">UBICAR</span><span class="story-visual-label">ABANDONO INTERANUAL · SECUNDARIA · 2024-25 · DiNIEE</span><div class="story-art-layout"><div class="story-art-copy bm-art bm-art-map"><svg class="bm-map" role="img" aria-label="Mapa de Argentina con una marca roja por provincia, proporcional a la tasa de abandono interanual en secundaria, 2024-25"></svg><p class="bm-map-tip" aria-live="polite">Tocá o pasá por una marca.</p></div><figure class="story-mascot"><img src="assets/beca-brote-mascot.png" alt="" width="1024" height="1024" loading="lazy"><figcaption>Brote · guía del recorrido</figcaption></figure></div></div>
       </article>
-
-      <article class="scene scene-gap" data-scene="1" data-mood="triste" aria-labelledby="s2-title">
-        <div class="scene-copy wide">
-          <p class="numeral">II · La brecha</p>
-          <h2 id="s2-title">Muchos empiezan. Pocos llegan.</h2>
-          <div class="gap-figures">
-            <div><span class="big" data-count="7.9">7,9%</span><p>de los estudiantes de <b>primer año</b> viene del 10% más pobre.</p></div>
-            <div class="arrow" aria-hidden="true">→</div>
-            <div><span class="big oxblood" data-count="1.1">1,1%</span><p>en <b>quinto año</b>.</p></div>
-          </div>
-          <p>Y la beca que debía sostenerlos, <strong>Progresar</strong>, quedó congelada en $35.000 desde septiembre de 2024: hoy compra <strong data-live="perdida-texto">42% menos</strong>. Casi la mitad de quienes la pidieron en 2025 no la recibió.</p>
-          <p class="src">Argentinos por la Educación (2022), corte transversal · IPC nacional INDEC · Informes de gestión al Congreso vía Infobae (17/05/2026): 1.767.524 inscriptos, 953.169 becarios.</p>
-        </div>
+      <article class="story-panel" id="story-arbol" aria-labelledby="story-arbol-title">
+        <div class="story-panel-copy"><span class="story-kicker">02 / EL ÁRBOL</span><h3 id="story-arbol-title">A su vez, hay muchas personas con ganas de ayudar.</h3><p>Egresados, empresas, comunidades bitcoiner. Algunos ya lo hacen: la Fundación YPF paga 50 becas de $450.000 por mes. Pero llegan a pocos y con controles en papel una vez por año. <strong>¿Por qué no aportar, aunque sea una hoja, por un futuro mejor?</strong></p><p class="bm-source">Bases Fundación YPF 2026 · becas de padrinazgo UCASAL.</p></div>
+        <div class="story-visual bm-visual" id="bm-tree"><span class="story-word" aria-hidden="true">SUMAR</span><span class="story-visual-label">CADA HOJA, UN APORTE · ILUSTRATIVO</span><div class="story-art-layout"><div class="story-art-copy bm-art"><svg class="bm-tree" viewBox="0 0 600 560" aria-hidden="true"></svg></div><figure class="story-mascot"><img src="assets/beca-brote-mascot.png" alt="" width="1024" height="1024" loading="lazy"><figcaption>Brote · guía del recorrido</figcaption></figure></div></div>
       </article>
-
-      <article class="scene scene-tree" data-scene="2" data-mood="saludo" aria-labelledby="s3-title">
-        <figure class="scene-visual tree-wrap" aria-hidden="true">
-          <svg id="tree" class="tree" viewBox="0 0 600 560"></svg>
-        </figure>
-        <div class="scene-copy">
-          <p class="numeral">III · El árbol</p>
-          <h2 id="s3-title">Del otro lado, hay quienes <em>quieren ayudar</em>.</h2>
-          <p>Egresados, empresas, comunidades bitcoiner. Ya existen: la Fundación YPF paga 50 becas de $450.000 por mes; hay padrinazgos que exigen promedio mayor a 7.</p>
-          <p>Pero llegan a pocos, con cuotas fijas y papeles una vez al año. <strong>¿Y si cualquiera pudiera sumar una hoja?</strong></p>
-          <p class="src">Bases Fundación YPF 2026 · Becas de padrinazgo UCASAL.</p>
-        </div>
+      <article class="story-panel" id="story-curva" aria-labelledby="story-curva-title">
+        <div class="story-panel-copy"><span class="story-kicker">03 / LA CURVA</span><h3 id="story-curva-title">La beca se hundió. Juntos la volvemos a levantar.</h3><p>Progresar quedó congelada en $35.000 desde septiembre de 2024: hoy compra <strong data-live="perdida-texto">42% menos</strong>. El área dorada es lo que un complemento de <strong data-live="brecha">$25.330</strong> por mes le devuelve.</p><p class="bm-source">Cálculo propio con el IPC nacional del INDEC (serie 148.3). No es una proyección de graduados: eso se medirá en un piloto.</p></div>
+        <div class="story-visual bm-visual" id="bm-chart"><span class="story-word" aria-hidden="true">LEVANTAR</span><span class="story-visual-label">VALOR REAL DE PROGRESAR · SEP-2024 = 100</span><div class="story-art-layout"><div class="story-art-copy bm-art"><svg class="bm-chart" role="img" aria-label="El valor real de Progresar cae de 100 a 58 entre septiembre de 2024 y agosto de 2026; con el complemento vuelve a 100."></svg></div><figure class="story-mascot"><img src="assets/beca-brote-mascot.png" alt="" width="1024" height="1024" loading="lazy"><figcaption>Brote · guía del recorrido</figcaption></figure></div></div>
       </article>
-
-      <article class="scene scene-tramo" data-scene="3" data-mood="feliz" aria-labelledby="s4-title">
-        <div class="scene-copy">
-          <p class="numeral">IV · Cada hoja, un tramo</p>
-          <h2 id="s4-title">El apoyo se suelta <em>cuando se gana</em>.</h2>
-          <p>Las reglas se sellan antes del primer aporte. Una tutora valida el hito. El pago llega en segundos por Lightning, con un recibo que cualquiera puede verificar. Si alguien deja, lo no usado vuelve a cada sponsor.</p>
-        </div>
-        <ol class="receipt" aria-label="Recorrido de un tramo">
-          <li><span class="seal">§</span><div><b>Reglas selladas en Bitcoin</b><small>huella 147b82db…4f2068 · OpenTimestamps</small></div></li>
-          <li><span class="seal">✓</span><div><b>Tutora: "Primer parcial aprobado"</b><small>Estudiante #1 · Análisis Matemático I</small></div></li>
-          <li><span class="seal bolt">⚡</span><div><b>19.327 sats · ≈ $25.330</b><small>pagado en 3 segundos</small></div></li>
-          <li><span class="seal">∎</span><div><b>Recibo verificable</b><small>SHA-256(preimage) = payment hash</small></div></li>
-        </ol>
-      </article>
-
-      <article class="scene scene-chart" data-scene="4" data-mood="feliz" aria-labelledby="s5-title">
-        <div class="scene-copy">
-          <p class="numeral">V · La curva</p>
-          <h2 id="s5-title">La beca se hundió. <em>Juntos la volvemos a levantar.</em></h2>
-          <p>Valor real de Progresar, mes a mes, en pesos de septiembre de 2024 (= 100). El área dorada es lo que un complemento de <strong data-live="brecha">$25.330</strong> por mes le devuelve.</p>
-          <p class="src">Cálculo propio: $35.000 deflactados con el IPC nacional del INDEC (serie 148.3, sep-2024 a ago-2026). No es una proyección de graduados: eso se medirá en un piloto.</p>
-        </div>
-        <figure class="scene-visual chart-wrap">
-          <svg id="chart" class="chart" viewBox="0 0 640 400" role="img" aria-label="Gráfico: el valor real de Progresar cae de 100 a 58 entre septiembre de 2024 y agosto de 2026; con el complemento vuelve a 100."></svg>
-        </figure>
-      </article>
-
     </div>
-    <div class="story-progress" aria-hidden="true">
-      <span>I</span><span>II</span><span>III</span><span>IV</span><span>V</span>
-      <i id="story-bar"></i>
+    <div class="story-controls"><span class="story-progress-label">ESCENA <b id="story-current">01</b> <span aria-hidden="true">/</span> 03</span><div class="story-progress" role="progressbar" aria-label="Progreso del recorrido" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1"><span></span></div><div class="story-dots" aria-label="Navegar escenas"><a href="#story-mapa" data-story-go="0" aria-label="Escena 1: el mapa" aria-current="step">01</a><a href="#story-arbol" data-story-go="1" aria-label="Escena 2: el árbol">02</a><a href="#story-curva" data-story-go="2" aria-label="Escena 3: la curva">03</a></div><span class="story-scroll-hint">SEGUÍ DESPLAZÁNDOTE <span aria-hidden="true">↓</span></span></div>
     </div>
   </div>
 </section>
-
-<section class="closing" data-mood="reposo" aria-labelledby="close-title">
-  <div class="closing-mascot" id="closing-mascot" aria-hidden="true"></div>
-  <h2 id="close-title" class="reveal-words">Un compañero para <em>todo el camino</em>.</h2>
-  <p class="lede">Beca Modular acompaña cada tramo de la carrera: el sponsor aporta, la tutora valida, el estudiante cobra en segundos. Con Bitcoin y Lightning, cada pago deja un recibo que cualquiera puede verificar.</p>
-  <div class="cta">
-    <a class="btn primary" href="#simulador">Armá un programa</a>
-    <a class="btn ghost" href="#verificar">Verificá un pago real</a>
+<section id="companero" class="companion" aria-labelledby="companero-title">
+  <div class="companion-inner wrap">
+    <div class="companion-copy">
+      <span class="eyebrow">EPÍLOGO · UN COMPAÑERO PARA TODO EL CAMINO</span>
+      <h2 id="companero-title">Cada tramo, cuando se gana. Brote acompaña el camino completo.</h2>
+      <p>Es posible gracias a Bitcoin y Lightning: aportes desde cualquier lugar, pagos en segundos cuando se cumple un hito y recibos que cualquiera puede verificar. Ese es nuestro trabajo en Beca Modular.</p>
+      <div class="actions"><a class="button primary" href="#simulador">Probar el simulador →</a><a class="text-link" href="#reglas">Ver cómo funciona ↓</a></div>
+      <small>Brote es una ilustración propia del proyecto. No representa a estudiantes ni instituciones, y la escena no describe resultados académicos.</small>
+    </div>
+    <figure class="companion-figure">
+      <div class="companion-stage">
+        <svg class="companion-sprout" viewBox="0 0 160 120" aria-hidden="true" focusable="false">
+          <path class="cs-stem" d="M80 112C80 92 78 76 76 60"/>
+          <path class="cs-leaf" d="M76 72C60 70 48 58 46 42C64 42 76 52 76 72Z"/>
+          <path class="cs-leaf" d="M78 58C92 54 102 42 104 26C86 28 76 40 78 58Z"/>
+          <path class="cs-ground" d="M44 112H116"/>
+        </svg>
+        <img src="assets/beca-brote-mascot.png" alt="" width="1024" height="1024" loading="lazy">
+      </div>
+      <figcaption>Brote se gradúa y descansa al final del recorrido.</figcaption>
+    </figure>
   </div>
 </section>
-
-<section id="simulador" class="band" data-mood="atento">
-  <div class="wrap">
+<section id="reglas" class="wrap section"><span class="eyebrow">01 / ANTES DE APORTAR, REGLAS CLARAS</span><div class="split-heading"><h2>Acompañar no debería<br>dejar preguntas abiertas.</h2><p>El programa publica destinatarios, hitos, montos y política de devolución. La huella de esas reglas se sella en Bitcoin antes del primer aporte: cambiarlas requiere un programa nuevo y el consentimiento de quienes aportaron.</p></div><div class="rules-ledger"><article><span>01</span><div><h3>Se activa con la meta completa.</h3><p>Si la campaña no completa la meta en el plazo acordado, cada aporte vuelve íntegro. No se prometen tramos sin respaldo.</p></div></article><article><span>02</span><div><h3>Cada examen habilita un solo tramo.</h3><p>Una tutora o la institución confirma el hito. El sistema comprueba autorización, importe y uso único, y paga por Lightning con un recibo verificable.</p></div></article><article><span>03</span><div><h3>Una pausa abre una revisión.</h3><p>Inactividad, silencio o una nota pendiente no equivalen a abandono. Una persona revisa el caso; hay aviso, plazo y apelación antes de cerrar.</p></div></article><article><span>04</span><div><h3>Vuelve lo que todavía no se ganó.</h3><p>Si se confirma el abandono, el saldo no liberado vuelve proporcionalmente a los aportantes. Si aportaron 60% y 40%, y el estudiante ya cobró la mitad, recuperan 30% y 20% del total, al sat. Lo ya recibido por el alumno no se recupera.</p></div></article></div></section>
+<section id="simulador" class="bm-sec bm-dark" aria-labelledby="sim-title">
+  <div class="bm-wrap">
     <header class="sec-head">
-      <p class="kicker">Simulador</p>
-      <h2>Armá un programa y seguí cada sat.</h2>
+      <p class="kicker">02 / Simulador</p>
+      <h2 id="sim-title">Armá un programa y seguí cada sat.</h2>
       <p class="sub">Simulación local: no hay billeteras ni dinero. La contabilidad y las reglas son las mismas que usará el producto. Los recibos usan preimages aleatorios para mostrar la verificación.</p>
     </header>
 
@@ -189,10 +115,10 @@
   </div>
 </section>
 
-<section id="verificar" class="wrap section" data-mood="verifica">
+<section id="verificar" class="bm-sec" aria-labelledby="ver-title"><div class="bm-wrap">
   <header class="sec-head">
-    <p class="kicker">Verificador · funciona de verdad</p>
-    <h2>Comprobá un pago Lightning sin pedirle nada a nadie.</h2>
+    <p class="kicker">03 / Verificador · funciona de verdad</p>
+    <h2 id="ver-title">Comprobá un pago Lightning sin pedirle nada a nadie.</h2>
     <p class="sub">Pegá el preimage que muestra tu billetera y la factura (o su payment hash). Si SHA-256(preimage) coincide con el hash de la factura, el pago ocurrió. Se calcula en tu navegador, sin conexión.</p>
   </header>
   <form id="verify-form" class="panel verify" novalidate>
@@ -204,13 +130,12 @@
     </div>
     <output id="v-result" class="v-result" aria-live="polite"></output>
   </form>
-</section>
-
-<section id="bitcoin" class="band" data-mood="atento">
-  <div class="wrap">
+</div></section>
+<section id="lightning" class="bm-sec bm-soft" aria-labelledby="ln-title">
+  <div class="bm-wrap">
     <header class="sec-head">
-      <p class="kicker">¿Por qué Bitcoin y no una transferencia?</p>
-      <h2>Lightning hace tres cosas que un banco no hace acá.</h2>
+      <p class="kicker">04 / ¿Por qué Bitcoin y no una transferencia?</p>
+      <h2 id="ln-title">Lightning hace tres cosas que un banco no hace acá.</h2>
     </header>
     <div class="compare" role="table" aria-label="Comparación de rieles de pago">
       <div role="row" class="c-head"><span role="columnheader">Necesidad</span><span role="columnheader">Transferencia / billetera local</span><span role="columnheader">Lightning</span></div>
@@ -231,43 +156,84 @@
   </div>
 </section>
 
-<section id="plan" class="wrap section" data-mood="atento">
-  <header class="sec-head">
-    <p class="kicker">Qué existe hoy y qué se construye en el evento</p>
-    <h2>Investigamos antes. Construimos allá.</h2>
-  </header>
-  <div class="plan">
-    <article><h3>Hoy</h3><ul><li>Investigación con datos oficiales verificados.</li><li>Esta historia, el simulador y el verificador de recibos.</li><li>Pruebas técnicas sin dinero: APIs de Lightning, OpenTimestamps, cotización.</li></ul></article>
+<section id="datos" class="wrap section openarg-section" aria-labelledby="openarg-title">
+<div class="openarg-panel">
+<div class="section-top"><span class="eyebrow">05 / LABORATORIO DE DATOS</span><span class="openarg-brand">Datos oficiales incorporados al sitio</span></div>
+<div class="split-heading openarg-heading"><h2 id="openarg-title">Mirar el territorio.<br>Hacer mejores preguntas.</h2><div><p>La serie oficial completa detrás de la primera escena: abandono interanual por jurisdicción, en primaria y secundaria, desde 2012-13.</p><p class="openarg-context">Los datos agregados describen el problema; Beca Modular no los usa para elegir estudiantes ni asignar montos.</p></div></div>
+<section id="evidencia-lab" class="evidencia" aria-labelledby="evidencia-title">
+  <div class="evidencia-head">
+    <div class="evidencia-intro">
+      <span class="small-mono">01 / LABORATORIO PROPIO &middot; DATOS OFICIALES INCORPORADOS</span>
+      <h3 id="evidencia-title">El territorio, en cifras publicadas.</h3>
+      <p>Serie oficial de <strong>abandono interanual</strong> (DiNIEE &middot; Secretar&iacute;a de Educaci&oacute;n de la Naci&oacute;n): 24 jurisdicciones, trece per&iacute;odos entre 2012-13 y 2024-25, en primaria y secundaria. Los valores est&aacute;n incorporados al sitio desde la planilla oficial; nada se consulta en vivo y se muestran tal como se publican, incluidos los negativos que la propia metodolog&iacute;a explica.</p>
+    </div>
+    <div class="evidencia-controls">
+      <div class="evidencia-toggle" role="group" aria-label="Nivel educativo">
+        <button type="button" data-nivel="secundaria" aria-pressed="true">Secundaria</button>
+        <button type="button" data-nivel="primaria" aria-pressed="false">Primaria</button>
+      </div>
+      <div class="evidencia-toggle" role="group" aria-label="Vista del mapa">
+        <button type="button" data-vista="areas" aria-pressed="true">&Aacute;reas</button>
+        <button type="button" data-vista="puntos" aria-pressed="false">Puntos</button>
+      </div>
+      <div class="evidencia-selects">
+        <label>Per&iacute;odo<select id="evidencia-year" aria-label="Per&iacute;odo lectivo"></select></label>
+        <label>Jurisdicci&oacute;n<select id="evidencia-jurisdiccion" aria-label="Jurisdicci&oacute;n"></select></label>
+      </div>
+    </div>
+  </div>
+  <div class="evidencia-grid">
+    <figure class="evidencia-figure">
+      <div class="evidencia-map-wrap">
+        <div class="evidencia-map-canvas">
+          <svg id="evidencia-svg" role="img" aria-label="Mapa del abandono interanual por jurisdicci&oacute;n"></svg>
+          <div id="evidencia-tooltip" class="evidencia-tooltip" role="status" hidden></div>
+        </div>
+        <div id="evidencia-legend" class="evidencia-legend"></div>
+      </div>
+      <figcaption>Geometr&iacute;as estilizadas de Georef/IGN; no se dibuja el sector ant&aacute;rtico reclamado y las formas no son superficies oficiales. Con teclado: Tab recorre cada jurisdicci&oacute;n y Enter la selecciona. En pantallas t&aacute;ctiles peque&ntilde;as, el selector de jurisdicci&oacute;n es la v&iacute;a m&aacute;s c&oacute;moda.</figcaption>
+    </figure>
+    <div class="evidencia-panels">
+      <div id="evidencia-readout" class="evidencia-readout"></div>
+      <div id="evidencia-ranking" class="evidencia-ranking"></div>
+      <p class="evidencia-caveats"><strong>L&iacute;mites del indicador:</strong> el modelo de flujo supone un sistema cerrado y puede publicar valores negativos; Buenos Aires cambi&oacute; su r&eacute;gimen acad&eacute;mico de secundaria en 2024 (Resoluci&oacute;n 1650/2024 DGCyE); la cifra agrega jurisdicciones y no explica casos individuales ni el efecto de una beca. Ning&uacute;n valor de este laboratorio se usa para elegir estudiantes o asignar montos.</p>
+    </div>
+  </div>
+  <figure class="evidencia-chart-figure">
+    <figcaption><span class="small-mono">SERIE COMPLETA &middot; 2012-13 &rarr; 2024-25</span><strong id="evidencia-serie-title">Seleccion&aacute; una jurisdicci&oacute;n en el mapa</strong></figcaption>
+    <svg id="evidencia-chart" class="evidencia-chart" viewBox="0 0 560 240" role="img" aria-label="Serie de abandono interanual de la jurisdicci&oacute;n seleccionada"></svg>
+    <p id="evidencia-chart-summary" class="evidencia-summary" aria-live="polite">La serie se dibuja con JavaScript a partir de la planilla oficial incorporada.</p>
+  </figure>
+  <details class="evidencia-table">
+    <summary id="evidencia-tabla-summary">Ver los 24 valores publicados (requiere JavaScript)</summary>
+    <div id="evidencia-tabla-body" class="evidencia-table-body"></div>
+  </details>
+  <p id="evidencia-source" class="evidencia-source">Fuente: DiNIEE &middot; <a href="https://www.argentina.gob.ar/educacion/evaluacion-e-informacion-educativa/indicadores" target="_blank" rel="noopener noreferrer">indicadores oficiales</a> y su planilla de abandono interanual. El detalle completo aparece con JavaScript.</p>
+  <noscript><p class="evidencia-noscript">Este laboratorio necesita JavaScript para dibujar el mapa y los gr&aacute;ficos. Los datos provienen de la planilla oficial: <a href="https://www.argentina.gob.ar/educacion/evaluacion-e-informacion-educativa/indicadores" target="_blank" rel="noopener noreferrer">indicadores educativos (DiNIEE) ↗</a>. Los exploradores externos que siguen abajo funcionan igual sin JavaScript.</p></noscript>
+</section>
+</div></section>
+<section id="plan" class="bm-sec" aria-labelledby="plan-title"><div class="bm-wrap">
+  <header class="sec-head"><p class="kicker">06 / Qué existe hoy y qué se construye en el evento</p><h2 id="plan-title">Investigamos antes. Construimos allá.</h2></header>
+  <div class="bm-plan">
+    <article><h3>Hoy</h3><ul><li>Investigación con datos oficiales verificados (carpeta <code>research/</code>).</li><li>Esta historia, el simulador en sats y el verificador de recibos.</li><li>Pruebas técnicas sin dinero: APIs de Lightning, OpenTimestamps, cotización.</li></ul></article>
     <article><h3>Día 1 · 30/10</h3><ul><li>Fondeo real por QR Lightning.</li><li>Validación de hito → pago automático con preimage.</li><li>Página pública del programa con recibos.</li><li>Sellado de reglas en Bitcoin.</li></ul></article>
     <article><h3>Día 2 · 31/10</h3><ul><li>Devolución exacta a sponsors.</li><li>Cobro por factura (Belo/Lemon) y voucher.</li><li>Demo en vivo: un sponsor del público fondea y un estudiante cobra en segundos.</li></ul></article>
   </div>
-</section>
-
-<section id="fuentes" class="wrap section sources">
+  <p class="note">Antes del evento: <a href="docs/hackathon/problem-validation-guide.md">guía de entrevistas para validar el problema</a> (no contiene resultados). Exploración anterior: <a href="demo.html">Demo con árbol de aportes</a> (montos ilustrativos en USD) · <a href="laboratorio.html">Laboratorio</a>.</p>
+</div></section>
+<section id="fuentes" class="bm-sec bm-sources"><div class="bm-wrap">
   <h2>Fuentes (consultadas el 26/10/2026)</h2>
   <ul>
     <li>INDEC, <a href="https://www.indec.gob.ar/uploads/informesdeprensa/eph_pobreza_09_2670733F4C4D.pdf" rel="noopener">Incidencia de la pobreza y la indigencia en 31 aglomerados urbanos, primer semestre 2026</a> (cuadros 3.2 y 4.1).</li>
     <li>INDEC, IPC nacional base dic-2016, serie <code>148.3_INIVELNAL_DICI_M_26</code>: <a href="https://apis.datos.gob.ar/series/api/series/?ids=148.3_INIVELNAL_DICI_M_26&amp;start_date=2024-09-01" rel="noopener">API Series de Tiempo, datos.gob.ar</a>.</li>
-    <li>Instituto Geográfico Nacional, <a href="https://wms.ign.gob.ar/geoserver/ows?service=WFS&amp;version=1.0.0&amp;request=GetFeature&amp;typeName=ign:provincia&amp;outputFormat=application/json" rel="noopener">límites provinciales (WFS)</a>, simplificados para la web.</li>
+    <li>DiNIEE · Secretaría de Educación de la Nación, <a href="https://www.argentina.gob.ar/educacion/evaluacion-e-informacion-educativa/indicadores" rel="noopener">Tasa de Abandono Interanual 2012-2025</a>. Límites provinciales: Georef / IGN (datos.gob.ar).</li>
     <li>Ministerio de Economía, <a href="https://dgsiaf-repo.mecon.gob.ar/repository/pa/datasets/2025/credito-anual-2025.zip" rel="noopener">Presupuesto Abierto, crédito anual 2025</a>: Progresar ejecutó el 99% de su crédito vigente.</li>
     <li>Progresar Superior: <a href="https://www.argentina.gob.ar/educacion/progresar/preguntas-frecuentes-progresar/educacion-superior-faq" rel="noopener">preguntas frecuentes oficiales</a>; monto $35.000 según Resolución 172/2026.</li>
     <li>Templado et al., Argentinos por la Educación (2022), vía <a href="https://www.pensamientouniversitario.com.ar/index.php/2025/08/21/brechas-en-la-graduacion-en-la-educacion-superior-argentina-y-su-impacto-sobre-la-equidad/" rel="noopener">Pensamiento Universitario</a>. Becarios Progresar: <a href="https://www.infobae.com/politica/2026/05/17/becas-progresar-que-paso-con-la-cifra-de-beneficiarios-y-su-presupuesto-en-la-gestion-de-milei/" rel="noopener">Infobae, 17/05/2026</a>.</li>
     <li>Fundación YPF, <a href="https://becas.fundacionypf.org.ar/documents/BASES%20DE%20LA%20CONVOCATORIA%202026.pdf" rel="noopener">bases 2026</a>. MDRC, <a href="https://www.mdrc.org/work/publications/performance-based-scholarships-emerging-findings-national-demonstration" rel="noopener">Performance-Based Scholarships</a>.</li>
     <li>Cotización: <a href="https://api.yadio.io/exrates/ARS" rel="noopener">Yadio</a>. Facturas: <a href="https://github.com/lightning/bolts/blob/master/11-payment-encoding.md" rel="noopener">BOLT 11</a>.</li>
   </ul>
-  <p class="note">La investigación completa, con hechos, inferencias y datos faltantes separados, está en la carpeta <code>research/</code> del repositorio. Versión anterior de esta propuesta (Ethereum/Sepolia, descartada): <a href="beca-modular.html">archivo</a>.</p>
-</section>
+  <p class="note">La investigación completa, con hechos, inferencias y datos faltantes separados, está en la carpeta <code>research/</code> del repositorio. Versión anterior de esta propuesta (Ethereum/Sepolia, descartada): <a href="laboratorio.html">laboratorio</a>.</p>
+</div></section>
 
-</main>
-
-<footer class="foot">
-  <p>Beca Modular · propuesta para la Hackathon EDU HUB de LABITCONF 2026 · Track Inclusión Financiera.</p>
-  <p>Simulación educativa: esta página no conecta billeteras, no recibe aportes y no transfiere fondos.</p>
-</footer>
-
-<aside class="brote" id="brote" aria-hidden="true">
-  <p class="brote-bubble" id="brote-bubble">Hola, soy Brote.</p>
-  <div class="brote-body" id="brote-body"></div>
-</aside>
-</body>
-</html>
+</main><footer class="wrap"><a class="brand" href="#">▦ BecaModular</a><p>Propuesta en validación · LABITCONF EDU 2026<br>Sin programa de becas activo ni afiliación a las plataformas citadas.</p><a href="laboratorio.html#fuentes">Fuentes, documentación y experimentos ↗</a></footer><aside class="br-companion" id="br-companion" aria-hidden="true"><p class="br-bubble" id="br-bubble"></p><div class="br-companion-body" id="br-companion-body"></div></aside></body></html>

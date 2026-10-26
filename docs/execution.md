@@ -1,6 +1,6 @@
 # Preparación y plan de ejecución para la hackatón
 
-Actualizado: 14/10/2026. Antes del evento, la web presenta una propuesta y un simulador conceptual; no es un contrato, escrow ni servicio de pagos. La implementación funcional se construirá durante las 48 horas de la hackatón. Ethereum Sepolia con un token ERC-20 de demostración es la arquitectura propuesta, no una integración realizada. ETH de prueba sólo cubriría gas. Las unidades del token representan una beca en el ejemplo, no USD reales: no hay cotización ni dinero actual.
+Actualizado: 16/10/2026. Antes del evento, la web presenta una propuesta y una simulación local; no es un contrato, escrow ni servicio de pagos. El equipo tiene dos jornadas de hackatón y debe salir del predio al cierre del día 1, según la copia de bases guardada el 14/10; el horario aún requiere confirmación actual. Sepolia y un token de prueba son opciones de arquitectura, no compromisos ni integraciones realizadas: primero se confirma el desafío y si blockchain resuelve algo necesario. ETH de prueba sólo cubriría gas; el token no representa USD reales.
 
 ## Producto propuesto
 
@@ -12,30 +12,31 @@ Si hay abandono, sólo después de confirmación mediante revisión humana, los 
 
 ## Estado real y laboratorio
 
-- **Web previa:** presentación de la propuesta, simulador conceptual y roadmap; describirla como tal tras las comprobaciones de la página principal.
+- **Web previa:** landing, resumen de resultado y demo local configurable en `demo.html`; el simulador sólo cambia estado en memoria y no realiza pagos.
 - **Laboratorio ECDSA:** el prototipo local de firma WebCrypto es exploratorio y opcional; no es blockchain, escrow ni el producto de competencia. El reporte de 36 tests combinados pertenece a ese laboratorio, no prueba un contrato EVM.
 - **Preparación técnica:** solc, ethers y Ganache se instalaron para preparar el evento. La preparación de herramientas no implica contrato compilado, probado o desplegado.
-- **Durante las 48 horas:** construir contrato e integración de Sepolia; reportar de forma separada resultados locales, interacción en testnet y cualquier límite.
+- **Durante el evento:** construir una demo funcional que responda al track y al desafío anunciado. Si hace falta blockchain y está permitido, considerar una integración sólo en testnet; informar por separado qué se probó localmente y qué llegó a funcionar en testnet.
 
 No hay clientes, evidencia de mercado o impacto medido. El modelo financiero base existente no es rentable; no se modifica para aparentar rentabilidad. MPP/yield quedan como contexto histórico/roadmap y fuera del flujo de la competencia.
 
-## Plan de construcción — 48 horas del evento
+## Plan de construcción — dos jornadas del evento
 
-| Tiempo | Trabajo y salida esperada |
+| Hito | Trabajo y salida esperada |
 |---|---|
-| 0–2 h | Recibir consigna y confirmar reglas de código previo/IA; spike de red/contrato en Sepolia y cerrar alcance. |
-| 2–10 h | Construir escrow, programa por materia, dos hitos y reglas de fondeo; pruebas del contrato. |
-| 10–20 h | Integrar interfaz y roles: patrocinador/aportantes, institución y estudiante; aportes parciales desde 1 unidad. |
-| 20–28 h | Implementar liberación por examen aprobado, rechazo de replay y reembolso por underfunded; probar caso de abandono confirmado y reparto proporcional. |
-| 28–32 h | Integrar recorrido completo, verificar en testnet si es posible y congelar funciones. |
-| 32–40 h | Preparar pitch, Q&A, ensayo, y distinguir claramente simulador local, Ganache y Sepolia. |
-| 40–48 h | Margen para fallos, entrega y contingencia; no sumar funciones sin necesidad. |
+| Inicio del día 1 | Leer desafío y criterios, confirmar permiso de código previo/IA y elegir track. No asumir que la propuesta actual coincide. |
+| Primera parte del día 1 | Convertir el problema en un recorrido de usuario y una regla crítica; acordar demo mínima, responsable y criterio de aceptación. |
+| Desarrollo del día 1 | Construir una sola vertical slice; probar estados inválidos y el caso de éxito. Hacer un spike testnet sólo si el reto lo requiere y está permitido. |
+| Antes del cierre del predio (19:30) | Congelar una versión ejecutable, respaldar código/datos sintéticos, anotar bloqueos y definir tareas del día 2. Cada participante se retira; no planificar continuidad presencial durante la noche. |
+| Inicio del día 2 | Volver al predio con tiempo antes de la entrega; comprobar que el repo y la demo arrancan desde un estado reproducible. |
+| Cierre del día 2 | Priorizar test de extremo a extremo, contingencia offline, demo funcional y pitch de 1 minuto más Q&A de 1 minuto. No sumar funciones al final. |
 
-Roles sugeridos para un equipo de 4–5: producto y consigna; contrato; interfaz/wallet; pruebas e integración; quinta persona opcional para QA, guion y operación. Asignar nombres cuando el equipo esté confirmado. El predio cierra a las 19:30 del día 1: prever salida, regreso y comidas.
+Roles a repartir cuando el equipo esté confirmado (4–5 personas): desafío/producto; interfaz; estado/reglas; pruebas e integración; quinta persona opcional para QA, guion y operación. Si el desafío justifica testnet, asignar ahí una persona con experiencia. Planificar comida y traslados: el predio cierra a las 19:30 del día 1 y la demo se entrega presencialmente el día 2.
 
 ## Bases oficiales conocidas
 
-Consulta pública registrada el 14/10/2026: inscripción cierra el 16/10 o al agotarse cupo; evento 30–31/10 en Costa Salguero; equipos de 4–5; demo funcional obligatoria; pitch de 60 segundos más preguntas de 60 segundos. Consigna exacta y criterios no definidos aún en el documento consultado; no hay ponderaciones conocidas. Permiso de código previo y uso de IA sin especificar: confirmar con la organización. Fuentes: [LABITCONF](https://www.labitconf.com/mas/hackathon) y [bases consultadas](hackathon/bases-publicas-2026-10-14.txt).
+Consulta pública 14–15/10/2026: inscripción cierra el 16/10 o antes si se agota el cupo; aprobación pendiente en Luma; participación reservada a miembros EDU HUB con universidad acreditada; equipos de 4–5 y posibilidad de anotarse individualmente para asignación el día 1. Evento 30–31/10 en Costa Salguero; demo funcional, pitch 1 minuto y preguntas 1 minuto. El track elegido tiene un desafío específico comunicado antes del evento. Las bases consultadas dicen que criterios/jurado siguen en definición; validar vigencia, permiso de código/IA y agenda del bootcamp. Fuentes: [LABITCONF](https://www.labitconf.com/mas/hackathon), [inscripción EDU HUB en Luma](https://luma.com/cwhw1uls) y [copia consultada de las bases](hackathon/bases-publicas-2026-10-14.txt).
+
+**Revisión de fuentes públicas — 16/10/2026:** Luma todavía muestra “Request to Join” con aprobación, pero no publica fecha de cierre ni cupos; no se puede inferir que siga abierta o que haya lugar. La página general de EDU Hub dice equipos de 4, frente a 4–5 en Luma y la copia de bases. El documento de bases enlazado por LABITCONF requiere JavaScript y no se pudo contrastar su última revisión. Desafío, criterios actuales, jurado y horario de pitch continúan sin verificar. Ver [readiness actualizada](hackathon/readiness.md) y [registro de evidencia](evidence-register.md).
 
 ## Límites que deben conservarse
 
@@ -43,4 +44,4 @@ Consulta pública registrada el 14/10/2026: inscripción cierra el 16/10 o al ag
 - No describir la web o el laboratorio como contrato, escrow, transferencia real o despliegue Sepolia.
 - Institución, examen y revisión son roles propuestos; ningún resultado académico se valida por código por sí solo.
 - Un tramo liberado/ganado no se recupera. Reembolso de saldo restante requiere abandono confirmado por revisión humana y distribución prorrata a aportantes.
-- Si la consigna asignada no encaja con Nueva Educación, adaptar la propuesta al reto real.
+- Si la consigna asignada no encaja con Nueva Educación o con el caso de becas, adaptar o abandonar el concepto actual para resolver el reto real.

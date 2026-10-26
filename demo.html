@@ -1,2 +1,167 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#203b2e"><title>Beca Modular — Explorar una beca</title><link rel="stylesheet" href="styles.css?v=16"><script type="module" src="roadmap.mjs?v=16"></script><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%233f6047'/%3E%3Cpath d='M8 8h7v7H8zm9 0h7v7h-7zm-9 9h7v7H8zm9 0h7v7h-7z' fill='%23f1ead8'/%3E%3C/svg%3E"></head><body class="roadmap-page standalone-demo"><a class="skip" href="#main">Saltar al ejemplo</a><header class="judge-header wrap"><a class="judge-brand" href="beca-modular.html">▦ Beca Modular</a><a class="resource-secondary" href="beca-modular.html#roadmap">Volver a la propuesta y roadmap ↗</a></header><main id="main" class="wrap"><section class="section funding-section"><div class="section-top"><span class="eyebrow">BECA POR MATERIA / EJEMPLO INTERACTIVO</span><span class="concept-badge">Simulación conceptual · sin pagos</span></div><h1>100 USD. Una materia.<br>Uno o muchos aportantes.</h1><p class="section-intro">Completá la meta, simulá exámenes aprobados y explorá cómo se devuelve el saldo si hay abandono confirmado. El producto funcional se construirá durante la hackatón.</p><div id="funding-demo" class="funding-workspace"><section class="funding-contribute" aria-labelledby="contribute-title"><span class="small-mono">01 / ELEGÍ CÓMO ACOMPAÑAR</span><h3 id="contribute-title">Toda la materia.<br>O una parte de ella.</h3><p>Podés cubrir la meta de 100 USD vos solo o sumar un aporte pequeño a los de otras personas.</p><div class="funding-presets"><button type="button" data-funding-preset="solo">Una persona · 100 USD</button><button type="button" data-funding-preset="shared">Dos aportes · 60 + 40 USD</button></div><label for="funding-amount">Aporte de ejemplo (USD)</label><div class="contribution-input"><span aria-hidden="true">$</span><input id="funding-amount" type="number" min="0.01" max="100" step="0.01" value="1" inputmode="decimal"></div><p class="field-help">Desde 1 USD. Si falta menos para completar la meta, se puede cubrir ese saldo exacto.</p><button id="funding-add" class="button primary" type="button">Simular este aporte →</button><button id="funding-complete" class="text-button" type="button">Completar la meta con otro aporte de ejemplo</button><div class="funding-progress-label"><span>Meta de la materia</span><strong id="funding-progress-text">0 de 100 USD</strong></div><div class="funding-progress" role="progressbar" aria-label="Financiación de ejemplo" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="funding-progress-fill"></span></div><ol id="funding-contributors" class="funding-contributors" aria-label="Aportes del escenario"><li>Todavía no hay aportes de ejemplo.</li></ol><button id="funding-close" class="text-button" type="button" disabled>Simular cierre sin alcanzar la meta</button></section>
-<section class="funding-scholarship" aria-labelledby="funding-title"><div class="label-row"><span class="small-mono">02 / SEGUÍ EL RECORRIDO</span><span id="funding-state" class="funding-state">Buscando aportes</span></div><h3 id="funding-title">Una materia de 100 USD.<br>Dos hitos de 50 USD.</h3><div class="funding-kpis"><div><small>Aportado</small><strong id="funding-total">0 USD</strong></div><div><small>Para el estudiante</small><strong id="funding-paid">0 USD</strong></div><div><small>Aún reservado</small><strong id="funding-reserved">0 USD</strong></div></div><ol class="exam-timeline"><li id="exam-one"><span>01</span><div><strong>Primer examen aprobado</strong><small>La institución confirma → 50 USD al alumno</small></div><b>50 USD</b></li><li id="exam-two"><span>02</span><div><strong>Materia aprobada</strong><small>La institución confirma → otros 50 USD</small></div><b>50 USD</b></li></ol><button id="funding-exam" class="button secondary" type="button" disabled>Simular primer examen aprobado</button><p id="funding-status" class="funding-notice" role="status" aria-live="polite">Agregá aportes de ejemplo. La beca se activa cuando se completa la meta.</p><div class="funding-review"><h4>Si necesita parar, se revisa.</h4><p>Pedir una revisión pausa nuevos tramos. El abandono se confirma con una persona, aviso y oportunidad de apelación.</p><div class="actions"><button id="funding-review" class="text-button" type="button" disabled>Simular pedido de revisión</button><button id="funding-resume" class="text-button" type="button" hidden>Simular continuidad</button><button id="funding-abandon" class="text-button" type="button" hidden>Simular abandono confirmado</button></div></div><div id="funding-refunds" class="funding-refunds" hidden><h4>El saldo vuelve a quienes aportaron.</h4><p id="funding-refund-summary"></p><div class="table-scroll"><table><caption>Devolución proporcional del escenario · USD ficticios</caption><thead><tr><th scope="col">Aportante</th><th scope="col">Aportó</th><th scope="col">Recupera</th></tr></thead><tbody id="funding-refund-rows"></tbody></table></div></div><button id="funding-reset" class="text-button" type="button">Reiniciar ejemplo ↺</button></section></div><p class="concept-disclosure">Simulación conceptual: no acepta aportes, conecta wallets, verifica exámenes ni transfiere fondos. Sirve para discutir y ajustar las reglas que se implementarán durante la hackatón.</p></section></main></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#203b2e">
+  <title>Beca Modular — Explorar una beca</title>
+  <link rel="stylesheet" href="styles.css?v=29">
+  <script type="module" src="roadmap.mjs?v=29"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%233f6047'/%3E%3Cpath d='M8 8h7v7H8zm9 0h7v7h-7zm-9 9h7v7H8zm9 0h7v7h-7z' fill='%23f1ead8'/%3E%3C/svg%3E">
+</head>
+<body class="roadmap-page standalone-demo">
+  <a class="skip" href="#main">Saltar al ejemplo</a>
+  <header class="judge-header wrap demo-header">
+    <a class="judge-brand" href="index.html">▦ Beca Modular</a>
+    <nav class="demo-nav" aria-label="Navegación de la demo">
+      <a href="#funding-demo">Probar la demo</a>
+      <a href="#demo-limits">Qué demuestra</a>
+      <a class="resource-secondary" href="index.html#roadmap">Propuesta y roadmap ↗</a>
+    </nav>
+  </header>
+  <main id="main" class="wrap">
+    <section class="demo-hero" aria-labelledby="demo-hero-title">
+      <div class="demo-hero-copy">
+        <span class="eyebrow">UNA BECA · REGLAS A LA VISTA</span>
+        <h1 id="demo-hero-title">Tu apoyo, en tramos claros.</h1>
+        <p>El sponsor define el módulo, el límite y los hitos. En este ejemplo el módulo se asigna a un estudiante sintético; cada avance muestra qué se registra, cuánto se libera y qué saldo queda reservado.</p>
+        <a class="button primary" href="#funding-demo">Probar el recorrido →</a>
+        <small>Ejemplo sintético · toma menos de 30 segundos</small>
+      </div>
+      <figure class="demo-hero-visual">
+        <img src="assets/beca-library-hero.png" alt="Ilustración conceptual de una persona estudiando en una biblioteca" fetchpriority="high">
+        <figcaption>Escena ilustrativa generada; no representa a un estudiante participante.</figcaption>
+      </figure>
+    </section>
+    <section class="section funding-section">
+      <div class="section-top">
+        <span class="eyebrow">BECA POR MÓDULO / EJEMPLO INTERACTIVO</span>
+        <span class="concept-badge">Simulación local · sin pagos</span>
+      </div>
+      <h2>Una regla visible para cada tramo.</h2>
+      <p class="section-intro">Prepará un presupuesto de prueba, completalo y registrá un avance. El saldo se calcula en centavos y el comprobante explica el resultado.</p>
+
+      <div id="funding-demo" class="funding-workspace">
+        <section class="funding-contribute" aria-labelledby="contribute-title">
+          <span class="small-mono">01 / EL SPONSOR CONFIGURA LA BECA</span>
+          <h3 id="contribute-title">Elegí un módulo y fijá el límite.</h3>
+          <p>Importes de prueba en USD; ningún campo contiene datos reales de estudiantes.</p>
+          <details id="funding-config-panel" class="funding-config-panel">
+            <summary><span>Editar presupuesto y reglas</span><b id="funding-config-summary">100 USD · 2 hitos</b></summary>
+          <div class="funding-rules">
+            <label for="funding-module">Módulo de ejemplo</label>
+            <input id="funding-module" type="text" maxlength="80" value="Introducción al álgebra" autocomplete="off" required>
+            <label for="funding-target">Presupuesto máximo (USD)</label>
+            <div class="contribution-input"><span aria-hidden="true">$</span><input id="funding-target" type="number" min="0.01" step="0.01" value="100" inputmode="decimal" required aria-describedby="funding-config-feedback"></div>
+            <fieldset class="funding-milestone-rules">
+              <legend>Reglas de liberación</legend>
+              <label for="milestone-one-title">Hito 1</label>
+              <input id="milestone-one-title" type="text" maxlength="80" value="Primer examen aprobado" autocomplete="off" required>
+              <label for="milestone-one-amount">Importe del hito 1 (USD)</label>
+              <input id="milestone-one-amount" type="number" min="0.01" step="0.01" value="50" inputmode="decimal" required aria-describedby="funding-config-feedback">
+              <label for="milestone-two-title">Hito 2</label>
+              <input id="milestone-two-title" type="text" maxlength="80" value="Materia aprobada" autocomplete="off" required>
+              <label for="milestone-two-amount">Importe del hito 2 (USD)</label>
+              <input id="milestone-two-amount" type="number" min="0.01" step="0.01" value="50" inputmode="decimal" required aria-describedby="funding-config-feedback">
+            </fieldset>
+            <p class="field-help">Los dos hitos deben sumar exactamente el presupuesto. Aplicá los cambios antes de aportar; las reglas se congelan con el primer aporte ficticio.</p>
+            <p id="funding-config-feedback" class="field-error" role="alert" aria-atomic="true" hidden></p>
+            <button id="funding-configure" class="button secondary" type="button">Aplicar presupuesto y reglas</button>
+          </div>
+          </details>
+
+          <div class="funding-contribution-flow">
+            <span class="small-mono">02 / FONDEÁ EL ESCENARIO</span>
+            <div class="funding-presets">
+              <button type="button" data-funding-preset="solo">Un aporte cubre el presupuesto</button>
+              <button type="button" data-funding-preset="shared">Iniciar demo · 2 aportes ficticios</button>
+            </div>
+            <p class="funding-preset-help">Atajo para ver el recorrido: completa el presupuesto con dos aportes de prueba y habilita el siguiente paso. No se realiza ningún cobro.</p>
+            <label for="funding-amount">Aporte ficticio (USD)</label>
+            <div class="contribution-input"><span aria-hidden="true">$</span><input id="funding-amount" type="number" min="0.01" max="100" step="0.01" value="1" inputmode="decimal"></div>
+            <p class="field-help">Aporte mínimo de prueba: 1 USD. Se puede completar el saldo exacto.</p>
+            <button id="funding-add" class="button primary" type="button">Registrar aporte ficticio →</button>
+            <button id="funding-complete" class="text-button" type="button">Completar con otro aporte ficticio</button>
+            <div class="funding-progress-label"><span>Presupuesto financiado</span><strong id="funding-progress-text">0 de 100 USD</strong></div>
+            <div class="funding-progress" role="progressbar" aria-label="Financiación ficticia" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="funding-progress-fill"></span></div>
+            <ol id="funding-contributors" class="funding-contributors" aria-label="Aportes ficticios del escenario"><li>Todavía no hay aportes ficticios.</li></ol>
+            <button id="funding-close" class="text-button" type="button" disabled>Cerrar sin completar el presupuesto</button>
+          </div>
+        </section>
+
+        <section class="funding-scholarship" aria-labelledby="funding-title">
+          <div class="label-row"><span class="small-mono">03 / MÓDULO ASIGNADO · AVANCE Y SALDO</span><span id="funding-state" class="funding-state">Buscando aportes</span></div>
+          <h3 id="funding-title">Beca de prueba · 100 USD</h3>
+          <p id="funding-module-summary" class="funding-module-summary">Módulo asignado en esta prueba: Introducción al álgebra · estudiante sintético: alumno-demo-01</p>
+          <div class="funding-kpis">
+            <div><small>Presupuesto</small><strong id="funding-total">0 USD</strong></div>
+            <div><small>Liberado al estudiante</small><strong id="funding-paid">0 USD</strong></div>
+            <div><small>Saldo reservado</small><strong id="funding-reserved">0 USD</strong></div>
+          </div>
+          <figure id="funding-tree" class="funding-tree">
+            <div class="funding-tree-stage">
+              <svg class="tree-svg" viewBox="0 0 440 560" role="img" aria-label="Árbol del escenario: cada hoja representa un aporte ficticio y cada fruto un hito confirmado.">
+                <path class="ft-branch" d="M220 336Q148 286 92 238"/>
+                <path class="ft-branch" d="M220 306Q292 258 350 204"/>
+                <path class="ft-branch" d="M220 270Q154 212 114 148"/>
+                <path class="ft-branch" d="M220 240Q284 182 336 122"/>
+                <path class="ft-branch" d="M220 208Q194 150 202 92"/>
+                <ellipse class="ft-ground" cx="220" cy="416" rx="126" ry="12"/>
+                <path class="ft-trunk" d="M207 404Q214 320 213 198H227Q226 320 233 404Z"/>
+              </svg>
+            </div>
+            <figcaption class="funding-tree-status" data-tree-status>El árbol se dibuja con el escenario: cada aporte ficticio suma una hoja y cada constancia institucional de prueba, un fruto. No representa dinero real.</figcaption>
+          </figure>
+          <ol class="exam-timeline">
+            <li id="exam-one"><span>01</span><div><strong id="exam-one-title">Primer examen aprobado</strong><small>Constancia institucional de prueba → libera <span id="exam-one-amount">50 USD</span></small></div><b id="exam-one-value">50 USD</b></li>
+            <li id="exam-two"><span>02</span><div><strong id="exam-two-title">Materia aprobada</strong><small>Constancia institucional de prueba → libera <span id="exam-two-amount">50 USD</span></small></div><b id="exam-two-value">50 USD</b></li>
+          </ol>
+          <label for="progress-kind">Qué querés registrar</label>
+          <select id="progress-kind">
+            <option value="institution-test">Constancia institucional de prueba</option>
+            <option value="content-consumed">Contenido consultado</option>
+            <option value="student-reported">Avance informado por el estudiante</option>
+          </select>
+          <p class="field-help">Ver contenido o informar avance no libera fondos. Sólo la constancia sintética de prueba libera el próximo tramo.</p>
+          <button id="funding-progress-record" class="button primary" type="button" disabled>Registrar avance o constancia</button>
+          <button id="funding-replay" class="text-button" type="button" hidden>Reintentar el último comprobante (prueba anti-repetición)</button>
+          <p id="funding-status" class="funding-notice" data-tone="info" role="status" aria-live="polite" aria-atomic="true">Elegí el atajo para empezar en segundos o editá las reglas antes de aportar.</p>
+
+          <section id="funding-latest" class="funding-latest" aria-labelledby="funding-latest-title" hidden>
+            <span class="small-mono">COMPROBANTE LOCAL</span>
+            <h4 id="funding-latest-title">Último registro</h4>
+            <dl>
+              <div><dt>ID de comprobante</dt><dd id="funding-latest-id"></dd></div>
+              <div><dt>Registro</dt><dd id="funding-latest-kind"></dd></div>
+              <div><dt>Importe liberado</dt><dd id="funding-latest-amount"></dd></div>
+              <div><dt>Saldo histórico · tras este registro</dt><dd id="funding-latest-balance"></dd></div>
+            </dl>
+            <p id="funding-latest-note"></p>
+            <p>El comprobante conserva el saldo de ese momento. Una devolución posterior no modifica este registro.</p>
+            <p id="funding-latest-current" aria-live="polite"></p>
+          </section>
+          <ol id="funding-events" class="funding-events" aria-label="Historial de avances y comprobantes" aria-live="polite"></ol>
+
+          <section class="funding-review">
+            <h4>Si necesita parar, se revisa.</h4>
+            <p>Una revisión pausa nuevos tramos. El abandono requiere confirmación humana, aviso y oportunidad de apelación.</p>
+            <div class="actions">
+              <button id="funding-review" class="text-button" type="button" disabled>Simular pedido de revisión</button>
+              <button id="funding-resume" class="text-button" type="button" hidden>Simular continuidad</button>
+              <button id="funding-abandon" class="text-button" type="button" hidden>Simular abandono confirmado</button>
+            </div>
+          </section>
+          <section id="funding-refunds" class="funding-refunds" hidden>
+            <h4>El saldo vuelve a quienes aportaron.</h4>
+            <p id="funding-refund-summary"></p>
+            <div class="table-scroll"><table><caption>Devolución proporcional del escenario · importes ficticios</caption><thead><tr><th scope="col">Aportante</th><th scope="col">Aportó</th><th scope="col">Recupera</th></tr></thead><tbody id="funding-refund-rows"></tbody></table></div>
+          </section>
+          <button id="funding-reset" class="text-button" type="button">Reiniciar ejemplo ↺</button>
+        </section>
+      </div>
+      <p id="demo-limits" class="concept-disclosure">Simulación en memoria: no acepta aportes, conecta wallets, verifica notas ni transfiere fondos. El módulo se asigna al estudiante ficticio para este escenario; no hay elección, matching ni conexión institucional. Consultar una clase no demuestra aprendizaje; este ejemplo muestra una regla contable, no un logro académico verificado.</p>
+      <p class="offline-kit-link"><a href="beca-demo-offline.zip" download>Descargar respaldo local de la demo (sin internet) ↓</a><span>Requiere Node.js para iniciar el servidor local; incluye instrucciones. Los mapas externos no forman parte del respaldo.</span></p>
+    </section>
+  </main>
+</body>
+</html>

@@ -97,7 +97,3 @@ $$('.roadmap').forEach((row,index) => {
  row.addEventListener('keydown',event=>{if(event.target===row&&['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();advance(event.key==='ArrowRight'?1:-1);}});
  row.addEventListener('scroll',updateTrack,{passive:true}); addEventListener('resize',updateTrack,{passive:true}); updateTrack();
 });
-$('#load-education-map').addEventListener('click',()=>{
- const frame=document.createElement('iframe'); frame.src='https://mapa-educacion-gba.vercel.app/'; frame.title='Mapa educativo del Conurbano Bonaerense · OpenArg'; frame.referrerPolicy='strict-origin-when-cross-origin';
- $('#education-map').replaceChildren(frame);
-});
