@@ -1,6 +1,6 @@
 # Respaldo local de Beca Modular
 
-Esta copia contiene la demo sintética y los archivos que necesita. No incluye mapas externos, datos personales, pagos ni conexión a una institución. Los enlaces internos de la demo vuelven al índice de esta copia (`index.html`); la landing completa ya no es necesaria para la demo.
+Esta copia contiene la demo sintética, la página audiovisual y los tres videos MP4 para usarlos sin internet. No incluye mapas externos, datos personales, pagos ni conexión a una institución. Los enlaces internos de la demo vuelven al índice de esta copia (`index.html`); la landing completa ya no es necesaria para la demo.
 
 ## Requisito
 

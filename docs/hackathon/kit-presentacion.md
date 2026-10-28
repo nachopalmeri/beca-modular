@@ -25,6 +25,12 @@ Reiniciar la demo y repetir el recorrido tres veces antes de salir a escena. Esa
 - Grabar una toma continua si es posible. Si se edita, no ocultar errores ni representar el QR como cobrable.
 - Exportar MP4 local y probarlo sin conexión. Si no hay grabación lista, usar el ZIP offline y narrar la interacción en vivo.
 
+## Videos de presentación
+
+La web incluye tres piezas MP4 originales, con narración y subtítulos en español: `assets/presentaciones/historia.mp4` (propuesta, 52 s), `recorrido.mp4` (flujo sintético, 56,7 s) y `roadmap.mp4` (estado y bloqueos, 60,1 s). La primera funciona como resumen corto; la segunda y la tercera amplían la demo y el plan. Los tiempos finales están en los metadatos de cada archivo.
+
+Abrir `presentacion.html` para reproducirlas, leer sus guiones o descargar MP4. Las piezas son gráficos animados originales con voz de sistema en español; no son testimonios ni video generado por Higgsfield. Para una presentación en vivo, preferir el recorrido de la demo en persona y usar los videos como apertura o respaldo, no como evidencia de una ejecución real.
+
 ## Cinco preguntas del jurado
 
 1. **¿El dinero se mueve por Lightning?** No en esta entrega. El proveedor demo, el QR `beca-demo:` y los recibos son simulados; no son facturas BOLT11. Blink no está habilitado sin cuenta, credenciales, autorización y operación segura.

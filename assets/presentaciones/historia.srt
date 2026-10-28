@@ -1,0 +1,23 @@
+1
+00:00:00,000 --> 00:00:05,313
+Una beca puede ser más clara cuando cada etapa tiene una regla visible.
+
+2
+00:00:05,593 --> 00:00:13,464
+Beca Modular propone que un sponsor defina el módulo, el presupuesto máximo y los hitos antes de empezar.
+
+3
+00:00:13,744 --> 00:00:21,844
+El presupuesto se organiza en cuotas: una institución confirma el avance y la tutora revisa antes de decidir.
+
+4
+00:00:22,124 --> 00:00:30,464
+La inteligencia artificial puede ayudar a leer o explicar una constancia, pero nunca aprueba un hito por sí sola.
+
+5
+00:00:30,744 --> 00:00:38,093
+El registro muestra cuánto se liberó, cuánto queda reservado y cómo se devolvería el saldo no usado.
+
+6
+00:00:38,373 --> 00:00:51,707
+Esta web es una simulación: personas, constancias y fondos son ficticios. El próximo paso es validar el proceso con estudiantes, instituciones y sponsors.

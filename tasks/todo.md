@@ -1,5 +1,15 @@
 # Beca Modular — next steps to hackathon
 
+## Current presentation-video/web slice — 2026-10-28
+
+- [x] Create three narrated Spanish presentation videos (product thesis, guided simulation, evidence-first roadmap) as original motion graphics; keep synthetic/status claims explicit.
+- [x] Build a responsive presentation page with MP4 playback, downloadable files, readable transcripts, and links from the product’s main routes.
+- [x] Replace the generic existing promo-video placement with the product-specific presentation; sync `dist/` and the offline kit.
+- [x] Verify MP4 duration/codec/audio/subtitles, view representative frames, and QA the web page at mobile and desktop widths with reduced-motion/accessibility checks.
+- [x] Update the presentation kit and QA evidence; no publish/deploy without separate authorization.
+
+Assumption: use the installed offline Spanish system voice and original animated graphics. Do not claim generated footage, a Higgsfield connection, live AI inference, real payments, or measured impact.
+
 Updated 2026-10-17. Repo: `D:\Dev\Hackaton\beca-modular`. Work branch: `feat/funded-milestone-receipt`, based on `main` at `464984e3374585366d68faacbbef1c6ca42a5024`. Keep work off `main`; no push or merge. The current site is deployed at `https://beca-clara.vercel.app/`.
 
 ## Evidence lab, tree and closing scene — 2026-10-17

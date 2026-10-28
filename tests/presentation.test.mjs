@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-const kit = readFileSync(new URL('../docs/hackathon/kit-presentacion.md', import.meta.url), 'utf8');
+const kit = readFileSync(new URL('../docs/hackathon/kit-presentacion.md', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 const laboratory = readFileSync(new URL('../laboratorio.html', import.meta.url), 'utf8');
 const respaldo = readFileSync(new URL('../respaldo.html', import.meta.url), 'utf8');
 const timer = readFileSync(new URL('../judge.mjs', import.meta.url), 'utf8');

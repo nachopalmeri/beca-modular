@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#203b2e">
+  <meta name="description" content="Tres videos cortos para entender Beca Modular: la propuesta, el recorrido simulado y lo que falta validar antes de operar.">
+  <title>Presentación audiovisual — Beca Modular</title>
+  <link rel="stylesheet" href="styles.css?v=36">
+</head>
+<body class="presentation-page">
+  <a class="skip" href="#main">Saltar al contenido</a>
+  <header class="header presentation-header">
+    <a class="brand" href="index.html"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Beca<span class="brand-light">Modular</span><span class="beta">PRESENTACIÓN</span></a>
+    <button id="menu" class="menu" aria-expanded="false" aria-controls="nav">Menú</button>
+    <nav id="nav" aria-label="Principal"><a href="index.html">Propuesta</a><a href="demo.html">Demo</a><a href="modelo.html">Modelo de negocio</a><a href="roadmap.html">Roadmap</a><a class="nav-cta" href="#films">Ver los videos ↓</a></nav>
+  </header>
+  <main id="main" class="presentation-main">
+    <section class="presentation-hero" aria-labelledby="presentation-title">
+      <div class="presentation-intro">
+        <div class="section-top"><span class="eyebrow">TRES PIEZAS · UNA PROPUESTA HONESTA</span><span class="small-mono">16:9 · ESPAÑOL · SUBTÍTULOS</span></div>
+        <h1 id="presentation-title">Una beca.<br><span>Reglas a la vista.</span></h1>
+        <p>Una presentación animada para entender qué propone Beca Modular, cómo se recorre la simulación y qué falta comprobar antes de hablar de un programa real.</p>
+        <div class="presentation-actions"><a class="button primary" href="#film-historia">Ver la presentación →</a><a class="text-link" href="demo.html">Probar el recorrido interactivo ↗</a></div>
+        <p class="presentation-disclosure"><strong>Prototipo conceptual.</strong> No recibe ni transfiere fondos. Personas, documentos y cifras de los videos son ilustrativos; no representan resultados observados.</p>
+      </div>
+      <div class="presentation-reel" aria-label="Resumen de las tres piezas">
+        <span>01 <b>La propuesta</b></span><span>02 <b>El recorrido</b></span><span>03 <b>Roadmap honesto</b></span>
+        <i aria-hidden="true"></i><small>Una historia animada, hecha para explicar reglas.</small>
+      </div>
+    </section>
+
+    <section id="film-historia" class="film-feature" aria-labelledby="film-historia-title">
+      <div class="film-feature-copy"><span class="eyebrow">01 / PITCH · MENOS DE UN MINUTO</span><h2 id="film-historia-title">La propuesta.</h2><p>Del presupuesto acordado a una cuota revisada por una persona. Una síntesis visual del problema y la hipótesis de producto.</p><a class="film-download" href="assets/presentaciones/historia.mp4" download>Descargar MP4 <span>↗</span></a>
+        <details class="film-transcript"><summary>Leer la narración</summary><ol><li>Una beca puede ser más clara cuando cada etapa tiene una regla visible.</li><li>Beca Modular propone que un sponsor defina el módulo, el presupuesto máximo y los hitos antes de empezar.</li><li>El presupuesto se organiza en cuotas: una institución confirma el avance y la tutora revisa antes de decidir.</li><li>La inteligencia artificial puede ayudar a leer o explicar una constancia, pero nunca aprueba un hito por sí sola.</li><li>El registro muestra cuánto se liberó, cuánto queda reservado y cómo se devolvería el saldo no usado.</li><li>Esta web es una simulación: personas, constancias y fondos son ficticios. El próximo paso es validar el proceso con estudiantes, instituciones y sponsors.</li></ol></details>
+      </div>
+      <figure class="film-player"><video controls playsinline preload="none" poster="assets/presentaciones/historia-poster.jpg" aria-label="Video animado: propuesta de Beca Modular"><source src="assets/presentaciones/historia.mp4" type="video/mp4"><track kind="captions" srclang="es" label="Español" src="assets/presentaciones/historia.vtt" default>Tu navegador no admite video HTML5. <a href="assets/presentaciones/historia.mp4">Descargar el MP4.</a></video><figcaption>Gráficos originales · voz en español · subtítulos seleccionables</figcaption></figure>
+    </section>
+
+    <section id="films" class="film-library" aria-labelledby="films-title">
+      <div class="film-library-heading"><div><span class="eyebrow">02—03 / PARA CONTARLO BIEN</span><h2 id="films-title">El producto.<br>Y lo que todavía no es.</h2></div><p>Dos piezas complementarias: una guía del flujo paso a paso y un mapa claro de las validaciones y bloqueos.</p></div>
+      <div class="film-grid">
+        <article class="film-card" id="film-recorrido">
+          <div class="film-card-heading"><span class="eyebrow">02 / RECORRIDO · 60 S</span><a class="film-download" href="assets/presentaciones/recorrido.mp4" download>MP4 ↓</a></div>
+          <h3>Cómo funciona la simulación.</h3>
+          <video controls playsinline preload="none" poster="assets/presentaciones/recorrido-poster.jpg" aria-label="Video animado: recorrido por la simulación de beca"><source src="assets/presentaciones/recorrido.mp4" type="video/mp4"><track kind="captions" srclang="es" label="Español" src="assets/presentaciones/recorrido.vtt" default>Tu navegador no admite video HTML5.</video>
+          <p>Configurar reglas, revisar una sugerencia de IA y entender el saldo sin confundir una prueba con un pago.</p>
+          <details class="film-transcript"><summary>Leer la narración completa</summary><ol><li>Primero, el sponsor define un módulo, un presupuesto máximo y cuotas que suman exactamente ese total.</li><li>Al comenzar el escenario, las reglas quedan fijas. Los aportes de prueba completan el presupuesto sin hacer un cobro.</li><li>Después, una constancia institucional sintética muestra qué evidencia podría revisar una persona.</li><li>La IA puede extraer texto y sugerir una revisión. En el modo demo no hay OCR de fotos ni PDF, y la tutora conserva la decisión.</li><li>La tutora decide manualmente. El ledger separa lo liberado, lo reservado y lo que se devolvería al sponsor.</li><li>Todo vive en memoria. El QR no es cobrable, el recibo no es una transferencia y ninguna nota académica se verifica de verdad.</li></ol></details>
+        </article>
+        <article class="film-card" id="film-roadmap">
+          <div class="film-card-heading"><span class="eyebrow">03 / ROADMAP · 60 S</span><a class="film-download" href="assets/presentaciones/roadmap.mp4" download>MP4 ↓</a></div>
+          <h3>Qué existe y qué falta.</h3>
+          <video controls playsinline preload="none" poster="assets/presentaciones/roadmap-poster.jpg" aria-label="Video animado: roadmap de Beca Modular"><source src="assets/presentaciones/roadmap.mp4" type="video/mp4"><track kind="captions" srclang="es" label="Español" src="assets/presentaciones/roadmap.vtt" default>Tu navegador no admite video HTML5.</video>
+          <p>Disponible, a validar y bloqueado: sin fechas inventadas ni promesas de impacto.</p>
+          <details class="film-transcript"><summary>Leer la narración completa</summary><ol><li>Hoy hay una web pública, un modelo de negocio editable y una simulación interactiva con datos sintéticos.</li><li>La IA ofrece sugerencias y explicaciones. Sin credenciales externas, la respuesta es determinística y no representa una inferencia real.</li><li>Hay que conversar con estudiantes, instituciones y sponsors para comprobar el problema, las reglas y la evidencia aceptable.</li><li>Un programa real necesita aliados, revisión legal y financiera, privacidad, seguridad, persistencia y un proveedor de pagos.</li><li>Solo con autorización, un piloto podría medir tiempos, errores, apelaciones y costos con consentimiento y datos mínimos.</li><li>No prometemos fechas, demanda ni impacto educativo. Cada decisión del roadmap depende de evidencia y condiciones reales.</li></ol></details>
+        </article>
+      </div>
+    </section>
+
+    <aside class="presentation-endnote"><span class="eyebrow">LA REGLA EDITORIAL</span><p>Una animación explica el concepto; no convierte una hipótesis en evidencia. <a href="roadmap.html">Leer el roadmap completo ↗</a> · <a href="docs/hackathon/kit-presentacion.md">Ver el guion y las preguntas del jurado ↗</a></p></aside>
+  </main>
+  <script>
+    const menu=document.querySelector('#menu'),nav=document.querySelector('#nav');
+    menu?.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open))});
+    nav?.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{nav.classList.remove('open');menu?.setAttribute('aria-expanded','false')}));
+  </script>
+</body>
+</html>

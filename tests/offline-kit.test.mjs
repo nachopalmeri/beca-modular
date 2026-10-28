@@ -7,11 +7,14 @@ test('offline kit bundles every runtime file plus an index shim and rewrites the
   const names = entries.map(([name]) => name);
   assert.equal(names.length, OFFLINE_FILES.length + 1, 'kit entries are the runtime files plus index.html');
   for (const required of [
-    'demo.html', 'modelo.html', 'roadmap.html', 'modelo.mjs', 'model.mjs', 'styles.css', 'roadmap.mjs', 'funding-model.mjs', 'brote-motion.mjs', 'tree.mjs',
+    'demo.html', 'modelo.html', 'roadmap.html', 'presentacion.html', 'modelo.mjs', 'model.mjs', 'styles.css', 'roadmap.mjs', 'funding-model.mjs', 'brote-motion.mjs', 'tree.mjs',
     'evidence-map.mjs', 'server.mjs', 'offline-demo-README.md', 'index.html',
     'payments/payment-provider.mjs', 'payments/demo-ui.mjs', 'vendor/qrcode-generator.js', 'vendor/THIRD-PARTY-NOTICES.md',
     'ai/ai-provider.mjs', 'ai/fallback.mjs',
-    'docs/financial-model.md',
+    'docs/financial-model.md', 'docs/hackathon/kit-presentacion.md', 'docs/hackathon/problem-validation-guide.md',
+    'assets/presentaciones/historia.mp4', 'assets/presentaciones/historia-poster.jpg', 'assets/presentaciones/historia.vtt',
+    'assets/presentaciones/recorrido.mp4', 'assets/presentaciones/recorrido-poster.jpg', 'assets/presentaciones/recorrido.vtt',
+    'assets/presentaciones/roadmap.mp4', 'assets/presentaciones/roadmap-poster.jpg', 'assets/presentaciones/roadmap.vtt',
     'data/abandono-interanual.mjs', 'data/geo-provincias.mjs', 'assets/beca-library-hero.png'
   ]) {
     assert.ok(names.includes(required), `kit missing ${required}`);
@@ -22,5 +25,6 @@ test('offline kit bundles every runtime file plus an index shim and rewrites the
   assert.match(demo, /href="roadmap\.html"/, 'the offline kit includes the product roadmap linked from the demo');
   const shim = entries.find(([name]) => name === 'index.html')[1].toString('utf8');
   assert.match(shim, /href="demo\.html"/);
+  assert.match(shim, /href="presentacion\.html"/);
   assert.match(shim, /beca-clara\.vercel\.app/);
 });

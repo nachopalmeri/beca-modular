@@ -1,0 +1,23 @@
+1
+00:00:00,000 --> 00:00:07,791
+Hoy hay una web pública, un modelo de negocio editable y una simulación interactiva con datos sintéticos.
+
+2
+00:00:08,071 --> 00:00:19,275
+La IA ofrece sugerencias y explicaciones. Sin credenciales externas, la respuesta es determinística y no representa una inferencia real.
+
+3
+00:00:19,555 --> 00:00:28,673
+Hay que conversar con estudiantes, instituciones y sponsors para comprobar el problema, las reglas y la evidencia aceptable.
+
+4
+00:00:28,953 --> 00:00:39,230
+Un programa real necesita aliados, revisión legal y financiera, privacidad, seguridad, persistencia y un proveedor de pagos.
+
+5
+00:00:39,510 --> 00:00:49,440
+Solo con autorización, un piloto podría medir tiempos, errores, apelaciones y costos con consentimiento y datos mínimos.
+
+6
+00:00:49,720 --> 00:00:59,841
+No prometemos fechas, demanda ni impacto educativo. Cada decisión del roadmap depende de evidencia y condiciones reales.

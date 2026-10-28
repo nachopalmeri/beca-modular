@@ -223,6 +223,15 @@ No screen-reader audit, user usability study, academic verification, contract te
 
 ## Hackathon readiness gate refresh - 2026-10-16
 
+## Presentation videos and audiovisual page — 2026-10-28
+
+- Produced three original Spanish narrated motion-graphic MP4s: `historia` (52.0 s), `recorrido` (56.7 s) and `roadmap` (60.1 s), H.264/AAC, 1920×1080 at 24 fps. Each includes an MP4 subtitle track, WebVTT, SRT and poster. Voice is the locally installed Microsoft Sabina Desktop speech synthesizer; ambient music is generated locally. This is not Higgsfield-generated footage or a human testimonial.
+- Added `presentacion.html` with native non-autoplay players, selectable captions, download links and complete readable transcripts; linked it from the landing, demo, lab and roadmap. Replaced the prior generic promo placement. Synced `dist/` and rebuilt `beca-demo-offline.zip` (36 files, approximately 23.6 MB).
+- `node --test tests/*.test.mjs`: **90 passed, 0 failed**. The focused video test probes codec, dimensions, duration, audio, subtitle streams, posters, captions, scripts and source/dist byte identity.
+- `node tests/presentation-browser.cjs`: **PASS** for source and dist at 1440×900, 768×1024 and 390×844; validates video metadata loading, all three download/caption/transcript controls, mobile navigation, transcript expansion, no horizontal overflow and no page errors. HTTP checks: presentation HTML, MP4 and VTT return 200; VTT uses `text/vtt`.
+- Reviewed desktop/mobile page captures and representative frames for human review, the demo flow and roadmap blockers. Captures: `docs/captures/presentacion-desktop.png`, `presentacion-mobile.png`, `video-historia-revision-humana.png`, `video-recorrido-revision-humana.png`, `video-roadmap-bloqueos.png`.
+- Claims stay bounded: figures and people are illustrative; the demo does not verify a real institution, student, document, AI inference, payment or educational outcome. The voice is synthetic. No external AI/video service was used. This is not a screen-reader audit or a user study; no publish/deploy was performed.
+
 ## Offline demo fallback - 2026-10-16
 
 With `demo.html` loaded from the local Node server, Playwright switched the browser to offline and completed the shared synthetic funding preset, institutional test record, receipt readout and duplicate replay rejection. The balances stayed 50/50 after the rejected replay; there were no failed requests or page errors. This validates the local simulation after load; it does not make the external educational maps or Vercel-hosted page available without internet. Capture: `docs/captures/demo-offline-receipt-mobile.png`.

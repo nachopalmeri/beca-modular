@@ -5,12 +5,15 @@ import { deflateRawSync } from 'node:zlib';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const OFFLINE_FILES = [
-  'demo.html', 'modelo.html', 'roadmap.html', 'modelo.mjs', 'model.mjs', 'styles.css', 'roadmap.mjs', 'funding-model.mjs',
+  'demo.html', 'modelo.html', 'roadmap.html', 'presentacion.html', 'modelo.mjs', 'model.mjs', 'styles.css', 'roadmap.mjs', 'funding-model.mjs',
   'brote-motion.mjs', 'server.mjs', 'offline-demo-README.md',
   'tree.mjs', 'evidence-map.mjs',
   'payments/payment-provider.mjs', 'payments/demo-ui.mjs',
   'ai/ai-provider.mjs', 'ai/fallback.mjs',
-  'docs/financial-model.md',
+  'docs/financial-model.md', 'docs/hackathon/kit-presentacion.md', 'docs/hackathon/problem-validation-guide.md',
+  'assets/presentaciones/historia.mp4', 'assets/presentaciones/historia-poster.jpg', 'assets/presentaciones/historia.vtt',
+  'assets/presentaciones/recorrido.mp4', 'assets/presentaciones/recorrido-poster.jpg', 'assets/presentaciones/recorrido.vtt',
+  'assets/presentaciones/roadmap.mp4', 'assets/presentaciones/roadmap-poster.jpg', 'assets/presentaciones/roadmap.vtt',
   'vendor/qrcode-generator.js', 'vendor/THIRD-PARTY-NOTICES.md',
   'data/abandono-interanual.mjs', 'data/geo-provincias.mjs',
   'assets/beca-library-hero.png',
@@ -55,6 +58,7 @@ export function buildIndexShim() {
 <h1 style="font-weight:500">Estás usando el respaldo local.</h1>
 <p>Esta carpeta contiene la demo sintética y sus archivos para usar sin internet: no incluye mapas externos ni la landing completa.</p>
 <p><a class="button" href="demo.html">Abrir la demo →</a></p>
+<p><a class="button" href="presentacion.html">Ver videos de presentación →</a></p>
 <p><small>La landing completa vive en <a href="https://beca-clara.vercel.app/" target="_blank" rel="noopener noreferrer">beca-clara.vercel.app</a>. La simulación no representa pagos ni verificaciones reales.</small></p>
 </main></body></html>
 `;

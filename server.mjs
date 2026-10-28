@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { explainReceipt, generateImpactReport, prevalidateMilestone } from './ai/ai-provider.mjs';
 const root = fileURLToPath(new URL('.', import.meta.url));
-const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.md': 'text/plain; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.mp4': 'video/mp4', '.json': 'application/json', '.txt': 'text/plain; charset=utf-8', '.zip': 'application/zip' };
+const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.md': 'text/plain; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.mp4': 'video/mp4', '.vtt': 'text/vtt; charset=utf-8', '.json': 'application/json', '.txt': 'text/plain; charset=utf-8', '.zip': 'application/zip' };
 createServer(async (req,res) => {
   try {
     const url = new URL(req.url, 'http://127.0.0.1');
@@ -37,4 +37,4 @@ createServer(async (req,res) => {
     const data = await readFile(file);
     res.writeHead(200, { 'Content-Type': types[path.extname(file)], 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' }); res.end(data);
   } catch { res.writeHead(404); res.end('Not found'); }
-}).listen(4178,'127.0.0.1',()=>console.log('Beca Modular → http://127.0.0.1:4178 (local simulation)'));
+}).listen(Number(process.env.PORT || 4178),'127.0.0.1',()=>console.log(`Beca Modular → http://127.0.0.1:${Number(process.env.PORT || 4178)} (local simulation)`));

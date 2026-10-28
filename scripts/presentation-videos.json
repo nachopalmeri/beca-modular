@@ -1,0 +1,49 @@
+{
+  "fps": 24,
+  "width": 1920,
+  "height": 1080,
+  "videos": [
+    {
+      "id": "historia",
+      "title": "La idea en 45 segundos",
+      "shortTitle": "La propuesta",
+      "eyebrow": "BECA MODULAR · PRESENTACIÓN",
+      "beats": [
+        { "headline": ["Una beca.", "Reglas a la vista."], "visual": "opening", "narration": "Una beca puede ser más clara cuando cada etapa tiene una regla visible." },
+        { "headline": ["Un objetivo.", "Un tope acordado."], "visual": "budget", "narration": "Beca Modular propone que un sponsor defina el módulo, el presupuesto máximo y los hitos antes de empezar." },
+        { "headline": ["Cada cuota", "tiene una condición."], "visual": "milestones", "narration": "El presupuesto se organiza en cuotas: una institución confirma el avance y la tutora revisa antes de decidir." },
+        { "headline": ["La IA asiste.", "La persona decide."], "visual": "human", "narration": "La inteligencia artificial puede ayudar a leer o explicar una constancia, pero nunca aprueba un hito por sí sola." },
+        { "headline": ["Liberado.", "Reservado.", "Devuelto."], "visual": "ledger", "narration": "El registro muestra cuánto se liberó, cuánto queda reservado y cómo se devolvería el saldo no usado." },
+        { "headline": ["Primero,", "validar la idea."], "visual": "closing", "narration": "Esta web es una simulación: personas, constancias y fondos son ficticios. El próximo paso es validar el proceso con estudiantes, instituciones y sponsors." }
+      ]
+    },
+    {
+      "id": "recorrido",
+      "title": "Cómo funciona la simulación",
+      "shortTitle": "El recorrido",
+      "eyebrow": "UNA REGLA · UN REGISTRO · UNA PERSONA",
+      "beats": [
+        { "headline": ["01 / Configurar", "antes de aportar."], "visual": "budget", "narration": "Primero, el sponsor define un módulo, un presupuesto máximo y cuotas que suman exactamente ese total." },
+        { "headline": ["02 / Congelar", "las reglas."], "visual": "freeze", "narration": "Al comenzar el escenario, las reglas quedan fijas. Los aportes de prueba completan el presupuesto sin hacer un cobro." },
+        { "headline": ["03 / Presentar", "una constancia."], "visual": "evidence", "narration": "Después, una constancia institucional sintética muestra qué evidencia podría revisar una persona." },
+        { "headline": ["04 / IA sugiere.", "No autoriza."], "visual": "human", "narration": "La IA puede extraer texto y sugerir una revisión. En el modo demo no hay OCR de fotos ni PDF, y la tutora conserva la decisión." },
+        { "headline": ["05 / Revisar", "el movimiento."], "visual": "ledger", "narration": "La tutora decide manualmente. El ledger separa lo liberado, lo reservado y lo que se devolvería al sponsor." },
+        { "headline": ["Una demo clara.", "No un pago real."], "visual": "closing", "narration": "Todo vive en memoria. El QR no es cobrable, el recibo no es una transferencia y ninguna nota académica se verifica de verdad." }
+      ]
+    },
+    {
+      "id": "roadmap",
+      "title": "Qué existe y qué falta",
+      "shortTitle": "El roadmap honesto",
+      "eyebrow": "ESTADO DEL PRODUCTO · SIN FECHAS PROMETIDAS",
+      "beats": [
+        { "headline": ["Lo disponible:", "un prototipo."], "visual": "opening", "narration": "Hoy hay una web pública, un modelo de negocio editable y una simulación interactiva con datos sintéticos." },
+        { "headline": ["La IA asiste.", "No decide."], "visual": "human", "narration": "La IA ofrece sugerencias y explicaciones. Sin credenciales externas, la respuesta es determinística y no representa una inferencia real." },
+        { "headline": ["Próximo paso:", "escuchar y validar."], "visual": "validate", "narration": "Hay que conversar con estudiantes, instituciones y sponsors para comprobar el problema, las reglas y la evidencia aceptable." },
+        { "headline": ["Antes de operar:", "resolver bloqueos."], "visual": "blocked", "narration": "Un programa real necesita aliados, revisión legal y financiera, privacidad, seguridad, persistencia y un proveedor de pagos." },
+        { "headline": ["Después:", "un piloto pequeño."], "visual": "pilot", "narration": "Solo con autorización, un piloto podría medir tiempos, errores, apelaciones y costos con consentimiento y datos mínimos." },
+        { "headline": ["Primero evidencia.", "Después, escala."], "visual": "closing", "narration": "No prometemos fechas, demanda ni impacto educativo. Cada decisión del roadmap depende de evidencia y condiciones reales." }
+      ]
+    }
+  ]
+}

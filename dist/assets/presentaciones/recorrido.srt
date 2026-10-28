@@ -1,0 +1,23 @@
+1
+00:00:00,000 --> 00:00:08,383
+Primero, el sponsor define un módulo, un presupuesto máximo y cuotas que suman exactamente ese total.
+
+2
+00:00:08,663 --> 00:00:18,029
+Al comenzar el escenario, las reglas quedan fijas. Los aportes de prueba completan el presupuesto sin hacer un cobro.
+
+3
+00:00:18,309 --> 00:00:25,760
+Después, una constancia institucional sintética muestra qué evidencia podría revisar una persona.
+
+4
+00:00:26,040 --> 00:00:37,011
+La IA puede extraer texto y sugerir una revisión. En el modo demo no hay OCR de fotos ni PDF, y la tutora conserva la decisión.
+
+5
+00:00:37,291 --> 00:00:46,037
+La tutora decide manualmente. El ledger separa lo liberado, lo reservado y lo que se devolvería al sponsor.
+
+6
+00:00:46,317 --> 00:00:56,392
+Todo vive en memoria. El QR no es cobrable, el recibo no es una transferencia y ninguna nota académica se verifica de verdad.
