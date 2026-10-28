@@ -7,7 +7,7 @@ test('offline kit bundles every runtime file plus an index shim and rewrites the
   const names = entries.map(([name]) => name);
   assert.equal(names.length, OFFLINE_FILES.length + 1, 'kit entries are the runtime files plus index.html');
   for (const required of [
-    'demo.html', 'modelo.html', 'modelo.mjs', 'model.mjs', 'styles.css', 'roadmap.mjs', 'funding-model.mjs', 'brote-motion.mjs', 'tree.mjs',
+    'demo.html', 'modelo.html', 'roadmap.html', 'modelo.mjs', 'model.mjs', 'styles.css', 'roadmap.mjs', 'funding-model.mjs', 'brote-motion.mjs', 'tree.mjs',
     'evidence-map.mjs', 'server.mjs', 'offline-demo-README.md', 'index.html',
     'payments/payment-provider.mjs', 'payments/demo-ui.mjs', 'vendor/qrcode-generator.js', 'vendor/THIRD-PARTY-NOTICES.md',
     'ai/ai-provider.mjs', 'ai/fallback.mjs',
@@ -19,7 +19,7 @@ test('offline kit bundles every runtime file plus an index shim and rewrites the
   const demo = entries.find(([name]) => name === 'demo.html')[1].toString('utf8');
   assert.ok(!demo.includes('beca-demo-offline.zip'), 'the kit must not link to its own archive');
   assert.match(demo, /Ya estás dentro del respaldo offline/);
-  assert.match(demo, /href="index\.html#roadmap"/, 'the landing link stays and now resolves to the shim');
+  assert.match(demo, /href="roadmap\.html"/, 'the offline kit includes the product roadmap linked from the demo');
   const shim = entries.find(([name]) => name === 'index.html')[1].toString('utf8');
   assert.match(shim, /href="demo\.html"/);
   assert.match(shim, /beca-clara\.vercel\.app/);

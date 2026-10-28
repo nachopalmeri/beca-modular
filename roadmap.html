@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#203b2e">
+  <meta name="description" content="Roadmap de Beca Modular: qué está construido, qué se propone validar y qué falta antes de operar becas reales.">
+  <title>Roadmap de producto — Beca Modular</title>
+  <link rel="stylesheet" href="styles.css?v=36">
+</head>
+<body class="roadmap-page">
+  <a class="skip" href="#main">Saltar al contenido</a>
+  <header class="header">
+    <a class="brand" href="index.html"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Beca<span class="brand-light">Modular</span><span class="beta">PROPUESTA</span></a>
+    <nav aria-label="Principal"><a href="index.html">Propuesta</a><a href="modelo.html">Modelo de negocio</a><a href="demo.html#ai-prevalidation">IA y demo</a><a class="nav-cta" href="demo.html">Probar simulación →</a></nav>
+  </header>
+  <main id="main" class="wrap section">
+    <div class="section-top"><span class="eyebrow">ROADMAP DE PRODUCTO</span><span class="small-mono">ESTADO HONESTO · SIN FECHAS PROMETIDAS</span></div>
+    <div class="split-heading"><h1>De una simulación<br>a un programa confiable.</h1><p>Este plan separa lo que ya puede probarse en la web, las hipótesis que necesitan conversaciones y los requisitos que bloquean cualquier operación real. No es un compromiso de entrega ni una afirmación de demanda validada.</p></div>
+    <div class="roadmap-filters" role="group" aria-label="Filtrar etapas del roadmap">
+      <button type="button" data-filter="all" aria-pressed="true">Todo el plan</button>
+      <button type="button" data-filter="built" aria-pressed="false">Disponible</button>
+      <button type="button" data-filter="validate" aria-pressed="false">A validar</button>
+      <button type="button" data-filter="blocked" aria-pressed="false">Bloqueado</button>
+    </div>
+    <p id="roadmap-filter-status" class="field-help" aria-live="polite">Mostrando todas las etapas.</p>
+    <ol class="event-roadmap product-roadmap" id="product-roadmap">
+      <li data-status="built"><span>01 · DISPONIBLE</span><div><h2>Entender la propuesta</h2><p>Recorrido público, demo de beca por hitos y modelo financiero editable. Los estudiantes, aportes, constancias y resultados son sintéticos; sirven para explicar reglas, no para probar impacto.</p><p><a href="index.html">Leer la propuesta ↗</a> · <a href="modelo.html">Explorar supuestos ↗</a></p></div></li>
+      <li data-status="built"><span>02 · PROTOTIPO</span><div><h2>Asistencia de IA con límites visibles</h2><p>La IA puede sugerir una prevalidación, explicar un recibo o resumir el ledger ficticio. El modo demo es determinístico; no hace OCR de imágenes o PDF. Con proveedor externo, solo al habilitarlo y enviar explícitamente la evidencia. Una persona conserva toda decisión.</p><p>Sin credenciales disponibles, la conexión real al modelo no está validada.</p></div></li>
+      <li data-status="validate"><span>03 · PRÓXIMO · A VALIDAR</span><div><h2>Confirmar el problema con usuarios</h2><p>Conversar con estudiantes, instituciones y sponsors; entender los procesos existentes, quién decide, cómo se rinden fondos y qué evidencia es aceptable. Cambiar o descartar la hipótesis si los hallazgos no la sostienen.</p><p><a href="docs/hackathon/problem-validation-guide.md">Guía de validación ↗</a></p></div></li>
+      <li data-status="validate"><span>04 · DEFINIR CON ALIADOS</span><div><h2>Diseñar reglas y salvaguardas</h2><p>Acordar elegibilidad, hitos verificables, apelaciones, privacidad, protección de menores cuando aplique, soporte y tratamiento de saldos. Las instituciones y responsables humanos —no la IA— deciden avances académicos.</p></div></li>
+      <li data-status="blocked"><span>05 · BLOQUEADO</span><div><h2>Construir operación real</h2><p>Requiere aliado institucional, asesoramiento legal y financiero, custodia y pagos con proveedor, persistencia segura, control de acceso, auditoría, seguridad y un proceso probado de devolución. Hoy la web no recibe ni transfiere fondos; Lightning es una simulación.</p></div></li>
+      <li data-status="blocked"><span>06 · SOLO TRAS PILOTO AUTORIZADO</span><div><h2>Evaluar un piloto acotado</h2><p>Definir métricas de operación y experiencia antes de empezar; medir errores, tiempos, apelaciones y costos con consentimiento y datos mínimos. No atribuir aprendizaje ni impacto causal sin un diseño de evaluación apropiado. Publicar resultados solo con autorización.</p></div></li>
+    </ol>
+    <aside class="method-note"><strong>Qué significa cada estado:</strong> Disponible describe una función demostrable hoy; A validar es una pregunta abierta, no una promesa; Bloqueado indica dependencias que impiden operar de forma responsable. <a href="demo.html">Volver a la demo ↗</a></aside>
+  </main>
+  <script type="module">
+    const buttons = [...document.querySelectorAll('[data-filter]')];
+    const cards = [...document.querySelectorAll('#product-roadmap > li')];
+    const status = document.querySelector('#roadmap-filter-status');
+    const labels = { all: 'todas las etapas', built: 'las funciones disponibles', validate: 'las etapas a validar', blocked: 'los bloqueos' };
+    for (const button of buttons) button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+      for (const item of buttons) item.setAttribute('aria-pressed', String(item === button));
+      for (const card of cards) card.hidden = filter !== 'all' && card.dataset.status !== filter;
+      status.textContent = `Mostrando ${labels[filter]}.`;
+    });
+  </script>
+</body>
+</html>

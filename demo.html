@@ -18,16 +18,17 @@
     <nav class="demo-nav" aria-label="Navegación de la demo">
       <a href="#funding-demo">Probar la demo</a>
       <a href="#lightning-flow">Pago Lightning</a>
+      <a href="#ai-prevalidation">IA y revisión humana</a>
       <a href="modelo.html">Modelo de negocio</a>
       <a href="#demo-limits">Qué demuestra</a>
-      <a class="resource-secondary" href="index.html#roadmap">Propuesta y roadmap ↗</a>
+      <a class="resource-secondary" href="roadmap.html">Roadmap de producto ↗</a>
     </nav>
   </header>
   <main id="main" class="wrap">
     <section class="demo-hero" aria-labelledby="demo-hero-title">
       <div class="demo-hero-copy">
         <span class="eyebrow">UNA BECA · REGLAS A LA VISTA</span>
-        <h1 id="demo-hero-title">Tu apoyo, en cuotas claros.</h1>
+        <h1 id="demo-hero-title">Tu apoyo, en cuotas claras.</h1>
         <p>El sponsor define el módulo, el límite y los hitos. En este ejemplo el módulo se asigna a un estudiante sintético; cada avance muestra qué se registra, cuánto se libera y qué saldo queda reservado.</p>
         <a class="button primary" href="#funding-demo">Probar el recorrido →</a>
         <small>Ejemplo sintético · toma menos de 30 segundos</small>
@@ -70,14 +71,14 @@
             <div><dt>Reservado</dt><dd id="payment-reserved-readout">0 sats</dd></div>
             <div><dt>Devuelto al sponsor</dt><dd id="payment-refunded-readout">0 sats</dd></div>
           </dl>
-          <section class="ai-prevalidation" aria-labelledby="ai-prevalidation-title">
+          <section id="ai-prevalidation" class="ai-prevalidation" aria-labelledby="ai-prevalidation-title">
             <div class="ai-card-heading"><span class="payment-mode-badge" id="ai-provider-badge">IA (modo demo)</span><span class="ai-human-loop">La tutora decide siempre</span></div>
             <h4 id="ai-prevalidation-title">Pre-validación de evidencia</h4>
             <label for="milestone-condition">Condición de este hito</label>
             <input id="milestone-condition" type="text" value="Nota mínima 6 en la materia" maxlength="500">
             <label for="milestone-evidence">Foto, PDF o texto de la constancia</label>
             <input id="milestone-evidence" type="file" accept="image/png,image/jpeg,image/webp,application/pdf,text/plain,.txt">
-            <p class="field-help">Sin claves, se analiza localmente en modo demo. Si el servidor tiene una clave IA, la evidencia se envía a Anthropic/OpenAI para analizarla; la app no la guarda. Usá solo documentos sintéticos.</p>
+            <p class="field-help">Al pulsar analizar, aceptás enviar la evidencia al proveedor si hay una clave configurada. Sin claves, solo se interpreta el texto; fotos y PDF no tienen OCR en modo demo y quedan para revisión manual. No se guarda el archivo. Usá documentos sintéticos: nunca subas datos reales.</p>
             <button id="ai-prevalidate-evidence" class="button secondary" type="button">Analizar y sugerir →</button>
             <div id="ai-suggestion" class="ai-suggestion" aria-live="polite" hidden>
               <span class="payment-mode-badge">Sugerido por IA</span>
@@ -101,7 +102,7 @@
       </div>
       <p id="payment-flow-status" class="funding-notice" data-tone="info" role="status" aria-live="polite">Sin fondos. El flujo no hace llamadas externas.</p>
       <section class="impact-report-panel" aria-labelledby="impact-report-title">
-        <div><span class="eyebrow">04 / SPONSOR · REPORTE DE IMPACTO</span><h3 id="impact-report-title">Un resumen de esta sesión.</h3><p>Se calcula únicamente con los movimientos registrados en el ledger local. Los hitos y estudiantes son sintéticos; no mide aprendizaje ni impacto real.</p></div>
+        <div><span class="eyebrow">04 / SPONSOR · REPORTE DE SESIÓN</span><h3 id="impact-report-title">Un resumen de esta sesión.</h3><p>Se calcula únicamente con los movimientos registrados en el ledger local. Los hitos y estudiantes son sintéticos; no mide aprendizaje ni impacto real.</p></div>
         <button id="payment-impact-report" class="button secondary" type="button" disabled>Generar reporte →</button>
         <div id="payment-impact-result" class="impact-report-result" aria-live="polite" hidden>
           <span class="payment-mode-badge" id="impact-report-badge">IA (modo demo)</span>
