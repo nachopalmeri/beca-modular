@@ -1,49 +1,56 @@
 # Kit de presentación — Beca Modular
 
-## Pitch de 60 segundos — versión previa a consigna
+## Pitch de hasta 55 segundos
 
-Una beca puede financiarse por etapas, pero al estudiante y a quien la sostiene les cuesta ver qué regla habilita cada tramo y cuánto queda disponible. Beca Modular propone organizar el apoyo por módulo: presupuesto máximo visible, hitos definidos por personas y un registro entendible de cada avance. En la demo local, dos aportes ficticios completan un presupuesto de 100 dólares de ejemplo. Una constancia institucional sintética libera 50; el recibo deja otros 50 reservados. Si reintentamos el mismo comprobante, se rechaza y el saldo no cambia. Consultar contenido o informar progreso no libera fondos ni demuestra aprendizaje. Esto es una simulación: no verifica notas, no conecta una institución ni mueve dinero. En la hackatón adaptaremos la idea al desafío asignado y construiremos una demo funcional acorde con las reglas del evento.
+> ¿Qué pasa si el apoyo educativo llega tarde o todo junto y nadie puede seguir qué se pagó? Es una hipótesis por validar, no un diagnóstico nacional. Sobre Progresar: **[DATO A VERIFICAR + fuente]**. Beca Modular propone que un sponsor financie una beca por hitos; el estudiante no paga. Una tutora revisa la evidencia y decide: la IA solo sugiere. El recibo de demo permite comprobar preimage y hash entre sí; el QR y el pago son simulados, no mueven fondos. El saldo no usado se devuelve en el escenario. El modelo base todavía pierde USD 5.914,40 al mes. Buscamos validar el proceso, el costo y quién pagaría con un piloto institucional.
 
-Este pitch es una hipótesis de producto previa al track/desafío específico. Reescribirlo después de recibir el brief, sin presentar la simulación como integración terminada.
+**Tiempo estimado:** 45–52 segundos a ritmo claro. Reemplazar el placeholder solo con una cifra comprobada y su fuente primaria; si no se encuentra, conservarlo o quitar la frase al presentar. No leer el placeholder como si fuera un dato.
 
-## Guion de demo local — menos de 30 segundos
+## Recorrido de demo — 90 segundos
 
-1. **0–5 s:** abrir `demo.html`; señalar el módulo asignado al estudiante sintético, el presupuesto máximo y las dos reglas.
-2. **5–10 s:** pulsar **Dos aportes · 60% + 40%**. El simulador completa el presupuesto ficticio sin cobrar.
-3. **10–18 s:** dejar **Constancia institucional de prueba** seleccionada y pulsar **Registrar avance o constancia**. Mostrar 50 USD liberados y 50 USD reservados.
-4. **18–25 s:** mostrar ID, concepto y saldo del comprobante. Pulsar **Reintentar el último comprobante**: el duplicado se rechaza y el balance queda igual.
-5. **25–30 s:** cerrar con la aclaración visible: es una simulación en memoria, no una nota verificada ni un pago.
+1. **0–10 s · Problema:** explicar que pagos tardíos o concentrados dificultan previsibilidad y seguimiento; aclarar que es una hipótesis a validar.
+2. **10–20 s · Sponsor:** abrir `demo.html`, mostrar presupuesto en sats ficticios, pago por hito y Lightning Address de ejemplo (`.invalid`).
+3. **20–35 s · Fondeo:** crear el QR y señalar el aviso **SIMULADO / no es BOLT11**; pulsar **Simular pago del sponsor**. Sin wallet ni pago externo.
+4. **35–50 s · IA + persona:** subir `constancia-demo.txt`, mostrar campos detectados y **IA (modo demo)**. La IA sugiere; la tutora revisa y pulsa aprobar.
+5. **50–68 s · Recibo:** mostrar pago simulado, explicación IA, preimage y hash; verificar que coinciden. Aclarar que la prueba solo verifica el dato generado, no una transferencia Lightning.
+6. **68–78 s · Saldo:** devolver el saldo exacto no usado al sponsor ficticio; mostrar ledger en sats reconciliado.
+7. **78–90 s · Sponsor + negocio:** generar el reporte de esta sesión y abrir `/modelo`: pérdida base de USD 5.914,40/mes y supuestos editables.
 
-La elección de módulo/reglas también puede recorrerse editando el presupuesto y los dos importes para mostrar que deben sumar exactamente el límite. No afirmar que la constancia sintética representa una verificación real.
+Reiniciar la demo y repetir el recorrido tres veces antes de salir a escena. Esas son pruebas locales del flujo simulado, no tres pagos en vivo.
 
-## Preguntas difíciles del jurado
+## Guion de grabación — respaldo de 60–90 segundos
 
-1. **¿Ya hicieron un pago en blockchain?** No. La web previa presenta la propuesta y el simulador es conceptual; la implementación funcional es trabajo de las 48 horas.
-2. **¿El estudiante recibe dinero real?** No hay dinero real en la web ni en el token planeado. El token de demostración no tiene cotización ni representa USD.
-3. **¿Quién recibe la beca?** El estudiante. Aportantes financian; la institución confirma exámenes; una persona aprueba reglas y revisa disputas.
-4. **¿La IA decide condiciones o elegibilidad?** No. El checklist puede partir de un borrador asistido, pero una persona lo aprueba antes del primer aporte y queda congelado. No hay inferencia de IA en vivo.
-5. **¿Qué pasa si no se reúne el total?** Al vencer el plazo, los aportantes recuperan íntegramente sus aportes; no se activa la beca.
-6. **¿Y si el estudiante abandona?** Primero debe confirmarse mediante revisión humana. Sólo se devuelve el saldo aún no liberado, prorrateado según aporte. Los tramos ganados no se reclaman.
-7. **¿Cómo funciona el prorrateo?** Con aportes 60/40 y 50 unidades ya liberadas de 100, restan 50: se devuelven 30 y 20, respectivamente.
-8. **¿Por qué Sepolia?** Es la testnet propuesta para construir y demostrar el flujo. No implica contrato desplegado hoy ni valida el examen académico.
-9. **¿Ya validaron demanda o impacto?** No tenemos clientes, entrevistas ni resultados de impacto que reportar; sigue siendo una hipótesis.
-10. **¿Qué evidencia técnica tienen ahora?** El motor local tiene reglas de presupuesto, hitos, límites, repetición y saldo cubiertas por tests; la UI se probó en Chrome en móvil, tablet y escritorio. Hay además un laboratorio local ECDSA separado. Ninguna de esas pruebas demuestra contrato, institución ni pago on-chain.
+- Grabar pantalla completa a 1440×900, zoom 100%, sin notificaciones ni datos personales. Usar solo el archivo sintético incluido en `tests` o escribir uno de prueba; no subir documentación real.
+- Narrar el recorrido anterior con las mismas aclaraciones de simulación. Mantener visibles las etiquetas **SIMULADO**, **IA (modo demo)** y **Sugerido por IA**.
+- Grabar una toma continua si es posible. Si se edita, no ocultar errores ni representar el QR como cobrable.
+- Exportar MP4 local y probarlo sin conexión. Si no hay grabación lista, usar el ZIP offline y narrar la interacción en vivo.
 
-## Fallback
+## Cinco preguntas del jurado
 
-Si la demo local falla, abrir capturas/video guardados y explicar el problema; decir claramente que la interacción no estuvo disponible. El laboratorio ECDSA sólo sirve si el desafío requiere hablar de firmas y siempre se presenta como experimento local independiente. No presentar transferencia, contrato o despliegue que no exista.
+1. **¿El dinero se mueve por Lightning?** No en esta entrega. El proveedor demo, el QR `beca-demo:` y los recibos son simulados; no son facturas BOLT11. Blink no está habilitado sin cuenta, credenciales, autorización y operación segura.
+2. **¿La IA aprueba el hito?** No. Sugiere extraer/comparar evidencia y explicar el recibo; la tutora mira el original y decide siempre. Sin clave, la sugerencia determinística se etiqueta **IA (modo demo)**.
+3. **¿Quién paga y cuál es el negocio?** El sponsor pagaría la licencia administrativa; el estudiante no paga y el principal de beca no es ingreso. Los supuestos no están validados: el caso base pierde USD 5.914,40/mes; con la licencia base, el cálculo actual requiere 701 sponsors para cubrir los costos proyectados.
+4. **¿Qué demuestra el recibo con preimage?** Que el preimage de la simulación coincide por SHA-256 con el hash mostrado. No demuestra que se haya enviado o recibido un pago real.
+5. **¿Ya midieron el problema o el impacto de Progresar?** No. La necesidad y el impacto siguen por validar. No inventamos una cifra de Progresar: el guion conserva **[DATO A VERIFICAR + fuente]** hasta verificar valor, período y fuente primaria.
 
-## Checklist de entrega
+## Fallback sin internet o si falla la demo
 
-- [ ] Confirmar con la organización el estado de inscripción, cupo y plazo: al 16/10 Luma sigue mostrando “Request to Join” con aprobación, pero no publica deadline ni cupos. La copia de bases del 14/10 dice cierre el 16/10 o al agotar cupo; esto no confirma que siga abierto.
-- [ ] Confirmar tamaño de equipo: Luma y la copia de bases dicen 4–5; la página general de EDU HUB dice 4. Cada integrante debe inscribirse individualmente con el mismo nombre, según Luma.
-- [ ] Confirmar track, desafío, criterios actuales, reglas de código previo/IA y agenda del bootcamp. La página de hackathon anuncia cuatro encuentros en octubre; la página EDU HUB describe tres conversaciones.
-- [ ] Verificar que la web se presenta como simulación local y no afirma un contrato listo.
-- [ ] Ensayar pitch de 1 minuto + Q&A de 1 minuto sólo como hipótesis tomada de la copia de bases del 14/10; reconfirmar formato vigente y reescribir el pitch cuando se conozca el desafío.
-- [ ] Explicar el caso de fondeo incompleto y prorrata por abandono confirmado por separado.
-- [ ] Evitar datos personales, claves privadas, tx hashes o resultados académicos inventados.
-- [ ] Planificar traslado y comida; la copia de bases del 14/10 indica cierre del predio a las 19:30 el 30/10. Confirmar el horario vigente.
+- Abrir `beca-demo-offline.zip`, ejecutar `node server.mjs` y navegar a `http://127.0.0.1:4178/demo.html`.
+- Si falla una interacción, abrir el MP4 o capturas y decir qué no funcionó. No afirmar una transferencia, validación institucional o impacto que no ocurrió.
+- El QR de respaldo tampoco es cobrable; la ausencia de internet nunca convierte una simulación en un pago.
 
-## Fuentes y vigencia
+## Checklist de escenario
 
-Revisión de fuentes públicas 16/10/2026: [Luma](https://luma.com/cwhw1uls?locale=es) requiere aprobación y elegibilidad EDU HUB/universidad acreditada; no muestra cierre ni cupos. La [página de hackathon de LABITCONF](https://www.labitconf.com/mas/hackathon) anuncia 30–31/10, solución funcional en 48 horas, cuatro tracks y cuatro encuentros de bootcamp en octubre. La [página general de EDU HUB](https://www.labitconf.com/mas/edu-hub) dice equipos de 4, frente a 4–5 en Luma/bases, y describe tres conversaciones de bootcamp. La copia local de las bases consultada el 14/10 menciona cierre el 16/10 o al agotar cupo, predio hasta 19:30 y pitch + Q&A de 1 minuto cada uno; esos detalles no se confirmaron en las páginas actuales. Consultar el [informe de estado y fuentes del 16/10](public-status-2026-10-16.md). El guion no sustituye la consigna específica.
+- [ ] Abrir `http://127.0.0.1:4178/demo.html` y verificar que la pantalla inicial indique claramente **MODO DEMO · SIMULADO**.
+- [ ] Confirmar que el QR tiene `beca-demo:` y que no se anuncia como BOLT11.
+- [ ] Hacer tres ensayos completos: fondeo simulado → evidencia → sugerencia IA → decisión de tutora → recibo/hash → devolución exacta → reporte.
+- [ ] Revisar que pagado + devuelto + reservado sea igual al fondeado en sats.
+- [ ] Confirmar `/modelo`, la pérdida base, los supuestos y el punto de equilibrio; no esconder el caso negativo.
+- [ ] Tener abierto el ZIP offline y probado el MP4 como respaldo.
+- [ ] No introducir claves, facturas reales, documentos académicos reales ni datos personales en la demo.
+- [ ] Reemplazar el placeholder de Progresar solo con cifra, período y fuente primaria comprobables; de lo contrario, no presentar cifra.
+- [ ] Verificar con la organización las reglas de código previo/IA, el desafío y el tiempo real de pitch; adaptar el guion a la consigna asignada.
+
+## Límites técnicos de esta entrega
+
+No hay cuenta Blink, API key, transferencia real, pago público ni persistencia. El endpoint IA local usa `ANTHROPIC_API_KEY` o `OPENAI_API_KEY` solo en servidor; la versión estática y el modo sin claves recurren al fallback demo. Los tests mockean proveedores: no son pruebas live de Blink ni de modelos. El reporte refleja solo el ledger de la sesión, que es sintético.

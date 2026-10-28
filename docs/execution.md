@@ -8,7 +8,7 @@ Una beca se define por materia, por ejemplo 100 unidades representativas para un
 
 Antes del primer aporte, el checklist/reglas pueden partir de un borrador generado con ayuda de IA, pero una persona lo revisa y aprueba. Después queda congelado para ese programa. No se afirma que haya una API de IA ni inferencia en vivo. El ejemplo conceptual puede dividir el compromiso en dos hitos de 50/50: el 100% del objetivo debe estar fondeado antes de activar desembolsos; si no se llega al objetivo al vencimiento, cada aportante recupera íntegramente lo que aportó.
 
-Si hay abandono, sólo después de confirmación mediante revisión humana, los tramos no liberados se devuelven proporcionalmente a los aportantes. Lo ya ganado y liberado permanece con el estudiante. Ejemplo: contribuciones 60/40, 50 unidades liberadas y 50 restantes; se devuelven 30 y 20. La web puede explicar esta regla, pero no ejecuta reembolsos.
+Si hay abandono, sólo después de confirmación mediante revisión humana, las cuotas no liberadas se devuelven proporcionalmente a los aportantes. Lo ya ganado y liberado permanece con el estudiante. Ejemplo: contribuciones 60/40, 50 unidades liberadas y 50 restantes; se devuelven 30 y 20. La web puede explicar esta regla, pero no ejecuta reembolsos.
 
 ## Estado real y laboratorio
 
@@ -43,5 +43,5 @@ Consulta pública 14–15/10/2026: inscripción cierra el 16/10 o antes si se ag
 - No llamar USD al token de demostración ni atribuirle precio; usar “unidades representativas”.
 - No describir la web o el laboratorio como contrato, escrow, transferencia real o despliegue Sepolia.
 - Institución, examen y revisión son roles propuestos; ningún resultado académico se valida por código por sí solo.
-- Un tramo liberado/ganado no se recupera. Reembolso de saldo restante requiere abandono confirmado por revisión humana y distribución prorrata a aportantes.
+- Una cuota liberada/obtenida no se recupera. Reembolso de saldo restante requiere abandono confirmado por revisión humana y distribución prorrata a aportantes.
 - Si la consigna asignada no encaja con Nueva Educación o con el caso de becas, adaptar o abandonar el concepto actual para resolver el reto real.

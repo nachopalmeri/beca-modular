@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#203b2e">
   <title>Beca Modular — Explorar una beca</title>
-  <link rel="stylesheet" href="styles.css?v=34">
-  <script src="vendor/qrcode-generator.js?v=34"></script>
-  <script type="module" src="roadmap.mjs?v=34"></script>
-  <script type="module" src="payments/demo-ui.mjs?v=34"></script>
+  <link rel="stylesheet" href="styles.css?v=35">
+  <script src="vendor/qrcode-generator.js?v=35"></script>
+  <script type="module" src="roadmap.mjs?v=35"></script>
+  <script type="module" src="payments/demo-ui.mjs?v=35"></script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%233f6047'/%3E%3Cpath d='M8 8h7v7H8zm9 0h7v7h-7zm-9 9h7v7H8zm9 0h7v7h-7z' fill='%23f1ead8'/%3E%3C/svg%3E">
 </head>
 <body class="roadmap-page standalone-demo">
@@ -27,7 +27,7 @@
     <section class="demo-hero" aria-labelledby="demo-hero-title">
       <div class="demo-hero-copy">
         <span class="eyebrow">UNA BECA · REGLAS A LA VISTA</span>
-        <h1 id="demo-hero-title">Tu apoyo, en tramos claros.</h1>
+        <h1 id="demo-hero-title">Tu apoyo, en cuotas claros.</h1>
         <p>El sponsor define el módulo, el límite y los hitos. En este ejemplo el módulo se asigna a un estudiante sintético; cada avance muestra qué se registra, cuánto se libera y qué saldo queda reservado.</p>
         <a class="button primary" href="#funding-demo">Probar el recorrido →</a>
         <small>Ejemplo sintético · toma menos de 30 segundos</small>
@@ -116,7 +116,7 @@
         <span class="eyebrow">BECA POR MÓDULO / EJEMPLO INTERACTIVO</span>
         <span class="concept-badge">Simulación local · sin pagos</span>
       </div>
-      <h2>Una regla visible para cada tramo.</h2>
+      <h2>Una regla visible para cada cuota.</h2>
       <p class="section-intro">Prepará un presupuesto de prueba, completalo y registrá un avance. El saldo se calcula en centavos y el comprobante explica el resultado.</p>
 
       <div id="funding-demo" class="funding-workspace">
@@ -200,7 +200,7 @@
             <option value="content-consumed">Contenido consultado</option>
             <option value="student-reported">Avance informado por el estudiante</option>
           </select>
-          <p class="field-help">Ver contenido o informar avance no libera fondos. Sólo la constancia sintética de prueba libera el próximo tramo.</p>
+          <p class="field-help">Ver contenido o informar avance no libera fondos. Sólo la constancia sintética de prueba libera la próxima cuota.</p>
           <button id="funding-progress-record" class="button primary" type="button" disabled>Registrar avance o constancia</button>
           <button id="funding-replay" class="text-button" type="button" hidden>Reintentar el último comprobante (prueba anti-repetición)</button>
           <p id="funding-status" class="funding-notice" data-tone="info" role="status" aria-live="polite" aria-atomic="true">Elegí el atajo para empezar en segundos o editá las reglas antes de aportar.</p>
@@ -222,7 +222,7 @@
 
           <section class="funding-review">
             <h4>Si necesita parar, se revisa.</h4>
-            <p>Una revisión pausa nuevos tramos. El abandono requiere confirmación humana, aviso y oportunidad de apelación.</p>
+            <p>Una revisión pausa nuevas cuotas. El abandono requiere confirmación humana, aviso y oportunidad de apelación.</p>
             <div class="actions">
               <button id="funding-review" class="text-button" type="button" disabled>Simular pedido de revisión</button>
               <button id="funding-resume" class="text-button" type="button" hidden>Simular continuidad</button>
