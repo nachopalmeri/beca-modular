@@ -3,5 +3,8 @@
   "framework": null,
   "buildCommand": null,
   "installCommand": null,
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/modelo", "destination": "/modelo.html" }
+  ]
 }

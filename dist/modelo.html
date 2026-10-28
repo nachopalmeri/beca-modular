@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1ead8">
+  <meta name="description" content="Modelo de negocio de Beca Modular: quién paga, supuestos mensuales editables, pérdida base y punto de equilibrio.">
+  <title>Beca Modular — Modelo de negocio</title>
+  <link rel="stylesheet" href="styles.css?v=33">
+  <script type="module" src="modelo.mjs?v=33"></script>
+</head>
+<body class="roadmap-page business-model-page">
+  <a class="skip" href="#main">Saltar al modelo</a>
+  <header class="judge-header wrap demo-header">
+    <a class="judge-brand" href="index.html">▦ Beca Modular</a>
+    <nav class="demo-nav" aria-label="Navegación del modelo">
+      <a href="index.html">Propuesta</a>
+      <a href="demo.html">Demo sats</a>
+      <a href="laboratorio.html">Laboratorio</a>
+    </nav>
+  </header>
+  <main id="main" class="model-wrap">
+    <section class="model-hero" aria-labelledby="model-title">
+      <div class="model-hero-copy">
+        <span class="eyebrow">MODELO DE NEGOCIO · HIPÓTESIS EDITABLE</span>
+        <h1 id="model-title">La beca la paga el sponsor.<br><span>El estudiante no paga.</span></h1>
+        <p>Fundaciones, universidades, empresas u organizaciones con programas de becas pagarían una licencia por administración y trazabilidad. El presupuesto de becas se mantiene separado: no es ingreso de la plataforma.</p>
+        <a class="button primary" href="#assumptions">Editar supuestos mensuales ↓</a>
+      </div>
+      <aside class="model-hero-note" aria-label="Regla de quién paga">
+        <span class="small-mono">REGLA DEL PRODUCTO</span>
+        <strong>USD del sponsor → administración</strong>
+        <span class="model-divider" aria-hidden="true"></span>
+        <strong>Fondo de beca → estudiante</strong>
+        <small>Sin comisión descontada de la cuota prometida al estudiante.</small>
+      </aside>
+    </section>
+
+    <section class="model-section" aria-labelledby="payer-title">
+      <div class="model-section-heading"><span class="eyebrow">01 / QUIÉN PAGA Y POR QUÉ</span><h2 id="payer-title">Un comprador institucional.<br>Una beca sin costo al alumno.</h2></div>
+      <div class="model-roles">
+        <article><span class="small-mono">PAGA · SPONSOR</span><h3>Licencia mensual.</h3><p>La organización que administra cohortes cubriría el sistema y el acompañamiento. Precio y disposición a pagar todavía no están validados.</p></article>
+        <article><span class="small-mono">RECIBE · ESTUDIANTE</span><h3>La beca completa.</h3><p>Los pagos educativos se entregan según hitos acordados. El estudiante no paga licencia, comisión ni costos de red.</p></article>
+        <article><span class="small-mono">NO ES INGRESO · PRINCIPAL EDUCATIVO</span><h3>Dinero segregado.</h3><p>El capital de becas pasa del sponsor al estudiante según las reglas; no se suma a la facturación de Beca Modular.</p></article>
+      </div>
+    </section>
+
+    <section id="assumptions" class="model-section model-calculator" aria-labelledby="assumptions-title">
+      <div class="model-section-heading"><span class="eyebrow">02 / CAMBIÁ LOS SUPUESTOS</span><h2 id="assumptions-title">¿Cierra con estos costos?</h2><p>Valores en USD por mes. Son hipótesis, no cotizaciones ni resultados medidos. Elegí un escenario o editá cada entrada.</p></div>
+      <div class="model-presets" role="group" aria-label="Escenarios hipotéticos">
+        <button type="button" data-preset="conservative" aria-pressed="false">Conservador</button>
+        <button type="button" data-preset="base" aria-pressed="true" class="active">Base</button>
+        <button type="button" data-preset="optimistic" aria-pressed="false">Optimista</button>
+        <span id="preset-label">Escenario base · hipotético</span>
+      </div>
+      <form id="business-assumptions" class="model-form">
+        <fieldset>
+          <legend>Escala del programa</legend>
+          <label>Organizaciones sponsor / mes<input name="sponsors" type="number" min="0" max="10000" step="1" required></label>
+          <label>Estudiantes / organización<input name="students" type="number" min="0" max="100000" step="1" required></label>
+          <label>Beca comprometida / estudiante (USD)<input name="budget" type="number" min="0" max="1000000" step="1" required></label>
+          <label>Cuotas liberadas del fondo (%)<input name="utilization" type="number" min="0" max="100" step="1" required></label>
+        </fieldset>
+        <fieldset>
+          <legend>Ingresos de la plataforma</legend>
+          <label>Licencia / sponsor / mes (USD)<input name="subscription" type="number" min="0" max="1000000" step="1" required></label>
+          <label>Comisión adicional al sponsor (%)<input name="fee" type="number" min="0" max="100" step="0.1" required></label>
+          <p>La comisión es opcional y se cobra al sponsor; nunca se resta de la beca del estudiante.</p>
+        </fieldset>
+        <fieldset>
+          <legend>Costos estimados</legend>
+          <label>Pago / conversión (% de cuotas)<input name="paymentRate" type="number" min="0" max="100" step="0.1" required></label>
+          <label>Infraestructura / estudiante / mes (USD)<input name="infra" type="number" min="0" max="100000" step="0.01" required></label>
+          <label>IA opcional / estudiante / mes (USD)<input name="ai" type="number" min="0" max="100000" step="0.01" required></label>
+          <label>Acompañamiento humano / estudiante / mes (USD)<input name="support" type="number" min="0" max="100000" step="0.01" required></label>
+          <label>Operación fija / mes (USD)<input name="fixed" type="number" min="0" max="100000000" step="1" required></label>
+        </fieldset>
+      </form>
+      <p id="model-error" class="model-error" role="alert" hidden>Revisá los valores: deben ser números válidos y los porcentajes no pueden superar 100.</p>
+      <div class="model-results" aria-live="polite" aria-atomic="true">
+        <article class="model-loss-card"><span id="result-label" class="small-mono">RESULTADO OPERATIVO · USD / MES</span><strong id="operating-result">−$5,914.40</strong><p id="result-caption">Escenario base hipotético: pérdida mensual. No se oculta ni se compensa con el principal educativo.</p></article>
+        <div class="model-kpis">
+          <div><span>Cupos financiados</span><strong id="kpi-seats">800</strong></div>
+          <div><span>Principal de becas · separado</span><strong id="kpi-principal">$96,000</strong></div>
+          <div><span>Cuotas modeladas al estudiante</span><strong id="kpi-payouts">$62,400</strong></div>
+          <div><span>Ingreso plataforma</span><strong id="kpi-revenue">$2,500</strong></div>
+          <div><span>Costos directos</span><strong id="kpi-costs">$2,414.40</strong></div>
+          <div><span>Operación fija</span><strong id="kpi-fixed">$6,000</strong></div>
+        </div>
+      </div>
+      <div class="model-break-even">
+        <div><span class="eyebrow">03 / PUNTO DE EQUILIBRIO</span><h3 id="break-even-title">132 sponsors con la licencia base actual.</h3><p>Con los demás supuestos sin cambios. A la escala base de 10 sponsors, el cálculo requeriría una licencia aproximada de <strong id="required-license">$841.44</strong> por sponsor/mes para cubrir los costos proyectados. No es una recomendación de precio: hay que validarlo con compradores.</p></div>
+        <div class="model-separation" aria-label="Cuentas separadas, no sumables">
+          <div><span>CUENTA EDUCATIVA · NO INGRESO</span><strong id="bar-principal-label">$96,000</strong><small>Principal comprometido a estudiantes.</small></div>
+          <div><span>CUENTA DE PLATAFORMA</span><strong id="bar-revenue-label">$2,500</strong><small>Licencias + comisión cobrada al sponsor.</small></div>
+        </div>
+      </div>
+      <p id="model-status" class="model-status" role="status" aria-live="polite">Todas las cifras son supuestos y proyecciones aritméticas.</p>
+    </section>
+
+    <section class="model-section model-caveats" aria-labelledby="limits-title">
+      <span class="eyebrow">04 / LO QUE FALTA VALIDAR</span>
+      <h2 id="limits-title">Un modelo no demuestra un mercado.</h2>
+      <ul><li>No se validaron sponsors, ventas, costos reales ni disposición a pagar.</li><li>El escenario base pierde dinero: −USD 5,914.40/mes con esos supuestos.</li><li>Faltan CAC, impuestos, aspectos legales, custodia, reembolsos, FX, seguros, integraciones y personal por escala.</li><li>El porcentaje de pagos/conversión es agregado, no una cotización Lightning.</li><li>El estudiante nunca absorbe una pérdida operativa ni paga por recibir la beca.</li></ul>
+      <a class="resource-secondary" href="docs/financial-model.md">Leer fórmulas, supuestos y exclusiones ↗</a>
+    </section>
+  </main>
+  <footer class="model-footer"><a href="index.html">← Volver a Beca Modular</a><span>HIPÓTESIS · SIN CLIENTES NI COSTOS MEDIDOS</span></footer>
+</body>
+</html>

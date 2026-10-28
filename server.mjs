@@ -30,7 +30,7 @@ createServer(async (req,res) => {
         return res.end(JSON.stringify({ error: error.message || 'No se pudo revisar la evidencia.' }));
       }
     }
-    const relative = decodeURIComponent(url.pathname === '/' ? '/index.html' : url.pathname);
+    const relative = decodeURIComponent(url.pathname === '/' ? '/index.html' : url.pathname === '/modelo' ? '/modelo.html' : url.pathname);
     const file = path.resolve(root, '.' + relative);
     if (!file.startsWith(root) || !types[path.extname(file)]) { res.writeHead(403); return res.end('Forbidden'); }
     const data = await readFile(file);

@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 // Every page shares one release version in its ?v= cache-bust. A page left behind on an old
 // version can serve stale CSS/JS to returning visitors while its markup already changed.
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const pages = ['index.html', 'demo.html', 'laboratorio.html', 'respaldo.html'];
+const pages = ['index.html', 'demo.html', 'laboratorio.html', 'respaldo.html', 'modelo.html'];
 
 test('all pages share one current cache-bust version (root and dist)', () => {
   const found = new Set();

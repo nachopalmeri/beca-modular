@@ -820,3 +820,62 @@ main>.openarg-section::before,main>.openarg-section:nth-of-type(odd)::before{bac
 .ai-suggestion dd{margin:4px 0 0;font-size:12px;font-weight:700;overflow-wrap:anywhere}
 .ai-suggestion .ai-human-loop{margin-bottom:0}
 @media(max-width:760px){.lightning-grid{grid-template-columns:1fr}.lightning-panel{padding:20px}}
+
+/* Business model page: keep scholarship principal visually separate from platform revenue. */
+.model-wrap{max-width:1160px;margin:auto;padding:0 28px}
+.business-model-page .demo-header nav{position:static;display:flex;width:auto;flex-direction:row;align-items:center;gap:24px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+.model-hero{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:52px;align-items:center;padding:74px 0 62px;border-bottom:1px solid #c8bca4}
+.model-hero h1{max-width:18ch;margin:18px 0;font:500 clamp(38px,5.6vw,68px)/1.04 Georgia,serif;letter-spacing:-.045em;color:#203b2e}
+.model-hero h1 span{color:#9a573d}
+.model-hero-copy>p{max-width:62ch;color:#586052;font-size:16px;line-height:1.8}
+.model-hero-note{display:grid;gap:14px;padding:28px;border:1px solid #c8bca4;background:#f4eedf}
+.model-hero-note>strong{font:500 23px/1.25 Georgia,serif;color:#203b2e}
+.model-hero-note small{color:#586052;line-height:1.6}
+.model-divider{height:1px;background:#c8bca4}
+.model-section{padding:62px 0;border-bottom:1px solid #c8bca4}
+.model-section-heading{max-width:750px;margin-bottom:28px}
+.model-section-heading h2,.model-caveats h2{margin:12px 0;font:500 clamp(30px,4vw,46px)/1.1 Georgia,serif;letter-spacing:-.035em;color:#203b2e}
+.model-section-heading>p{max-width:65ch;color:#586052;line-height:1.7}
+.model-roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.model-roles article{min-height:205px;padding:24px;border-top:3px solid #9a573d;background:#f4eedf}
+.model-roles h3{margin:20px 0 8px;font:500 24px Georgia,serif}
+.model-roles p{color:#586052;font-size:14px;line-height:1.7}
+.model-presets{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:18px 0}
+.model-presets button{padding:9px 14px;border:1px solid #a99e88;border-radius:999px;background:#f4eedf;color:#344537;font:600 12px/1.2 Arial,sans-serif;cursor:pointer}
+.model-presets button.active{background:#203b2e;color:#fff8e8;border-color:#203b2e}
+.model-presets span{margin-left:8px;color:#586052;font-size:12px}
+.model-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.model-form fieldset{display:grid;align-content:start;gap:12px;margin:0;padding:20px;border:1px solid #c8bca4;background:#f4eedf}
+.model-form legend{padding:0 8px;color:#203b2e;font:500 20px Georgia,serif}
+.model-form label{display:grid;gap:6px;color:#465343;font-size:12px;font-weight:700;line-height:1.4}
+.model-form input{width:100%;min-height:42px;padding:8px 10px;border:1px solid #b8ad98;border-radius:5px;background:#fffaf0;color:#27352b;font:16px ui-monospace,SFMono-Regular,Consolas,monospace}
+.model-form input:focus-visible,.model-presets button:focus-visible{outline:3px solid #bd7940;outline-offset:2px}
+.model-form fieldset p{margin:0;color:#586052;font-size:12px;line-height:1.6}
+.model-error{padding:12px;border:1px solid #a63e31;background:#fff0ec;color:#7b291f}
+.model-results{display:grid;grid-template-columns:minmax(240px,.75fr) minmax(0,1.25fr);gap:16px;margin-top:20px}
+.model-loss-card{display:flex;flex-direction:column;justify-content:center;min-height:210px;padding:24px;background:#203b2e;color:#fff8e8}
+.model-loss-card .small-mono{color:#d2ddce;font-size:10px}
+.model-loss-card strong{margin:16px 0;font:500 clamp(34px,5vw,52px)/1 Georgia,serif;letter-spacing:-.03em}
+.model-loss-card strong.is-loss{color:#ffd1ac}
+.model-loss-card strong.is-profit{color:#d2edb8}
+.model-loss-card p{margin:0;color:#e0e7da;font-size:13px;line-height:1.65}
+.model-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid #c8bca4;border-left:1px solid #c8bca4}
+.model-kpis>div{display:grid;align-content:center;gap:8px;min-height:104px;padding:16px;border-right:1px solid #c8bca4;border-bottom:1px solid #c8bca4;background:#f4eedf}
+.model-kpis span{color:#586052;font-size:11px;line-height:1.4}
+.model-kpis strong{color:#203b2e;font:600 20px ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere}
+.model-break-even{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:32px;align-items:center;margin-top:18px;padding:24px;border:1px solid #bd7940;background:#fff6e8}
+.model-break-even h3{margin:12px 0;font:500 25px Georgia,serif;color:#713c25}
+.model-break-even p{margin:0;color:#586052;font-size:13px;line-height:1.7}
+.model-break-even p strong{color:#203b2e}
+.model-separation{display:grid;gap:12px}
+.model-separation>div{display:grid;gap:6px;padding:14px;border-left:3px solid #56724d;background:#fffaf0}
+.model-separation span{color:#586052;font:700 9px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.08em}
+.model-separation strong{color:#203b2e;font:500 25px Georgia,serif}
+.model-separation small{color:#586052;font-size:11px;line-height:1.4}
+.model-status{color:#586052;font-size:12px}
+.model-caveats ul{display:grid;gap:10px;max-width:850px;margin:22px 0;padding-left:20px;color:#465343;line-height:1.65}
+.model-footer{display:flex;justify-content:space-between;gap:20px;max-width:1160px;margin:auto;padding:24px 28px 42px;color:#586052;font-size:11px}
+.model-footer a{color:#344537;font-weight:700}
+@media(max-width:900px){.model-form{grid-template-columns:repeat(2,minmax(0,1fr))}.model-break-even{grid-template-columns:1fr}}
+@media(max-width:680px){.model-wrap{padding:0 18px}.model-hero{grid-template-columns:1fr;gap:24px;padding:48px 0}.model-roles{grid-template-columns:1fr}.model-roles article{min-height:0}.model-form,.model-results{grid-template-columns:1fr}.model-section{padding:44px 0}.model-break-even{padding:18px}.model-footer{padding-inline:18px;flex-direction:column}}
+@media(max-width:760px){.business-model-page .demo-header{flex-direction:row;align-items:center;flex-wrap:wrap}.business-model-page .demo-header nav{width:100%;flex-wrap:wrap;justify-content:space-between;gap:10px 16px}}
