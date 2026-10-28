@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#203b2e">
   <title>Beca Modular — Explorar una beca</title>
-  <link rel="stylesheet" href="styles.css?v=29">
-  <script src="vendor/qrcode-generator.js?v=29"></script>
-  <script type="module" src="roadmap.mjs?v=29"></script>
-  <script type="module" src="payments/demo-ui.mjs?v=29"></script>
+  <link rel="stylesheet" href="styles.css?v=30">
+  <script src="vendor/qrcode-generator.js?v=30"></script>
+  <script type="module" src="roadmap.mjs?v=30"></script>
+  <script type="module" src="payments/demo-ui.mjs?v=30"></script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%233f6047'/%3E%3Cpath d='M8 8h7v7H8zm9 0h7v7h-7zm-9 9h7v7H8zm9 0h7v7h-7z' fill='%23f1ead8'/%3E%3C/svg%3E">
 </head>
 <body class="roadmap-page standalone-demo">
@@ -69,6 +69,23 @@
             <div><dt>Reservado</dt><dd id="payment-reserved-readout">0 sats</dd></div>
             <div><dt>Devuelto al sponsor</dt><dd id="payment-refunded-readout">0 sats</dd></div>
           </dl>
+          <section class="ai-prevalidation" aria-labelledby="ai-prevalidation-title">
+            <div class="ai-card-heading"><span class="payment-mode-badge" id="ai-provider-badge">IA (modo demo)</span><span class="ai-human-loop">La tutora decide siempre</span></div>
+            <h4 id="ai-prevalidation-title">Pre-validación de evidencia</h4>
+            <label for="milestone-condition">Condición de este hito</label>
+            <input id="milestone-condition" type="text" value="Nota mínima 6 en la materia" maxlength="500">
+            <label for="milestone-evidence">Foto, PDF o texto de la constancia</label>
+            <input id="milestone-evidence" type="file" accept="image/png,image/jpeg,image/webp,application/pdf,text/plain,.txt">
+            <p class="field-help">Sin claves, se analiza localmente en modo demo. Si el servidor tiene una clave IA, la evidencia se envía a Anthropic/OpenAI para analizarla; la app no la guarda. Usá solo documentos sintéticos.</p>
+            <button id="ai-prevalidate-evidence" class="button secondary" type="button">Analizar y sugerir →</button>
+            <div id="ai-suggestion" class="ai-suggestion" aria-live="polite" hidden>
+              <span class="payment-mode-badge">Sugerido por IA</span>
+              <strong id="ai-suggestion-title"></strong>
+              <p id="ai-suggestion-reason"></p>
+              <dl><div><dt>Nombre</dt><dd id="ai-extracted-name"></dd></div><div><dt>Materia</dt><dd id="ai-extracted-subject"></dd></div><div><dt>Nota</dt><dd id="ai-extracted-grade"></dd></div><div><dt>Fecha</dt><dd id="ai-extracted-date"></dd></div><div><dt>Confianza estimada</dt><dd id="ai-confidence"></dd></div></dl>
+              <p class="ai-human-loop">Es una sugerencia, no una aprobación. La tutora debe revisar el documento original y decidir manualmente.</p>
+            </div>
+          </section>
           <button id="payment-approve-milestone" class="button primary" type="button" disabled>La tutora aprueba el hito (demo)</button>
           <section id="payment-receipt" class="payment-receipt" aria-live="polite" hidden>
             <span class="payment-mode-badge">RECIBO · SIMULADO</span>

@@ -10,6 +10,7 @@ test('offline kit bundles every runtime file plus an index shim and rewrites the
     'demo.html', 'styles.css', 'roadmap.mjs', 'funding-model.mjs', 'brote-motion.mjs', 'tree.mjs',
     'evidence-map.mjs', 'server.mjs', 'offline-demo-README.md', 'index.html',
     'payments/payment-provider.mjs', 'payments/demo-ui.mjs', 'vendor/qrcode-generator.js', 'vendor/THIRD-PARTY-NOTICES.md',
+    'ai/ai-provider.mjs', 'ai/fallback.mjs',
     'data/abandono-interanual.mjs', 'data/geo-provincias.mjs', 'assets/beca-library-hero.png'
   ]) {
     assert.ok(names.includes(required), `kit missing ${required}`);

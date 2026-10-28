@@ -801,4 +801,20 @@ main>.openarg-section::before,main>.openarg-section:nth-of-type(odd)::before{bac
 .payment-receipt h4{margin:12px 0;font:500 20px Georgia,serif}
 .payment-proof-ok{color:#22553d;font-size:12px;font-weight:700}
 .payment-flow-status{margin-top:18px}
+.ai-prevalidation{margin:20px 0;padding:18px;border:1px solid #94a087;background:#fffaf0}
+.ai-card-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.ai-human-loop{color:#674523;font-size:12px;font-weight:700}
+.ai-prevalidation h4{margin:14px 0;font:500 20px Georgia,serif}
+.ai-prevalidation>label{display:block;margin:12px 0 6px;color:#344537;font-size:12px;font-weight:700}
+.ai-prevalidation>input:not([type=file]){width:100%;min-height:42px;padding:9px 11px;border:1px solid #b8ad98;border-radius:6px;background:#fff;color:#27352b;font:inherit}
+.ai-prevalidation input[type=file]{display:block;width:100%;font-size:12px}
+.ai-prevalidation .field-help{color:#586052;font-size:12px;line-height:1.6}
+.ai-suggestion{margin-top:16px;padding:16px;border:1px solid #bd7940;background:#f4eedf}
+.ai-suggestion>strong{display:block;margin:12px 0 6px;color:#344537;font:600 18px Georgia,serif}
+.ai-suggestion>p{font-size:13px;line-height:1.65}
+.ai-suggestion dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}
+.ai-suggestion dl>div{padding:8px 0;border-bottom:1px solid #d4c9b4}
+.ai-suggestion dt{color:#586052;font-size:11px}
+.ai-suggestion dd{margin:4px 0 0;font-size:12px;font-weight:700;overflow-wrap:anywhere}
+.ai-suggestion .ai-human-loop{margin-bottom:0}
 @media(max-width:760px){.lightning-grid{grid-template-columns:1fr}.lightning-panel{padding:20px}}

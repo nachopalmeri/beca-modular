@@ -22,6 +22,19 @@ const assert = require('node:assert/strict');
 
     await page.locator('#payment-confirm-funding').click();
     await page.waitForFunction(() => document.querySelector('#payment-funded-readout').textContent === '100.000 sats');
+    await page.locator('#milestone-evidence').setInputFiles({
+      name: 'constancia-demo.txt', mimeType: 'text/plain',
+      buffer: Buffer.from('Estudiante: Ana Pérez\nMateria: Álgebra I\nNota: 8\nFecha: 12/10/2026'),
+    });
+    await page.locator('#ai-prevalidate-evidence').click();
+    await page.locator('#ai-suggestion').waitFor({ state: 'visible' });
+    assert.match(await page.locator('#ai-provider-badge').innerText(), /IA \(modo demo\)/);
+    assert.equal(await page.locator('#ai-suggestion-title').innerText(), 'Sugerencia: aprobar');
+    assert.match(await page.locator('#ai-suggestion-reason').innerText(), /alcanza el mínimo de 6/);
+    assert.equal(await page.locator('#ai-extracted-name').innerText(), 'Ana Pérez');
+    assert.equal(await page.locator('#ai-extracted-subject').innerText(), 'Álgebra I');
+    assert.equal(await page.locator('#ai-extracted-grade').innerText(), '8');
+    assert.match(await page.locator('.ai-suggestion .ai-human-loop').innerText(), /La tutora debe revisar.*decidir manualmente/);
     await page.locator('#payment-approve-milestone').click();
     await page.locator('#payment-receipt').waitFor({ state: 'visible' });
     assert.match(await page.locator('#payment-receipt .payment-mode-badge').innerText(), /SIMULADO/);

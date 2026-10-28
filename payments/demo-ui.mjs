@@ -1,4 +1,5 @@
 import { DemoPaymentProvider, verifyPaymentPreimage } from './payment-provider.mjs';
+import { demoPrevalidation } from '../ai/fallback.mjs';
 
 const root = document.querySelector('#lightning-flow');
 if (root) {
@@ -33,6 +34,69 @@ if (root) {
     $('#payment-approve-milestone').disabled = state.fundedSats === 0 || state.paidSats + state.refundedSats >= state.fundedSats || state.refunded;
     $('#payment-refund-unused').disabled = state.fundedSats === 0 || state.refunded || state.fundedSats === state.paidSats;
   }
+
+  function toBase64(bytes) {
+    let binary = '';
+    const chunkSize = 0x8000;
+    for (let offset = 0; offset < bytes.length; offset += chunkSize) {
+      binary += String.fromCharCode(...bytes.subarray(offset, offset + chunkSize));
+    }
+    return btoa(binary);
+  }
+
+  $('#ai-prevalidate-evidence').addEventListener('click', async event => {
+    const button = event.currentTarget;
+    const condition = $('#milestone-condition').value.trim();
+    const file = $('#milestone-evidence').files[0];
+    if (!condition) return notice('Describí la condición del hito antes de revisar la evidencia.', 'error');
+    if (!file) return notice('Elegí una foto, PDF o archivo de texto de prueba.', 'error');
+    if (file.size > 8 * 1024 * 1024) return notice('El archivo supera el límite de 8 MB.', 'error');
+    button.disabled = true;
+    button.textContent = 'Revisando evidencia…';
+    try {
+      const bytes = new Uint8Array(await file.arrayBuffer());
+      const payload = {
+        condition,
+        text: file.type === 'text/plain' ? await file.text() : '',
+        file: { mediaType: file.type || 'application/octet-stream', data: toBase64(bytes) },
+      };
+      let result;
+      try {
+        const response = await fetch('/api/ai/prevalidate', {
+          method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload),
+        });
+        if (!response.ok) {
+          if (response.status === 404 || response.status === 405) {
+            result = demoPrevalidation(payload.text, condition);
+          } else {
+          const error = await response.json().catch(() => ({}));
+          throw new Error(error.error || `Servicio IA no disponible (HTTP ${response.status}).`);
+          }
+        } else {
+          result = await response.json();
+        }
+      } catch (error) {
+        if (error instanceof TypeError || /Failed to fetch|NetworkError/i.test(error.message)) {
+          result = demoPrevalidation(payload.text, condition);
+        } else throw error;
+      }
+      $('#ai-suggestion').hidden = false;
+      $('#ai-suggestion-title').textContent = result.suggestion === 'aprobar' ? 'Sugerencia: aprobar' : 'Sugerencia: revisar';
+      $('#ai-suggestion-reason').textContent = result.reason;
+      $('#ai-extracted-name').textContent = result.extracted?.nombre || 'No detectado';
+      $('#ai-extracted-subject').textContent = result.extracted?.materia || 'No detectada';
+      $('#ai-extracted-grade').textContent = result.extracted?.nota || 'No detectada';
+      $('#ai-extracted-date').textContent = result.extracted?.fecha || 'No detectada';
+      $('#ai-confidence').textContent = `${Math.round(result.confidence * 100)}% · no calibrada`;
+      $('#ai-provider-badge').textContent = result.label || (result.provider === 'demo' ? 'IA (modo demo)' : 'Sugerido por IA');
+      notice('Pre-validación completada. La sugerencia no aprueba el hito: la tutora revisa y decide.', 'info');
+    } catch (error) {
+      notice(error.message, 'error');
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Analizar y sugerir →';
+    }
+  });
 
   async function showReceipt(receipt, title) {
     state.receipt = receipt;
