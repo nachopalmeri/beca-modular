@@ -1,5 +1,5 @@
 import { DemoPaymentProvider, verifyPaymentPreimage } from './payment-provider.mjs';
-import { demoPrevalidation } from '../ai/fallback.mjs';
+import { demoPrevalidation, demoReceiptExplanation } from '../ai/fallback.mjs';
 
 const root = document.querySelector('#lightning-flow');
 if (root) {
@@ -101,7 +101,32 @@ if (root) {
   async function showReceipt(receipt, title) {
     state.receipt = receipt;
     $('#payment-receipt').hidden = false;
-    $('#payment-receipt-summary').textContent = `${receipt.amountSats.toLocaleString('es-AR')} sats de prueba por ${title}. Esto no fue una transferencia Lightning.`;
+    const isRefund = Boolean(receipt.sponsorId);
+    $('#payment-receipt-summary').textContent = isRefund
+      ? `${receipt.amountSats.toLocaleString('es-AR')} sats de prueba devueltos al sponsor. No hubo transferencia Lightning.`
+      : `${receipt.amountSats.toLocaleString('es-AR')} sats de prueba por ${title}. Esto no fue una transferencia Lightning.`;
+    const explanationBox = $('.ai-receipt-explanation');
+    explanationBox.hidden = isRefund;
+    if (!isRefund) {
+      const reservedSats = state.fundedSats - state.paidSats - state.refundedSats;
+      const request = { amountSats: receipt.amountSats, milestoneTitle: title, reservedSats };
+      let explanation;
+      try {
+        const response = await fetch('/api/ai/explain-receipt', {
+          method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(request),
+        });
+        if (!response.ok && response.status !== 404 && response.status !== 405) {
+          const error = await response.json().catch(() => ({}));
+          throw new Error(error.error || `Servicio IA no disponible (HTTP ${response.status}).`);
+        }
+        explanation = response.ok ? await response.json() : demoReceiptExplanation(request);
+      } catch (error) {
+        if (error instanceof TypeError || /Failed to fetch|NetworkError/i.test(error.message)) explanation = demoReceiptExplanation(request);
+        else throw error;
+      }
+      $('#ai-receipt-explanation').textContent = explanation.explanation;
+      $('#ai-receipt-badge').textContent = explanation.label || (explanation.provider === 'demo' ? 'IA (modo demo)' : 'Sugerido por IA');
+    }
     $('#payment-hash').textContent = receipt.paymentHash;
     $('#payment-preimage').textContent = receipt.preimage;
     const valid = await verifyPaymentPreimage(receipt);
@@ -162,7 +187,7 @@ if (root) {
       if (receipt.status !== 'PAID' || !receipt.simulated) throw new Error('El proveedor demo no confirmó el pago simulado.');
       state.paidSats += receipt.amountSats;
       state.approvedMilestones++;
-      await showReceipt(receipt, `aprobar el hito ${state.approvedMilestones}`);
+      await showReceipt(receipt, `Hito ${state.approvedMilestones}`);
       renderLedger();
       notice(`Hito aprobado manualmente. Recibo SIMULADO por ${receipt.amountSats.toLocaleString('es-AR')} sats.`, 'success');
     } catch (error) {

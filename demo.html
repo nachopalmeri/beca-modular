@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#203b2e">
   <title>Beca Modular — Explorar una beca</title>
-  <link rel="stylesheet" href="styles.css?v=30">
-  <script src="vendor/qrcode-generator.js?v=30"></script>
-  <script type="module" src="roadmap.mjs?v=30"></script>
-  <script type="module" src="payments/demo-ui.mjs?v=30"></script>
+  <link rel="stylesheet" href="styles.css?v=31">
+  <script src="vendor/qrcode-generator.js?v=31"></script>
+  <script type="module" src="roadmap.mjs?v=31"></script>
+  <script type="module" src="payments/demo-ui.mjs?v=31"></script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%233f6047'/%3E%3Cpath d='M8 8h7v7H8zm9 0h7v7h-7zm-9 9h7v7H8zm9 0h7v7h-7z' fill='%23f1ead8'/%3E%3C/svg%3E">
 </head>
 <body class="roadmap-page standalone-demo">
@@ -91,6 +91,7 @@
             <span class="payment-mode-badge">RECIBO · SIMULADO</span>
             <h4>Pago por hito de prueba</h4>
             <p id="payment-receipt-summary"></p>
+            <div class="ai-receipt-explanation"><span class="payment-mode-badge" id="ai-receipt-badge">IA (modo demo)</span><p id="ai-receipt-explanation"></p></div>
             <dl><div><dt>Payment hash</dt><dd><code id="payment-hash"></code></dd></div><div><dt>Preimage</dt><dd><code id="payment-preimage"></code></dd></div></dl>
             <p id="payment-proof-check" role="status"></p>
           </section>

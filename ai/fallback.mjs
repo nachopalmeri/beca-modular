@@ -33,3 +33,13 @@ export function demoPrevalidation(text, condition) {
     label: 'IA (modo demo)',
   };
 }
+
+export function demoReceiptExplanation({ amountSats, milestoneTitle, reservedSats }) {
+  const amount = Number(amountSats).toLocaleString('es-AR');
+  const reserved = Number(reservedSats).toLocaleString('es-AR');
+  return {
+    explanation: `En esta simulación, te llegaron ${amount} sats por aprobar “${clean(milestoneTitle, 100)}”. Quedan ${reserved} sats reservados; si no se usan, vuelven al sponsor. No hubo un pago real en Lightning.`,
+    provider: 'demo',
+    label: 'IA (modo demo)',
+  };
+}

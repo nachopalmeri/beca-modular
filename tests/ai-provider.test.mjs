@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { AI_LIMITS, prevalidateMilestone } from '../ai/ai-provider.mjs';
+import { AI_LIMITS, explainReceipt, prevalidateMilestone } from '../ai/ai-provider.mjs';
 
 test('demo AI extracts visible fields and suggests review when the grade meets the milestone', async () => {
   const result = await prevalidateMilestone({
@@ -75,4 +75,32 @@ test('OpenAI can receive an uploaded PDF while the provider key stays in the ser
   assert.equal(sentBody.input[0].content[1].type, 'input_file');
   assert.equal(result.provider, 'openai');
   assert.equal(result.suggestion, 'revisar');
+});
+
+test('receipt explanation fallback uses exact sats and clearly says the payment is simulated', async () => {
+  const result = await explainReceipt({ amountSats: 50000, milestoneTitle: 'aprobar el hito 1', reservedSats: 50000 });
+  assert.equal(result.label, 'IA (modo demo)');
+  assert.match(result.explanation, /te llegaron 50\.000 sats/);
+  assert.match(result.explanation, /Quedan 50\.000 sats reservados/);
+  assert.match(result.explanation, /No hubo un pago real en Lightning/);
+});
+
+test('configured AI explains receipts but cannot change the exact amount facts in its prompt', async () => {
+  let sentPrompt;
+  const result = await explainReceipt({ amountSats: 1234, milestoneTitle: 'Examen final', reservedSats: 8766 }, {
+    env: { OPENAI_API_KEY: 'server-secret' },
+    fetchImpl: async (_url, options) => {
+      sentPrompt = JSON.parse(options.body).input[0].content[0].text;
+      return { ok: true, json: async () => ({ output_text: 'En esta simulación llegaron 1.234 sats. Otros 8.766 sats siguen reservados y volverían al sponsor. No es un pago real.' }) };
+    },
+  });
+  assert.match(sentPrompt, /1234 sats/);
+  assert.match(sentPrompt, /8766 sats/);
+  assert.equal(result.provider, 'openai');
+  assert.equal(result.label, 'Sugerido por IA');
+});
+
+test('receipt explanation rejects invalid or invented-unit inputs', async () => {
+  await assert.rejects(explainReceipt({ amountSats: 1.2, milestoneTitle: 'Hito', reservedSats: 0 }), /importes enteros en sats/);
+  await assert.rejects(explainReceipt({ amountSats: 10, milestoneTitle: '', reservedSats: 0 }), /hito válido/);
 });

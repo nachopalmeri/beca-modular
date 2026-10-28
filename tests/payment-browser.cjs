@@ -37,8 +37,11 @@ const assert = require('node:assert/strict');
     assert.match(await page.locator('.ai-suggestion .ai-human-loop').innerText(), /La tutora debe revisar.*decidir manualmente/);
     await page.locator('#payment-approve-milestone').click();
     await page.locator('#payment-receipt').waitFor({ state: 'visible' });
-    assert.match(await page.locator('#payment-receipt .payment-mode-badge').innerText(), /SIMULADO/);
+    assert.match(await page.locator('#payment-receipt > .payment-mode-badge').innerText(), /SIMULADO/);
     assert.match(await page.locator('#payment-receipt-summary').innerText(), /50\.000 sats de prueba/);
+    await page.waitForFunction(() => document.querySelector('#ai-receipt-explanation').textContent.includes('No hubo un pago real en Lightning'));
+    assert.match(await page.locator('#ai-receipt-badge').innerText(), /IA \(modo demo\)/);
+    assert.match(await page.locator('#ai-receipt-explanation').innerText(), /50\.000 sats.*50\.000 sats reservados/);
     assert.match(await page.locator('#payment-proof-check').innerText(), /coinciden criptográficamente.*SIMULADO/);
     const proof = await page.evaluate(async () => {
       const fromHex = text => new Uint8Array(text.match(/.{2}/g).map(pair => Number.parseInt(pair, 16)));

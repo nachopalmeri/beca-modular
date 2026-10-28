@@ -2,13 +2,17 @@ import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { prevalidateMilestone } from './ai/ai-provider.mjs';
+import { explainReceipt, prevalidateMilestone } from './ai/ai-provider.mjs';
 const root = fileURLToPath(new URL('.', import.meta.url));
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.md': 'text/plain; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.mp4': 'video/mp4', '.json': 'application/json', '.txt': 'text/plain; charset=utf-8', '.zip': 'application/zip' };
 createServer(async (req,res) => {
   try {
     const url = new URL(req.url, 'http://127.0.0.1');
-    if (url.pathname === '/api/ai/prevalidate' && req.method === 'POST') {
+    const aiRoutes = new Map([
+      ['/api/ai/prevalidate', prevalidateMilestone],
+      ['/api/ai/explain-receipt', explainReceipt],
+    ]);
+    if (aiRoutes.has(url.pathname) && req.method === 'POST') {
       let body = '';
       for await (const chunk of req) {
         body += chunk;
@@ -18,7 +22,7 @@ createServer(async (req,res) => {
         }
       }
       try {
-        const result = await prevalidateMilestone(JSON.parse(body));
+        const result = await aiRoutes.get(url.pathname)(JSON.parse(body));
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
         return res.end(JSON.stringify(result));
       } catch (error) {

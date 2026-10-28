@@ -1,4 +1,4 @@
-import { demoPrevalidation } from './fallback.mjs';
+import { demoPrevalidation, demoReceiptExplanation } from './fallback.mjs';
 
 const MAX_EVIDENCE_BYTES = 8 * 1024 * 1024;
 const ALLOWED_TYPES = new Set(['application/pdf', 'image/jpeg', 'image/png', 'image/webp', 'text/plain']);
@@ -37,10 +37,10 @@ function jsonFromModel(text) {
 
 const instruction = condition => `Ayudás a una tutora a revisar evidencia académica. Extraé nombre, materia, nota y fecha si son legibles. Compará solo con esta condición: "${condition}". Nunca decidas ni apruebes; sugerí "aprobar" solo si el documento parece cumplir y "revisar" ante duda, falta de datos o conflicto. No infieras datos ausentes. Respondé únicamente JSON: {"suggestion":"aprobar|revisar","reason":"motivo breve en español","confidence":0.0,"extracted":{"nombre":null,"materia":null,"nota":null,"fecha":null}}`;
 
-async function callAnthropic(input, apiKey, fetchImpl) {
-  const content = [{ type: 'text', text: `${instruction(input.condition)}\n\nTexto extraído/proporcionado:\n${input.text || '(sin texto extraído)'}` }];
-  if (input.file?.mediaType.startsWith('image/')) content.push({ type: 'image', source: { type: 'base64', media_type: input.file.mediaType, data: input.file.data } });
-  if (input.file?.mediaType === 'application/pdf') content.push({ type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: input.file.data } });
+async function callAnthropic(prompt, apiKey, fetchImpl, file) {
+  const content = [{ type: 'text', text: prompt }];
+  if (file?.mediaType.startsWith('image/')) content.push({ type: 'image', source: { type: 'base64', media_type: file.mediaType, data: file.data } });
+  if (file?.mediaType === 'application/pdf') content.push({ type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: file.data } });
   const response = await fetchImpl('https://api.anthropic.com/v1/messages', {
     method: 'POST', headers: { 'content-type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
     body: JSON.stringify({ model: process.env.ANTHROPIC_MODEL || 'claude-3-5-haiku-latest', max_tokens: 500, messages: [{ role: 'user', content }] }),
@@ -50,10 +50,10 @@ async function callAnthropic(input, apiKey, fetchImpl) {
   return payload.content?.filter(item => item.type === 'text').map(item => item.text).join('\n') ?? '';
 }
 
-async function callOpenAI(input, apiKey, fetchImpl) {
-  const content = [{ type: 'input_text', text: `${instruction(input.condition)}\n\nTexto extraído/proporcionado:\n${input.text || '(sin texto extraído)'}` }];
-  if (input.file?.mediaType.startsWith('image/')) content.push({ type: 'input_image', image_url: `data:${input.file.mediaType};base64,${input.file.data}` });
-  if (input.file?.mediaType === 'application/pdf') content.push({ type: 'input_file', filename: 'evidencia.pdf', file_data: `data:application/pdf;base64,${input.file.data}` });
+async function callOpenAI(prompt, apiKey, fetchImpl, file) {
+  const content = [{ type: 'input_text', text: prompt }];
+  if (file?.mediaType.startsWith('image/')) content.push({ type: 'input_image', image_url: `data:${file.mediaType};base64,${file.data}` });
+  if (file?.mediaType === 'application/pdf') content.push({ type: 'input_file', filename: 'evidencia.pdf', file_data: `data:application/pdf;base64,${file.data}` });
   const response = await fetchImpl('https://api.openai.com/v1/responses', {
     method: 'POST', headers: { 'content-type': 'application/json', authorization: `Bearer ${apiKey}` },
     body: JSON.stringify({ model: process.env.OPENAI_MODEL || 'gpt-4.1-mini', input: [{ role: 'user', content }], max_output_tokens: 500 }),
@@ -63,15 +63,32 @@ async function callOpenAI(input, apiKey, fetchImpl) {
   return payload.output?.flatMap(item => item.content ?? []).filter(item => item.type === 'output_text').map(item => item.text).join('\n') ?? payload.output_text ?? '';
 }
 
+async function callConfiguredModel(prompt, { env, fetchImpl, file } = {}) {
+  if (env?.ANTHROPIC_API_KEY) return { text: await callAnthropic(prompt, env.ANTHROPIC_API_KEY, fetchImpl, file), provider: 'anthropic' };
+  if (env?.OPENAI_API_KEY) return { text: await callOpenAI(prompt, env.OPENAI_API_KEY, fetchImpl, file), provider: 'openai' };
+  return null;
+}
+
 export async function prevalidateMilestone(request, { env = {}, fetchImpl = fetch } = {}) {
   const input = validateRequest(request);
-  if (env.ANTHROPIC_API_KEY) {
-    return { ...jsonFromModel(await callAnthropic(input, env.ANTHROPIC_API_KEY, fetchImpl)), provider: 'anthropic', label: 'Sugerido por IA' };
-  }
-  if (env.OPENAI_API_KEY) {
-    return { ...jsonFromModel(await callOpenAI(input, env.OPENAI_API_KEY, fetchImpl)), provider: 'openai', label: 'Sugerido por IA' };
-  }
+  const prompt = `${instruction(input.condition)}\n\nTexto extraído/proporcionado:\n${input.text || '(sin texto extraído)'}`;
+  const configured = await callConfiguredModel(prompt, { env, fetchImpl, file: input.file });
+  if (configured) return { ...jsonFromModel(configured.text), provider: configured.provider, label: 'Sugerido por IA' };
   return demoPrevalidation(input.text, input.condition);
+}
+
+export async function explainReceipt(request, { env = {}, fetchImpl = fetch } = {}) {
+  const { amountSats, milestoneTitle, reservedSats } = request ?? {};
+  if (!Number.isSafeInteger(amountSats) || amountSats <= 0 || !Number.isSafeInteger(reservedSats) || reservedSats < 0 || typeof milestoneTitle !== 'string' || !milestoneTitle.trim() || milestoneTitle.length > 100) {
+    throw new Error('El recibo requiere importes enteros en sats y un hito válido.');
+  }
+  const fallback = demoReceiptExplanation({ amountSats, milestoneTitle, reservedSats });
+  const prompt = `Explicá este recibo a un estudiante o su familia en español simple, en 2 o 3 frases breves. Usá exactamente estos datos, no inventes ni cambies importes: se liberaron ${amountSats} sats al aprobar el hito "${milestoneTitle}"; quedan ${reservedSats} sats reservados, que vuelven al sponsor si no se usan. No afirmes que ocurrió un pago real; es una simulación.`;
+  const configured = await callConfiguredModel(prompt, { env, fetchImpl });
+  if (!configured) return fallback;
+  const explanation = normalizeText(configured.text, 500);
+  if (!explanation) throw new Error('El proveedor de IA no devolvió una explicación del recibo.');
+  return { explanation, provider: configured.provider, label: 'Sugerido por IA' };
 }
 
 export const AI_LIMITS = Object.freeze({ maxEvidenceBytes: MAX_EVIDENCE_BYTES, allowedTypes: [...ALLOWED_TYPES] });
