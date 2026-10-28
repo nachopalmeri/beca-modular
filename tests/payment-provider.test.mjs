@@ -18,25 +18,25 @@ test('default provider is demo and never calls an external payment service', asy
   const paid = await provider.checkFundingInvoice(invoice.paymentRequest);
   assert.equal(paid.status, 'PAID');
   assert.equal(paid.simulated, true);
-  assert.equal(verifyPaymentPreimage(paid), true);
+  assert.equal(await verifyPaymentPreimage(paid), true);
 });
 
 test('demo payout and sponsor refund keep exact sats and are explicitly simulated', async () => {
   const provider = new DemoPaymentProvider({ idFactory: () => 'test-id' });
-  const payout = await provider.payStudentInvoice({ amountSats: 3750, paymentRequest: 'beca-demo:student:wallet' });
-  const refund = await provider.refundSponsor({ amountSats: 2250, sponsorId: 'sponsor-1', paymentRequest: 'beca-demo:sponsor:wallet' });
+  const payout = await provider.payStudent({ amountSats: 3750, lightningAddress: 'student@example.invalid' });
+  const refund = await provider.refundSponsor({ amountSats: 2250, sponsorId: 'sponsor-1', lightningAddress: 'sponsor@example.invalid' });
   assert.equal(payout.amountSats, 3750);
   assert.equal(refund.amountSats, 2250);
   assert.equal(payout.simulated, true);
   assert.equal(refund.simulated, true);
-  assert.equal(verifyPaymentPreimage(payout), true);
-  assert.equal(verifyPaymentPreimage(refund), true);
+  assert.equal(await verifyPaymentPreimage(payout), true);
+  assert.equal(await verifyPaymentPreimage(refund), true);
 });
 
-test('demo provider rejects real Lightning invoices so demo cannot accidentally pay', async () => {
+test('demo provider validates its sat amounts and destinations without making external requests', async () => {
   const provider = new DemoPaymentProvider();
-  await assert.rejects(provider.payStudentInvoice({ amountSats: 500, paymentRequest: 'lnbc500n1realinvoice' }), /nunca una factura Lightning real/);
-  await assert.rejects(provider.refundSponsor({ amountSats: 500, sponsorId: 's1', paymentRequest: 'lnbc500n1realinvoice' }), /destino de devolución de prueba/);
+  await assert.rejects(provider.payStudent({ amountSats: 500, lightningAddress: 'not-an-address' }), /destino Lightning/);
+  await assert.rejects(provider.refundSponsor({ amountSats: 500, sponsorId: 's1', lightningAddress: 'not-an-address' }), /Lightning Address ficticio/);
   await assert.rejects(provider.createFundingInvoice({ amountSats: 0 }), /satoshis enteros/);
 });
 
@@ -67,9 +67,9 @@ test('Blink funding invoice uses authenticated server-side GraphQL and preserves
   assert.deepEqual(JSON.parse(requests[1].body).variables.input, { amount: 1200, walletId: 'wallet-btc', memo: 'Módulo de prueba' });
 });
 
-test('preimage verifier rejects malformed and mismatched proofs', () => {
-  assert.equal(verifyPaymentPreimage({ preimage: 'a'.repeat(64), paymentHash: 'b'.repeat(64) }), false);
-  assert.equal(verifyPaymentPreimage({ preimage: 'not-hex', paymentHash: 'b'.repeat(64) }), false);
+test('preimage verifier rejects malformed and mismatched proofs', async () => {
+  assert.equal(await verifyPaymentPreimage({ preimage: 'a'.repeat(64), paymentHash: 'b'.repeat(64) }), false);
+  assert.equal(await verifyPaymentPreimage({ preimage: 'not-hex', paymentHash: 'b'.repeat(64) }), false);
 });
 
 test('Blink rejects a paid response whose preimage does not match its payment hash', async () => {
@@ -86,4 +86,32 @@ test('Blink rejects a paid response whose preimage does not match its payment ha
     paymentRequest: 'lnbcfixture', status: 'PAID', paymentPreimage: preimage, paymentHash: 'd'.repeat(64),
   } } }) });
   await assert.rejects(provider.checkFundingInvoice('lnbcfixture'), /no verifica contra el payment hash/);
+});
+
+test('Blink pays a Lightning Address for the exact sat amount and returns a verified preimage receipt', async () => {
+  const preimage = 'e'.repeat(64);
+  const paymentHash = createHash('sha256').update(Buffer.from(preimage, 'hex')).digest('hex');
+  const requests = [];
+  const provider = new BlinkPaymentProvider({
+    apiKey: 'server-only-secret',
+    fetchImpl: async (_url, options) => {
+      requests.push(options);
+      const { query } = JSON.parse(options.body);
+      if (query.includes('BecaModularWallet')) return { ok: true, json: async () => ({ data: { me: { defaultAccount: { wallets: [{ id: 'wallet-btc', walletCurrency: 'BTC' }] } } } }) };
+      return { ok: true, json: async () => ({ data: { lnAddressPaymentSend: { status: 'SUCCESS', errors: [], transaction: {
+        id: 'tx-1', settlementAmount: '-2500', settlementCurrency: 'BTC', status: 'SUCCESS',
+        initiationVia: { __typename: 'InitiationViaLn', paymentHash, paymentRequest: 'lnbc-fixture' },
+        settlementVia: { __typename: 'SettlementViaLn', preImage: preimage },
+      } } } }) };
+    },
+  });
+  const receipt = await provider.payStudent({ amountSats: 2500, lightningAddress: 'student@example.invalid' });
+  assert.equal(receipt.simulated, false);
+  assert.equal(receipt.amountSats, 2500);
+  assert.equal(receipt.settledSats, 2500);
+  assert.equal(receipt.paymentHash, paymentHash);
+  assert.equal(receipt.preimage, preimage);
+  assert.equal(receipt.transactionId, 'tx-1');
+  assert.equal(requests.length, 2);
+  assert.deepEqual(JSON.parse(requests[1].body).variables.input, { amount: 2500, lnAddress: 'student@example.invalid', walletId: 'wallet-btc' });
 });

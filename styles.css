@@ -776,3 +776,29 @@ main>.openarg-section::before,main>.openarg-section:nth-of-type(odd)::before{bac
 @media(max-width:1000px){.evidencia-head{grid-template-columns:1fr;gap:22px}.evidencia-grid{grid-template-columns:1fr}.evidencia-figure{border-right:0;border-bottom:1px solid #c9bea8}.tree-teaser{grid-template-columns:1fr;gap:26px}.companion-inner{grid-template-columns:1fr;gap:36px}}
 @media(max-width:700px){.evidencia{margin:26px 0 32px}.evidencia-head{padding:22px 20px}.evidencia-figure{padding:22px 20px}#evidencia-svg{height:clamp(360px,54vh,470px)}.evidencia-selects{grid-template-columns:1fr}.evidencia-readout,.evidencia-ranking{padding:20px}.evidencia-caveats{padding:14px 20px 20px}.evidencia-chart-figure{padding:22px 20px 14px}.evidencia-table summary{padding:14px 20px}.evidencia-table-body{padding:0 20px 18px}.evidencia-source{padding:14px 20px 18px}.tree-teaser{padding:24px 20px;margin-top:14px}.funding-tree{padding:14px 12px 10px}.companion{margin-top:44px;padding:56px 0}.companion-stage img{width:150px}.companion-sprout{width:78px}.external-explorers-head{margin-top:34px}}
 @media(prefers-reduced-motion:reduce){.companion-stage img{animation:none!important}.ft-leaf,.ft-fruit .ft-fruit-inner{transition:none!important}.companion.is-armed .companion-copy,.companion.is-armed .companion-figure{opacity:1;transform:none}}
+
+/* Lightning payment flow: sats-only scenario with unmistakable simulated receipts. */
+.payment-mode-badge{display:inline-flex;align-items:center;padding:6px 10px;border:1px solid #bd7940;border-radius:999px;background:#fff0db;color:#743f20;font:700 10px/1.2 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.08em}
+.lightning-demo{padding:42px 0 54px;border-top:1px solid #c8bca4;border-bottom:1px solid #c8bca4}
+.lightning-demo h2{max-width:22ch;margin:16px 0;font:500 clamp(30px,4vw,44px)/1.1 Georgia,serif;letter-spacing:-.03em}
+.lightning-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:28px}
+.lightning-panel{padding:24px;border:1px solid #c8bca4;background:#f4eedf}
+.lightning-panel h3{margin:12px 0;font:500 24px/1.2 Georgia,serif}
+.lightning-panel>label{display:block;margin:14px 0 6px;color:#344537;font-size:12px;font-weight:700}
+.lightning-panel>input{width:100%;min-height:44px;padding:10px 12px;border:1px solid #b8ad98;border-radius:6px;background:#fffaf0;color:#27352b;font:inherit}
+.lightning-panel .field-help,.lightning-panel>p{color:#586052;font-size:13px;line-height:1.7}
+.payment-invoice-card{margin-top:20px;padding:16px;border:1px solid #c6b99e;background:#fffaf0}
+.payment-qr{display:grid;place-items:center;min-height:190px;margin:auto}
+.payment-qr svg{display:block;width:min(100%,220px);height:auto;padding:10px;background:white}
+.payment-simulation-warning{padding:10px;background:#fff0db;color:#743f20;font-size:12px;font-weight:700;line-height:1.6}
+.payment-invoice-card code,.payment-receipt code{display:block;overflow-wrap:anywhere;font:11px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}
+.payment-invoice-card .button{margin-top:12px}
+.payment-ledger,.payment-receipt dl{display:grid;gap:0;margin:18px 0}
+.payment-ledger>div,.payment-receipt dl>div{display:flex;justify-content:space-between;gap:18px;padding:10px 0;border-bottom:1px solid #d4c9b4}
+.payment-ledger dt,.payment-receipt dt{color:#586052;font-size:12px}
+.payment-ledger dd,.payment-receipt dd{margin:0;text-align:right;font-size:13px;font-weight:700;overflow-wrap:anywhere}
+.payment-receipt{margin:18px 0;padding:16px;border:1px solid #bd7940;background:#fffaf0}
+.payment-receipt h4{margin:12px 0;font:500 20px Georgia,serif}
+.payment-proof-ok{color:#22553d;font-size:12px;font-weight:700}
+.payment-flow-status{margin-top:18px}
+@media(max-width:760px){.lightning-grid{grid-template-columns:1fr}.lightning-panel{padding:20px}}

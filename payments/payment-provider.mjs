@@ -1,7 +1,15 @@
-import { createHash, randomBytes } from 'node:crypto';
-
 const DEMO_PREFIX = 'beca-demo:';
 const BLINK_ENDPOINT = 'https://api.blink.sv/graphql';
+
+function cryptoApi() {
+  if (!globalThis.crypto?.subtle || !globalThis.crypto?.getRandomValues) throw new Error('Este entorno no ofrece Web Crypto para generar el comprobante de prueba.');
+  return globalThis.crypto;
+}
+
+function randomHex(bytes = 12) {
+  const value = cryptoApi().getRandomValues(new Uint8Array(bytes));
+  return [...value].map(byte => byte.toString(16).padStart(2, '0')).join('');
+}
 
 function assertSats(amountSats) {
   if (!Number.isSafeInteger(amountSats) || amountSats <= 0) {
@@ -9,10 +17,14 @@ function assertSats(amountSats) {
   }
 }
 
-function demoProof() {
-  const preimage = randomBytes(32).toString('hex');
-  const paymentHash = createHash('sha256').update(Buffer.from(preimage, 'hex')).digest('hex');
+async function demoProof() {
+  const preimage = randomHex(32);
+  const paymentHash = [...new Uint8Array(await cryptoApi().subtle.digest('SHA-256', hexBytes(preimage)))].map(byte => byte.toString(16).padStart(2, '0')).join('');
   return { preimage, paymentHash };
+}
+
+function hexBytes(value) {
+  return Uint8Array.from(value.match(/.{2}/g) ?? [], pair => Number.parseInt(pair, 16));
 }
 
 export class PaymentProvider {
@@ -24,12 +36,12 @@ export class PaymentProvider {
 
   async createFundingInvoice() { throw new Error('createFundingInvoice debe implementarse.'); }
   async checkFundingInvoice() { throw new Error('checkFundingInvoice debe implementarse.'); }
-  async payStudentInvoice() { throw new Error('payStudentInvoice debe implementarse.'); }
+  async payStudent() { throw new Error('payStudent debe implementarse.'); }
   async refundSponsor() { throw new Error('refundSponsor debe implementarse.'); }
 }
 
 export class DemoPaymentProvider extends PaymentProvider {
-  constructor({ idFactory = () => randomBytes(12).toString('hex') } = {}) {
+  constructor({ idFactory = () => randomHex(12) } = {}) {
     super({ mode: 'demo', simulated: true });
     this.idFactory = idFactory;
     this.invoices = new Map();
@@ -48,26 +60,24 @@ export class DemoPaymentProvider extends PaymentProvider {
     if (!invoice) throw new Error('Factura de demostración desconocida.');
     if (invoice.status === 'PENDING') {
       invoice.status = 'PAID';
-      Object.assign(invoice, demoProof());
+      Object.assign(invoice, await demoProof());
     }
     return { provider: 'demo', simulated: true, ...invoice };
   }
 
-  async payStudentInvoice({ amountSats, paymentRequest = `${DEMO_PREFIX}student:${this.idFactory()}`, memo = 'Beca Modular · hito de prueba' } = {}) {
+  async payStudent({ amountSats, lightningAddress = 'student-demo@example.invalid', memo = 'Beca Modular · hito de prueba' } = {}) {
     assertSats(amountSats);
-    if (typeof paymentRequest !== 'string' || !paymentRequest.startsWith(`${DEMO_PREFIX}student:`)) {
-      throw new Error('En modo demo usá una factura estudiantil de prueba, nunca una factura Lightning real.');
-    }
-    return { provider: 'demo', simulated: true, status: 'PAID', amountSats, paymentRequest, memo, ...demoProof() };
+    if (typeof lightningAddress !== 'string' || !lightningAddress.includes('@')) throw new Error('Ingresá un destino Lightning de prueba.');
+    const paymentRequest = `${DEMO_PREFIX}student:${this.idFactory()}`;
+    return { provider: 'demo', simulated: true, status: 'PAID', amountSats, paymentRequest, memo, ...await demoProof() };
   }
 
-  async refundSponsor({ amountSats, sponsorId, paymentRequest = `${DEMO_PREFIX}sponsor:${this.idFactory()}` } = {}) {
+  async refundSponsor({ amountSats, sponsorId, lightningAddress = 'sponsor-demo@example.invalid' } = {}) {
     assertSats(amountSats);
     if (typeof sponsorId !== 'string' || !sponsorId.trim()) throw new Error('Falta identificar al sponsor de prueba.');
-    if (typeof paymentRequest !== 'string' || !paymentRequest.startsWith(`${DEMO_PREFIX}sponsor:`)) {
-      throw new Error('En modo demo usá un destino de devolución de prueba.');
-    }
-    return { provider: 'demo', simulated: true, status: 'PAID', amountSats, sponsorId, paymentRequest, ...demoProof() };
+    if (typeof lightningAddress !== 'string' || !lightningAddress.includes('@')) throw new Error('En modo demo usá un Lightning Address ficticio.');
+    const paymentRequest = `${DEMO_PREFIX}sponsor:${this.idFactory()}`;
+    return { provider: 'demo', simulated: true, status: 'PAID', amountSats, sponsorId, paymentRequest, ...await demoProof() };
   }
 }
 
@@ -130,42 +140,66 @@ export class BlinkPaymentProvider extends PaymentProvider {
     }`, { input: { paymentRequest } });
     const result = data?.lnInvoicePaymentStatusByPaymentRequest;
     if (!result?.status) throw new Error('Blink no devolvió el estado de la factura.');
-    if (result.status === 'PAID' && !verifyPaymentPreimage({ preimage: result.paymentPreimage, paymentHash: result.paymentHash })) {
+    if (result.status === 'PAID' && !await verifyPaymentPreimage({ preimage: result.paymentPreimage, paymentHash: result.paymentHash })) {
       throw new Error('Blink marcó la factura pagada, pero el preimage no verifica contra el payment hash.');
     }
     return { provider: 'lightning', simulated: false, ...result };
   }
 
-  async payStudentInvoice({ paymentRequest, amountSats, memo = 'Beca Modular · hito aprobado' } = {}) {
+  async payStudent({ lightningAddress, amountSats, memo = 'Beca Modular · hito aprobado' } = {}) {
     assertSats(amountSats);
-    if (typeof paymentRequest !== 'string' || !paymentRequest.startsWith('ln')) throw new Error('Pegá una factura Lightning BOLT11 del estudiante.');
+    if (typeof lightningAddress !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lightningAddress)) throw new Error('Ingresá un Lightning Address válido para el estudiante.');
     const walletId = await this.btcWalletId();
-    const data = await this.graphql(`mutation BecaModularPayInvoice($input: LnInvoicePaymentInput!) {
-      lnInvoicePaymentSend(input: $input) { status errors { message code } }
-    }`, { input: { paymentRequest, walletId, memo } });
-    const result = data?.lnInvoicePaymentSend;
-    if (result?.errors?.length || result?.status !== 'SUCCESS') {
-      throw new Error(`Blink no confirmó el pago: ${(result?.errors ?? []).map(error => error.message).join('; ') || result?.status || 'respuesta vacía'}`);
-    }
-    const receipt = await this.checkFundingInvoice(paymentRequest);
-    if (receipt.status !== 'PAID' || !receipt.paymentPreimage) throw new Error('Blink no confirmó el pago con preimage.');
-    return { ...receipt, amountSats, memo };
+    return this.sendAddressPayment({ lightningAddress, amountSats, memo, walletId });
   }
 
-  async refundSponsor({ paymentRequest, amountSats, memo = 'Beca Modular · devolución de saldo' } = {}) {
-    return this.payStudentInvoice({ paymentRequest, amountSats, memo });
+  async sendAddressPayment({ lightningAddress, amountSats, memo, walletId }) {
+    assertSats(amountSats);
+    if (typeof lightningAddress !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lightningAddress)) throw new Error('Lightning Address inválida.');
+    const data = await this.graphql(`mutation BecaModularAddressPayment($input: LnAddressPaymentSendInput!) {
+      lnAddressPaymentSend(input: $input) {
+        status
+        errors { message code }
+        transaction {
+          id settlementAmount settlementCurrency status
+          initiationVia { __typename ... on InitiationViaLn { paymentHash paymentRequest } }
+          settlementVia { __typename ... on SettlementViaLn { preImage } }
+        }
+      }
+    }`, { input: { amount: amountSats, lnAddress: lightningAddress, walletId } });
+    const result = data?.lnAddressPaymentSend;
+    if (result?.errors?.length || result?.status !== 'SUCCESS') {
+      throw new Error(`Blink no confirmó el pago. Estado: ${result?.status || 'sin respuesta'}. Revisá el historial antes de reintentar; ${(result?.errors ?? []).map(error => error.message).join('; ')}`);
+    }
+    const tx = result.transaction;
+    const receipt = {
+      provider: 'lightning', simulated: false, status: 'PAID', amountSats,
+      settledSats: Math.abs(Number(tx?.settlementAmount)), settlementCurrency: tx?.settlementCurrency,
+      transactionId: tx?.id, paymentRequest: tx?.initiationVia?.paymentRequest,
+      paymentHash: tx?.initiationVia?.paymentHash, preimage: tx?.settlementVia?.preImage, memo,
+    };
+    if (receipt.settlementCurrency !== 'BTC' || receipt.settledSats !== amountSats) {
+      throw new Error(`Blink confirmó una liquidación por ${receipt.settledSats} sats en ${receipt.settlementCurrency}. No reintentes: conciliá el movimiento ${receipt.transactionId}.`);
+    }
+    if (!await verifyPaymentPreimage(receipt)) throw new Error(`Blink confirmó el movimiento ${receipt.transactionId}, pero falta una prueba preimage/hash válida. No reintentes; conciliá el movimiento.`);
+    return receipt;
+  }
+
+  async refundSponsor({ amountSats, lightningAddress, memo = 'Beca Modular · devolución exacta de saldo' } = {}) {
+    const walletId = await this.btcWalletId();
+    return this.sendAddressPayment({ lightningAddress, amountSats, memo, walletId });
   }
 }
 
-export function createPaymentProvider(env = process.env, options = {}) {
+export function createPaymentProvider(env = {}, options = {}) {
   if (env.BLINK_API_KEY) return new BlinkPaymentProvider({ apiKey: env.BLINK_API_KEY, ...options });
   // Do not enable a Lightning path that has no implemented/verified transport.
   if (env.NWC_URL) throw new Error('NWC_URL está presente, pero el transporte NWC aún no está implementado; usá demo o Blink.');
   return new DemoPaymentProvider(options);
 }
 
-export function verifyPaymentPreimage({ preimage, paymentHash } = {}) {
+export async function verifyPaymentPreimage({ preimage, paymentHash } = {}) {
   if (typeof preimage !== 'string' || !/^[a-f0-9]{64}$/i.test(preimage) || typeof paymentHash !== 'string' || !/^[a-f0-9]{64}$/i.test(paymentHash)) return false;
-  const calculated = createHash('sha256').update(Buffer.from(preimage, 'hex')).digest('hex');
+  const calculated = [...new Uint8Array(await cryptoApi().subtle.digest('SHA-256', hexBytes(preimage)))].map(byte => byte.toString(16).padStart(2, '0')).join('');
   return calculated === paymentHash.toLowerCase();
 }

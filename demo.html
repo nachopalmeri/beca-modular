@@ -6,7 +6,9 @@
   <meta name="theme-color" content="#203b2e">
   <title>Beca Modular — Explorar una beca</title>
   <link rel="stylesheet" href="styles.css?v=29">
+  <script src="vendor/qrcode-generator.js?v=29"></script>
   <script type="module" src="roadmap.mjs?v=29"></script>
+  <script type="module" src="payments/demo-ui.mjs?v=29"></script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%233f6047'/%3E%3Cpath d='M8 8h7v7H8zm9 0h7v7h-7zm-9 9h7v7H8zm9 0h7v7h-7z' fill='%23f1ead8'/%3E%3C/svg%3E">
 </head>
 <body class="roadmap-page standalone-demo">
@@ -15,6 +17,7 @@
     <a class="judge-brand" href="index.html">▦ Beca Modular</a>
     <nav class="demo-nav" aria-label="Navegación de la demo">
       <a href="#funding-demo">Probar la demo</a>
+      <a href="#lightning-flow">Pago Lightning</a>
       <a href="#demo-limits">Qué demuestra</a>
       <a class="resource-secondary" href="index.html#roadmap">Propuesta y roadmap ↗</a>
     </nav>
@@ -32,6 +35,52 @@
         <img src="assets/beca-library-hero.png" alt="Ilustración conceptual de una persona estudiando en una biblioteca" fetchpriority="high">
         <figcaption>Escena ilustrativa generada; no representa a un estudiante participante.</figcaption>
       </figure>
+    </section>
+    <section id="lightning-flow" class="section lightning-demo" aria-labelledby="lightning-title">
+      <div class="section-top"><span class="eyebrow">PAGO POR HITO · LEDGER EN SATS</span><span class="payment-mode-badge">MODO DEMO · SIMULADO</span></div>
+      <h2 id="lightning-title">Fondeo, hito, pago y devolución.</h2>
+      <p class="section-intro">Recorrido autocontenido con satoshis ficticios. El QR muestra un código de prueba, no una factura Lightning: no se puede escanear para pagar ni mueve fondos.</p>
+      <div class="lightning-grid">
+        <section class="lightning-panel" aria-labelledby="lightning-fund-title">
+          <span class="small-mono">01 / SPONSOR · FONDEA</span>
+          <h3 id="lightning-fund-title">Definí el escenario de pago.</h3>
+          <label for="payment-target-sats">Presupuesto (sats de prueba)</label>
+          <input id="payment-target-sats" type="number" min="2" step="1" value="100000" inputmode="numeric">
+          <label for="payment-milestone-sats">Pago por hito (sats de prueba)</label>
+          <input id="payment-milestone-sats" type="number" min="1" step="1" value="50000" inputmode="numeric">
+          <label for="payment-sponsor-address">Lightning Address de devolución (ficticia)</label>
+          <input id="payment-sponsor-address" type="text" value="sponsor-demo@example.invalid" autocomplete="off">
+          <p class="field-help">Supuestos editables del escenario. Sin conversión sats/USD ni cotización.</p>
+          <button id="payment-create-invoice" class="button primary" type="button">Crear QR simulado →</button>
+          <div id="payment-invoice-card" class="payment-invoice-card" hidden>
+            <div id="payment-qr" class="payment-qr" role="img" aria-label="QR simulado no cobrable"></div>
+            <p class="payment-simulation-warning">SIMULADO · Este QR no es BOLT11 y no puede recibir pagos.</p>
+            <code id="payment-invoice-text"></code>
+            <button id="payment-confirm-funding" class="button secondary" type="button">Simular pago del sponsor</button>
+          </div>
+        </section>
+        <section class="lightning-panel" aria-labelledby="lightning-release-title">
+          <span class="small-mono">02 / TUTORA · AUTORIZA</span>
+          <h3 id="lightning-release-title">La persona decide; el simulador paga.</h3>
+          <p>Después del fondeo, la tutora aprueba el hito y se crea un recibo de prueba con preimage y hash verificables entre sí. No es evidencia de una transferencia real.</p>
+          <dl class="payment-ledger">
+            <div><dt>Fondeado</dt><dd id="payment-funded-readout">0 sats</dd></div>
+            <div><dt>Pagado al estudiante</dt><dd id="payment-paid-readout">0 sats</dd></div>
+            <div><dt>Reservado</dt><dd id="payment-reserved-readout">0 sats</dd></div>
+            <div><dt>Devuelto al sponsor</dt><dd id="payment-refunded-readout">0 sats</dd></div>
+          </dl>
+          <button id="payment-approve-milestone" class="button primary" type="button" disabled>La tutora aprueba el hito (demo)</button>
+          <section id="payment-receipt" class="payment-receipt" aria-live="polite" hidden>
+            <span class="payment-mode-badge">RECIBO · SIMULADO</span>
+            <h4>Pago por hito de prueba</h4>
+            <p id="payment-receipt-summary"></p>
+            <dl><div><dt>Payment hash</dt><dd><code id="payment-hash"></code></dd></div><div><dt>Preimage</dt><dd><code id="payment-preimage"></code></dd></div></dl>
+            <p id="payment-proof-check" role="status"></p>
+          </section>
+          <button id="payment-refund-unused" class="button secondary" type="button" disabled>Devolver saldo no usado (demo)</button>
+        </section>
+      </div>
+      <p id="payment-flow-status" class="funding-notice" data-tone="info" role="status" aria-live="polite">Sin fondos. El flujo no hace llamadas externas.</p>
     </section>
     <section class="section funding-section">
       <div class="section-top">
