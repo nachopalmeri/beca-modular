@@ -19,7 +19,10 @@ Abrí <http://127.0.0.1:4178/>. Vercel publica la carpeta `dist/` (ver `vercel.j
 - **Simulador en sats** (`tramo-model.mjs`, `tramo-ui.mjs`): fondeo compartido, hitos, revisión y baja, devolución por mayor resto; registro público con fondeado = pagado + devuelto + reservado.
 - **Verificador de recibos** (`tramo-verify.mjs`): decodifica facturas BOLT11 y comprueba SHA-256(preimage) = payment hash, sin conexión.
 - **Laboratorio de datos** (`evidence-map.mjs`, `data/`): serie oficial de abandono interanual 2012-2025 por jurisdicción.
-- `demo.html` es la exploración anterior (árbol de aportes en USD ilustrativos); `laboratorio.html` y `respaldo.html` conservan experimentos previos.
+- **Demo de pagos simulados** (`demo.html`, `payments/`, `ai/`): QR no cobrable, recibo de prueba, sugerencias asistidas y reporte de sesión. Ninguna ruta mueve fondos; proveedores externos de IA son opt-in y no están configurados.
+- **Modelo y roadmap** (`modelo.html`, `roadmap.html`): supuestos financieros y estados de producto separados entre disponible, por validar y bloqueado.
+- **Presentación audiovisual** (`presentacion.html`): tres videos originales MP4 narrados y subtitulados; los ejemplos son ilustrativos, sin transacciones ni resultados observados.
+- `laboratorio.html` y `respaldo.html` conservan experimentos previos.
 
 ## Pruebas
 

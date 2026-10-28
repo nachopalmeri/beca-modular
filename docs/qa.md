@@ -232,6 +232,13 @@ No screen-reader audit, user usability study, academic verification, contract te
 - Reviewed desktop/mobile page captures and representative frames for human review, the demo flow and roadmap blockers. Captures: `docs/captures/presentacion-desktop.png`, `presentacion-mobile.png`, `video-historia-revision-humana.png`, `video-recorrido-revision-humana.png`, `video-roadmap-bloqueos.png`.
 - Claims stay bounded: figures and people are illustrative; the demo does not verify a real institution, student, document, AI inference, payment or educational outcome. The voice is synthetic. No external AI/video service was used. This is not a screen-reader audit or a user study; no publish/deploy was performed.
 
+## Current-main integration validation — 2026-10-28
+
+- Rebased the local product and presentation commits onto the newly advanced `origin/main`; preserved the published three-scene story, Brote, official data lab, and the newer simulator/API/model/roadmap features.
+- `node --test tests/*.test.mjs`: **104 passed, 0 failed**.
+- Browser regressions passed for the current story and landing, demo flow and rules, evidence lab, contribution tree, and audiovisual page. Tested 1440×900, 768×1024, 390×844 and 320×720 where applicable; reduced motion, keyboard flow, source/dist routes, and horizontal overflow checks remained green.
+- Source assets and the Vercel `dist/` output were synchronized; the offline kit was rebuilt. No real payment, external AI-provider call, or production write was part of the checks.
+
 ## Offline demo fallback - 2026-10-16
 
 With `demo.html` loaded from the local Node server, Playwright switched the browser to offline and completed the shared synthetic funding preset, institutional test record, receipt readout and duplicate replay rejection. The balances stayed 50/50 after the rejected replay; there were no failed requests or page errors. This validates the local simulation after load; it does not make the external educational maps or Vercel-hosted page available without internet. Capture: `docs/captures/demo-offline-receipt-mobile.png`.

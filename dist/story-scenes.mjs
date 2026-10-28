@@ -1,8 +1,8 @@
 // Escenas de datos del recorrido. roadmap.mjs mueve los paneles y a Brote; este módulo dibuja
 // cada visualización y la anima cuando su panel entra en pantalla. Sin dependencias.
-import { abandonoYears, abandonoPais, abandonoProvincias } from './data/abandono-interanual.mjs?v=29';
-import { geoViewBox, provincias } from './data/geo-provincias.mjs?v=29';
-import { PROGRESAR_REAL } from './data/progresar-real.mjs?v=29';
+import { abandonoYears, abandonoPais, abandonoProvincias } from './data/abandono-interanual.mjs?v=36';
+import { geoViewBox, provincias } from './data/geo-provincias.mjs?v=36';
+import { PROGRESAR_REAL } from './data/progresar-real.mjs?v=36';
 
 const NS = 'http://www.w3.org/2000/svg';
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));

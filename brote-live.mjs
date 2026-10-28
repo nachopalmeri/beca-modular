@@ -1,6 +1,6 @@
 // Brote vivo en toda la página: apertura, escenas, cierre y compañero fijo.
 // El movimiento depende del scroll (cuadro a cuadro); sólo el parpadeo y los gestos de festejo usan el reloj.
-import { mountRig, applyPose, walkCycle, openingRigPose, scenePose, closingPose, blinkAt } from './brote-rig.mjs?v=29';
+import { mountRig, applyPose, walkCycle, openingRigPose, scenePose, closingPose, blinkAt } from './brote-rig.mjs?v=36';
 
 const clamp = v => Math.max(0, Math.min(1, v));
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
