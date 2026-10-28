@@ -1,4 +1,4 @@
-import { demoPrevalidation, demoReceiptExplanation } from './fallback.mjs';
+import { demoImpactReport, demoPrevalidation, demoReceiptExplanation } from './fallback.mjs';
 
 const MAX_EVIDENCE_BYTES = 8 * 1024 * 1024;
 const ALLOWED_TYPES = new Set(['application/pdf', 'image/jpeg', 'image/png', 'image/webp', 'text/plain']);
@@ -89,6 +89,20 @@ export async function explainReceipt(request, { env = {}, fetchImpl = fetch } = 
   const explanation = normalizeText(configured.text, 500);
   if (!explanation) throw new Error('El proveedor de IA no devolvió una explicación del recibo.');
   return { explanation, provider: configured.provider, label: 'Sugerido por IA' };
+}
+
+export async function generateImpactReport(request, { env = {}, fetchImpl = fetch } = {}) {
+  const { paidSats, students, completedMilestones, refundedSats } = request ?? {};
+  if (![paidSats, students, completedMilestones, refundedSats].every(Number.isSafeInteger) || paidSats < 0 || students < 0 || completedMilestones < 0 || refundedSats < 0) {
+    throw new Error('El reporte requiere totales enteros y no negativos tomados del ledger de la app.');
+  }
+  const fallback = demoImpactReport({ paidSats, students, completedMilestones, refundedSats });
+  const prompt = `Redactá un resumen de impacto de 1 o 2 frases, en español simple, usando exclusivamente estos datos de la sesión local (no son impacto educativo real): pagos registrados ${paidSats} sats; estudiantes de ejemplo ${students}; hitos marcados cumplidos ${completedMilestones}; devoluciones registradas ${refundedSats} sats. No inventes resultados, causas, beneficiarios ni calificaciones. Aclarà que son datos de simulación y no transferencias reales.`;
+  const configured = await callConfiguredModel(prompt, { env, fetchImpl });
+  if (!configured) return fallback;
+  const summary = normalizeText(configured.text, 600);
+  if (!summary) throw new Error('El proveedor de IA no devolvió el resumen de impacto.');
+  return { summary, provider: configured.provider, label: 'Sugerido por IA' };
 }
 
 export const AI_LIMITS = Object.freeze({ maxEvidenceBytes: MAX_EVIDENCE_BYTES, allowedTypes: [...ALLOWED_TYPES] });

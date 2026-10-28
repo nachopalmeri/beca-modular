@@ -43,3 +43,13 @@ export function demoReceiptExplanation({ amountSats, milestoneTitle, reservedSat
     label: 'IA (modo demo)',
   };
 }
+
+export function demoImpactReport({ paidSats, students, completedMilestones, refundedSats }) {
+  const paid = Number(paidSats).toLocaleString('es-AR');
+  const refunded = Number(refundedSats).toLocaleString('es-AR');
+  return {
+    summary: `En esta sesión simulada se registran ${paid} sats pagados a ${students} estudiante(s) de ejemplo, ${completedMilestones} hito(s) marcado(s) como cumplido(s) y ${refunded} sats devueltos. Son movimientos del simulador, no transferencias ni resultados educativos observados.`,
+    provider: 'demo',
+    label: 'IA (modo demo)',
+  };
+}

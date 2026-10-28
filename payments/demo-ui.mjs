@@ -1,5 +1,5 @@
 import { DemoPaymentProvider, verifyPaymentPreimage } from './payment-provider.mjs';
-import { demoPrevalidation, demoReceiptExplanation } from '../ai/fallback.mjs';
+import { demoImpactReport, demoPrevalidation, demoReceiptExplanation } from '../ai/fallback.mjs';
 
 const root = document.querySelector('#lightning-flow');
 if (root) {
@@ -33,6 +33,7 @@ if (root) {
     $('#payment-refunded-readout').textContent = `${state.refundedSats.toLocaleString('es-AR')} sats`;
     $('#payment-approve-milestone').disabled = state.fundedSats === 0 || state.paidSats + state.refundedSats >= state.fundedSats || state.refunded;
     $('#payment-refund-unused').disabled = state.fundedSats === 0 || state.refunded || state.fundedSats === state.paidSats;
+    $('#payment-impact-report').disabled = state.fundedSats === 0;
   }
 
   function toBase64(bytes) {
@@ -208,6 +209,47 @@ if (root) {
       notice(`Devolución exacta simulada: ${refund.amountSats.toLocaleString('es-AR')} sats al destino ficticio del sponsor.`, 'success');
     } catch (error) {
       notice(error.message, 'error');
+    }
+  });
+
+  $('#payment-impact-report').addEventListener('click', async event => {
+    const button = event.currentTarget;
+    const snapshot = {
+      paidSats: state.paidSats,
+      students: state.paidSats > 0 ? 1 : 0,
+      completedMilestones: state.approvedMilestones,
+      refundedSats: state.refundedSats,
+    };
+    button.disabled = true;
+    button.textContent = 'Generando resumen…';
+    try {
+      let report;
+      try {
+        const response = await fetch('/api/ai/impact-report', {
+          method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(snapshot),
+        });
+        if (!response.ok && response.status !== 404 && response.status !== 405) {
+          const error = await response.json().catch(() => ({}));
+          throw new Error(error.error || `Servicio IA no disponible (HTTP ${response.status}).`);
+        }
+        report = response.ok ? await response.json() : demoImpactReport(snapshot);
+      } catch (error) {
+        if (error instanceof TypeError || /Failed to fetch|NetworkError/i.test(error.message)) report = demoImpactReport(snapshot);
+        else throw error;
+      }
+      $('#impact-paid').textContent = snapshot.paidSats.toLocaleString('es-AR');
+      $('#impact-students').textContent = String(snapshot.students);
+      $('#impact-milestones').textContent = String(snapshot.completedMilestones);
+      $('#impact-refunded').textContent = snapshot.refundedSats.toLocaleString('es-AR');
+      $('#impact-report-badge').textContent = report.label || (report.provider === 'demo' ? 'IA (modo demo)' : 'Sugerido por IA');
+      $('#impact-report-summary').textContent = report.summary;
+      $('#payment-impact-result').hidden = false;
+      notice('Reporte generado con los totales del ledger de esta sesión. Es una simulación, no impacto observado.', 'info');
+    } catch (error) {
+      notice(error.message, 'error');
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Generar reporte →';
     }
   });
 

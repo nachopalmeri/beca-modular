@@ -62,6 +62,14 @@ const assert = require('node:assert/strict');
       reserved: Number(document.querySelector('#payment-reserved-readout').textContent.replace(/\D/g, '')),
     }));
     assert.deepEqual(totals, { funded: 100000, paid: 50000, refunded: 50000, reserved: 0 }, `run ${run}: sats ledger must conserve exactly`);
+    await page.locator('#payment-impact-report').click();
+    await page.locator('#payment-impact-result').waitFor({ state: 'visible' });
+    assert.equal(await page.locator('#impact-paid').innerText(), '50.000');
+    assert.equal(await page.locator('#impact-students').innerText(), '1');
+    assert.equal(await page.locator('#impact-milestones').innerText(), '1');
+    assert.equal(await page.locator('#impact-refunded').innerText(), '50.000');
+    assert.match(await page.locator('#impact-report-badge').innerText(), /IA \(modo demo\)/);
+    assert.match(await page.locator('#impact-report-summary').innerText(), /no transferencias ni resultados educativos observados/);
   }
 
   assert.deepEqual(externalRequests, [], 'demo payment flow must not call external services');

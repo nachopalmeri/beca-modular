@@ -819,6 +819,16 @@ main>.openarg-section::before,main>.openarg-section:nth-of-type(odd)::before{bac
 .ai-suggestion dt{color:#586052;font-size:11px}
 .ai-suggestion dd{margin:4px 0 0;font-size:12px;font-weight:700;overflow-wrap:anywhere}
 .ai-suggestion .ai-human-loop{margin-bottom:0}
+.impact-report-panel{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;margin-top:20px;padding:22px;border:1px solid #94a087;background:#f4eedf}
+.impact-report-panel h3{margin:10px 0;font:500 24px Georgia,serif}
+.impact-report-panel>div:first-child p{max-width:60ch;margin-bottom:0;color:#586052;font-size:13px;line-height:1.65}
+.impact-report-result{grid-column:1/-1;padding:16px;border-top:1px solid #c8bca4;background:#fffaf0}
+.impact-report-result dl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}
+.impact-report-result dl>div{display:grid;gap:6px;padding-left:10px;border-left:2px solid #bd7940}
+.impact-report-result dt{color:#586052;font-size:11px}
+.impact-report-result dd{margin:0;color:#203b2e;font:600 17px ui-monospace,SFMono-Regular,Consolas,monospace}
+.impact-report-result p{color:#344537;font-size:14px;line-height:1.7}
+.impact-report-result small{color:#586052;font-size:11px;line-height:1.6}
 @media(max-width:760px){.lightning-grid{grid-template-columns:1fr}.lightning-panel{padding:20px}}
 
 /* Business model page: keep scholarship principal visually separate from platform revenue. */
@@ -879,3 +889,4 @@ main>.openarg-section::before,main>.openarg-section:nth-of-type(odd)::before{bac
 @media(max-width:900px){.model-form{grid-template-columns:repeat(2,minmax(0,1fr))}.model-break-even{grid-template-columns:1fr}}
 @media(max-width:680px){.model-wrap{padding:0 18px}.model-hero{grid-template-columns:1fr;gap:24px;padding:48px 0}.model-roles{grid-template-columns:1fr}.model-roles article{min-height:0}.model-form,.model-results{grid-template-columns:1fr}.model-section{padding:44px 0}.model-break-even{padding:18px}.model-footer{padding-inline:18px;flex-direction:column}}
 @media(max-width:760px){.business-model-page .demo-header{flex-direction:row;align-items:center;flex-wrap:wrap}.business-model-page .demo-header nav{width:100%;flex-wrap:wrap;justify-content:space-between;gap:10px 16px}}
+@media(max-width:760px){.impact-report-panel{grid-template-columns:1fr;padding:18px}.impact-report-panel>.button{width:100%}.impact-report-result dl{grid-template-columns:repeat(2,minmax(0,1fr))}}

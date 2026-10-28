@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { AI_LIMITS, explainReceipt, prevalidateMilestone } from '../ai/ai-provider.mjs';
+import { AI_LIMITS, explainReceipt, generateImpactReport, prevalidateMilestone } from '../ai/ai-provider.mjs';
 
 test('demo AI extracts visible fields and suggests review when the grade meets the milestone', async () => {
   const result = await prevalidateMilestone({
@@ -103,4 +103,29 @@ test('configured AI explains receipts but cannot change the exact amount facts i
 test('receipt explanation rejects invalid or invented-unit inputs', async () => {
   await assert.rejects(explainReceipt({ amountSats: 1.2, milestoneTitle: 'Hito', reservedSats: 0 }), /importes enteros en sats/);
   await assert.rejects(explainReceipt({ amountSats: 10, milestoneTitle: '', reservedSats: 0 }), /hito válido/);
+});
+
+test('impact report fallback repeats exact app totals and disclaims real-world outcomes', async () => {
+  const result = await generateImpactReport({ paidSats: 50000, students: 1, completedMilestones: 1, refundedSats: 50000 });
+  assert.equal(result.label, 'IA (modo demo)');
+  assert.match(result.summary, /50\.000 sats pagados a 1 estudiante/);
+  assert.match(result.summary, /1 hito.*cumplido/);
+  assert.match(result.summary, /50\.000 sats devueltos/);
+  assert.match(result.summary, /no transferencias ni resultados educativos observados/);
+});
+
+test('impact report requires non-negative integer totals and uses configured AI server-side', async () => {
+  await assert.rejects(generateImpactReport({ paidSats: -1, students: 0, completedMilestones: 0, refundedSats: 0 }), /enteros y no negativos/);
+  let prompt;
+  const result = await generateImpactReport({ paidSats: 1234, students: 2, completedMilestones: 3, refundedSats: 99 }, {
+    env: { ANTHROPIC_API_KEY: 'server-secret' },
+    fetchImpl: async (_url, options) => {
+      prompt = JSON.parse(options.body).messages[0].content[0].text;
+      return { ok: true, json: async () => ({ content: [{ type: 'text', text: 'En la sesión se marcaron tres hitos con 2 estudiantes de ejemplo. Se pagaron 1.234 sats y devolvieron 99 sats; son cifras simuladas, no resultados educativos.' }] }) };
+    },
+  });
+  assert.match(prompt, /pagos registrados 1234 sats/);
+  assert.match(prompt, /hitos marcados cumplidos 3/);
+  assert.equal(result.provider, 'anthropic');
+  assert.equal(result.label, 'Sugerido por IA');
 });

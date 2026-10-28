@@ -2,7 +2,7 @@ import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { explainReceipt, prevalidateMilestone } from './ai/ai-provider.mjs';
+import { explainReceipt, generateImpactReport, prevalidateMilestone } from './ai/ai-provider.mjs';
 const root = fileURLToPath(new URL('.', import.meta.url));
 const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.md': 'text/plain; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.mp4': 'video/mp4', '.json': 'application/json', '.txt': 'text/plain; charset=utf-8', '.zip': 'application/zip' };
 createServer(async (req,res) => {
@@ -11,6 +11,7 @@ createServer(async (req,res) => {
     const aiRoutes = new Map([
       ['/api/ai/prevalidate', prevalidateMilestone],
       ['/api/ai/explain-receipt', explainReceipt],
+      ['/api/ai/impact-report', generateImpactReport],
     ]);
     if (aiRoutes.has(url.pathname) && req.method === 'POST') {
       let body = '';

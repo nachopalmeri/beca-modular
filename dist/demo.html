@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#203b2e">
   <title>Beca Modular — Explorar una beca</title>
-  <link rel="stylesheet" href="styles.css?v=33">
-  <script src="vendor/qrcode-generator.js?v=33"></script>
-  <script type="module" src="roadmap.mjs?v=33"></script>
-  <script type="module" src="payments/demo-ui.mjs?v=33"></script>
+  <link rel="stylesheet" href="styles.css?v=34">
+  <script src="vendor/qrcode-generator.js?v=34"></script>
+  <script type="module" src="roadmap.mjs?v=34"></script>
+  <script type="module" src="payments/demo-ui.mjs?v=34"></script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%233f6047'/%3E%3Cpath d='M8 8h7v7H8zm9 0h7v7h-7zm-9 9h7v7H8zm9 0h7v7h-7z' fill='%23f1ead8'/%3E%3C/svg%3E">
 </head>
 <body class="roadmap-page standalone-demo">
@@ -100,6 +100,16 @@
         </section>
       </div>
       <p id="payment-flow-status" class="funding-notice" data-tone="info" role="status" aria-live="polite">Sin fondos. El flujo no hace llamadas externas.</p>
+      <section class="impact-report-panel" aria-labelledby="impact-report-title">
+        <div><span class="eyebrow">04 / SPONSOR · REPORTE DE IMPACTO</span><h3 id="impact-report-title">Un resumen de esta sesión.</h3><p>Se calcula únicamente con los movimientos registrados en el ledger local. Los hitos y estudiantes son sintéticos; no mide aprendizaje ni impacto real.</p></div>
+        <button id="payment-impact-report" class="button secondary" type="button" disabled>Generar reporte →</button>
+        <div id="payment-impact-result" class="impact-report-result" aria-live="polite" hidden>
+          <span class="payment-mode-badge" id="impact-report-badge">IA (modo demo)</span>
+          <dl><div><dt>Pagado · sats</dt><dd id="impact-paid"></dd></div><div><dt>Estudiantes de ejemplo</dt><dd id="impact-students"></dd></div><div><dt>Hitos marcados cumplidos</dt><dd id="impact-milestones"></dd></div><div><dt>Devuelto · sats</dt><dd id="impact-refunded"></dd></div></dl>
+          <p id="impact-report-summary"></p>
+          <small>Datos de esta simulación en memoria. No equivalen a transferencias, aprendizaje ni resultados observados.</small>
+        </div>
+      </section>
     </section>
     <section class="section funding-section">
       <div class="section-top">
