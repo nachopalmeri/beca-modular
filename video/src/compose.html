@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Beca Modular — composición de video</title>
+<link rel="stylesheet" href="/brote-rig.css">
+<link rel="stylesheet" href="compose.css">
+</head>
+<body>
+<div id="stage">
+  <div id="layers"></div>
+  <div id="grade"></div>
+  <svg id="grain" width="1920" height="1080" aria-hidden="true"><filter id="gn"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .55 0"/></filter><rect x="-40" y="-40" width="2000" height="1160" filter="url(#gn)"/></svg>
+  <div id="bug"><span class="logo"><i></i><i></i><i></i><i></i></span><b>Beca</b>Modular<em>Un tramo a la vez</em></div>
+</div>
+<script type="module" src="compose.mjs"></script>
+</body>
+</html>
